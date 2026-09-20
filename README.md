@@ -10,7 +10,8 @@ Design direction: **Digital Playground** — black + Tiffany blue, oversized kin
 | --- | --- |
 | `/` | Hero, selected work, about, capabilities, contact |
 | `/works` | Register of the five products in production, plus research / automation practice |
-| `/works/[slug]` | Case study: spec table, desktop & mobile screens, project, delivered, technology |
+| `/works/[slug]` | Client case study: spec table, desktop & mobile screens, project, delivered, technology |
+| `/works/research/[slug]` | Research & automation case study: the pipeline stage by stage, the architecture tiers, the core calculation, outputs |
 | `/about` | Profile, journey, what I do, capability groups |
 | `/contact` | Enquiry form (composes a mail draft) and direct links |
 
@@ -41,7 +42,10 @@ navigation between two dark pages is hard to notice.
 - `components/PageHead.tsx` — per-route background figure and arrival animation
 - `components/Lang.tsx`, `lib/i18n.ts` — language detection, provider and `<T>` / `<C>`
 - `components/Reveal.tsx` — ScrollTrigger entrance for subpage content
-- `lib/works.ts`, `lib/site.ts` — all copy, carried over from Portfolio2026-ver4
+- `lib/works.ts`, `lib/site.ts` — client work and site-wide copy, carried over from Portfolio2026-ver4
+- `lib/research.ts` — the research and automation case studies, written from the implementations in
+  [okada_lab](https://github.com/bbbyk105/okada_lab) and
+  [protein-flexibility-platform](https://github.com/bbbyk105/protein-flexibility-platform)
 - `public/works/` — live-site captures (desktop + mobile)
 
 ## Run

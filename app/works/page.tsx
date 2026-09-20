@@ -6,7 +6,8 @@ import PageHead from "@/components/PageHead";
 import Reveal from "@/components/Reveal";
 import { C } from "@/components/Lang";
 import { works } from "@/lib/works";
-import { practice, ui, works_page } from "@/lib/site";
+import { research } from "@/lib/research";
+import { ui, works_page } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Works — Byakko Kondo",
@@ -88,26 +89,27 @@ export default function WorksPage() {
           </p>
         </header>
         <Reveal className="practiceGrid">
-          {practice.map((p) => (
-            <article className="practiceCard" key={p.id}>
+          {research.map((r) => (
+            <Link className="practiceCard" key={r.slug} href={`/works/research/${r.slug}`}>
               <div className="practiceMeta">
                 <span className="upper">
-                  <C value={p.meta} />
+                  <C value={r.kind} />
                 </span>
-                <span>{p.year}</span>
+                <span>{r.year}</span>
               </div>
-              <h3>
-                <C value={p.title} />
-              </h3>
+              <h3>{r.name}</h3>
               <p>
-                <C value={p.statement} />
+                <C value={r.statement} />
               </p>
               <div className="chips">
-                {p.notes.map((n) => (
+                {r.notes.map((n) => (
                   <span key={n}>{n}</span>
                 ))}
               </div>
-            </article>
+              <span className="practiceCta">
+                <C value={ui.caseStudy} /> →
+              </span>
+            </Link>
           ))}
         </Reveal>
       </section>

@@ -139,47 +139,6 @@ export const works_page = {
   },
 };
 
-export type Practice = {
-  id: string;
-  title: Copy;
-  meta: Copy;
-  year: string;
-  statement: Copy;
-  notes: string[];
-};
-
-/** Practice areas beyond the client register — work without a public URL. */
-export const practice: Practice[] = [
-  {
-    id: "protein",
-    title: { en: "PROTEIN STRUCTURE ANALYSIS", ja: "タンパク質構造解析" },
-    meta: {
-      en: "UNIVERSITY RESEARCH / STRUCTURAL BIOLOGY",
-      ja: "大学研究 / 構造生物学",
-    },
-    year: "2025—2026",
-    statement: {
-      en: "University research development for comparing protein structures through inter-carbon distances, with automated retrieval and processing of structural data from UniProt and PDB.",
-      ja: "炭素間距離によってタンパク質の構造を比較する、大学研究向けの開発です。UniProtやPDBからの構造データの取得と処理を自動化しました。",
-    },
-    notes: ["UniProt / PDB", "Cα distances", "Structure analysis"],
-  },
-  {
-    id: "workflow",
-    title: { en: "AUTOMATION SYSTEMS", ja: "業務自動化システム" },
-    meta: {
-      en: "WORKFLOW AUTOMATION / API INTEGRATION",
-      ja: "ワークフロー自動化 / API連携",
-    },
-    year: "2025—2026",
-    statement: {
-      en: "Automation work connecting APIs and data-processing steps for research and operational workflows.",
-      ja: "研究や業務のワークフローに向けて、APIとデータ処理の各工程をつなぐ自動化を行っています。",
-    },
-    notes: ["Python", "FastAPI", "n8n"],
-  },
-];
-
 export const about = {
   lede: {
     en: "I work across product development, web engineering, research software and workflow automation — taking ideas from requirements and structure through design, implementation and operation.",
