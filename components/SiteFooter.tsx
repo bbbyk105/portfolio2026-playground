@@ -1,6 +1,6 @@
-import Link from "next/link";
+import BackToTop from "./BackToTop";
 import { C } from "./Lang";
-import { site, ui } from "@/lib/site";
+import { site } from "@/lib/site";
 
 /** The footer the homepage already uses, shared so every page ends the same way. */
 export default function SiteFooter() {
@@ -13,9 +13,7 @@ export default function SiteFooter() {
       <span>
         <C value={site.place} /> — {site.year}
       </span>
-      <Link href="#">
-        <C value={ui.backToTop} /> ↑
-      </Link>
+      <BackToTop inline />
     </footer>
   );
 }

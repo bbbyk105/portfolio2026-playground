@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import BackToTop from "@/components/BackToTop";
 import DisplayReveal from "@/components/DisplayReveal";
 import { LanguageProvider } from "@/components/LangProvider";
 import { LANG_INIT_SCRIPT } from "@/lib/i18n";
@@ -31,7 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     // The inline script below rewrites lang/data-lang before React hydrates,
     // so the attributes here are only the neutral starting point.
-    <html lang="en" data-lang="en" suppressHydrationWarning>
+    <html lang="en" data-lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
         {/* Runs before first paint: the language the page will be read in, and
             a flag that scripting is on. The flag lets the stylesheet hold the
@@ -43,6 +44,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <LanguageProvider>{children}</LanguageProvider>
         <DisplayReveal />
+        <BackToTop />
       </body>
     </html>
   );
