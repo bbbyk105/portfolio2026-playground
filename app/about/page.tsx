@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
+import PageHead from "@/components/PageHead";
 import Reveal from "@/components/Reveal";
-import { about, capabilityGroups, journey, site } from "@/lib/site";
+import { C, T } from "@/components/Lang";
+import { about, capabilityGroups, journey, site, ui } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "About — Byakko Kondo",
@@ -16,26 +18,23 @@ export default function AboutPage() {
     <main>
       <SiteNav />
 
-      <section className="pageHead">
-        <div className="gridbg" />
-        <div className="orb o1" />
-        <p className="eyebrow">
-          <i /> 01 / ABOUT — {site.name} / {site.place}
-        </p>
-        <h1>
-          ENGINEER,
-          <br />
-          <em>DESIGNER, BUILDER.</em>
-        </h1>
-        <div className="pageLede">
-          <p>{about.lede}</p>
-          <span className="pageLedeMeta">
-            {site.role}
+      <PageHead
+        variant="about"
+        eyebrow={
+          <>
+            01 / ABOUT — {site.name} / <C value={site.place} />
+          </>
+        }
+        lines={[{ text: "ENGINEER," }, { text: "DESIGNER, BUILDER.", faint: true }]}
+        lede={<C value={about.lede} />}
+        meta={
+          <>
+            <C value={site.role} />
             <br />
-            {site.place}
-          </span>
-        </div>
-      </section>
+            <C value={site.place} />
+          </>
+        }
+      />
 
       <section className="about">
         <div className="sectionHead">
@@ -48,12 +47,16 @@ export default function AboutPage() {
         </div>
         <Reveal className="aboutGrid">
           <p className="bigcopy">
-            I build products from idea to implementation — mobile, web, research software and
-            automation.
+            <T
+              en="I build products from idea to implementation — mobile, web, research software and automation."
+              ja="アイデアから実装まで、一貫してプロダクトをつくります。モバイル、Web、研究用ソフトウェア、そして自動化。"
+            />
           </p>
           <div className="bio">
             {about.profile.map((p) => (
-              <p key={p}>{p}</p>
+              <p key={p.en}>
+                <C value={p} />
+              </p>
             ))}
           </div>
         </Reveal>
@@ -68,19 +71,23 @@ export default function AboutPage() {
             <em>CAME FROM.</em>
           </h2>
           <p className="side">
-            UNIVERSITY → FREELANCE
-            <br />
-            RESEARCH / PRODUCT / NPO
+            <C value={about.journeyNote} />
           </p>
         </header>
         <Reveal className="journeyList" stagger={0.06}>
           {journey.map((item, i) => (
-            <article className="journeyRow" key={item.title}>
+            <article className="journeyRow" key={item.title.en}>
               <span className="journeyIndex">{String(i + 1).padStart(2, "0")}</span>
-              <span className="journeyYear">{item.year}</span>
+              <span className="journeyYear">
+                <C value={item.year} />
+              </span>
               <div className="journeyBody">
-                <b>{item.title}</b>
-                <p>{item.body}</p>
+                <b>
+                  <C value={item.title} />
+                </b>
+                <p>
+                  <C value={item.body} />
+                </p>
               </div>
             </article>
           ))}
@@ -96,9 +103,9 @@ export default function AboutPage() {
         </h2>
         <div className="techgrid techgridWide">
           {about.whatIDo.map((item, i) => (
-            <div key={item}>
+            <div key={item.en}>
               <span>{String(i + 1).padStart(2, "0")}</span>
-              {item.toUpperCase()}
+              <C value={item} />
               <b>↗</b>
             </div>
           ))}
@@ -116,8 +123,10 @@ export default function AboutPage() {
         </header>
         <Reveal className="capsGrid">
           {capabilityGroups.map((group) => (
-            <div className="capsGroup" key={group.label}>
-              <span>{group.label}</span>
+            <div className="capsGroup" key={group.label.en}>
+              <span>
+                <C value={group.label} />
+              </span>
               <div className="chips">
                 {group.items.map((item) => (
                   <span key={item}>{item}</span>
@@ -136,7 +145,7 @@ export default function AboutPage() {
           <em>LET&apos;S BUILD IT.</em>
         </h2>
         <Link href="/contact">
-          GET IN TOUCH <span>↗</span>
+          <C value={ui.getInTouch} /> <span>↗</span>
         </Link>
       </section>
 

@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
+import PageHead from "@/components/PageHead";
 import ContactForm from "@/components/ContactForm";
 import Reveal from "@/components/Reveal";
-import { contact, site } from "@/lib/site";
+import { C } from "@/components/Lang";
+import { contact, site, ui } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact — Byakko Kondo",
@@ -16,26 +18,19 @@ export default function ContactPage() {
     <main>
       <SiteNav />
 
-      <section className="pageHead">
-        <div className="gridbg" />
-        <div className="orb o1" />
-        <p className="eyebrow">
-          <i /> 01 / CONTACT — PROJECTS / COLLABORATION / ENQUIRIES
-        </p>
-        <h1>
-          LET&apos;S BUILD
-          <br />
-          <em>SOMETHING.</em>
-        </h1>
-        <div className="pageLede">
-          <p>{contact.lede}</p>
-          <span className="pageLedeMeta">
-            {site.place}
+      <PageHead
+        variant="contact"
+        eyebrow="01 / CONTACT — PROJECTS / COLLABORATION / ENQUIRIES"
+        lines={[{ text: "LET’S BUILD" }, { text: "SOMETHING.", faint: true }]}
+        lede={<C value={contact.lede} />}
+        meta={
+          <>
+            <C value={site.place} />
             <br />
-            AVAILABLE FOR PROJECTS
-          </span>
-        </div>
-      </section>
+            <C value={ui.available} />
+          </>
+        }
+      />
 
       <section className="enquiry">
         <header className="sectionHead">
@@ -46,9 +41,7 @@ export default function ContactPage() {
             <em>YOU NEED.</em>
           </h2>
           <p className="side">
-            REPLY BY EMAIL
-            <br />
-            JAPANESE / ENGLISH
+            <C value={contact.note} />
           </p>
         </header>
         <Reveal>
@@ -69,12 +62,14 @@ export default function ContactPage() {
           {contact.links.map((link) => (
             <a
               className="directRow"
-              key={link.label}
+              key={link.value}
               href={link.href}
               target={link.href.startsWith("http") ? "_blank" : undefined}
               rel={link.href.startsWith("http") ? "noreferrer" : undefined}
             >
-              <span>{link.label}</span>
+              <span>
+                <C value={link.label} />
+              </span>
               <b>{link.value}</b>
               <i>↗</i>
             </a>
@@ -90,7 +85,7 @@ export default function ContactPage() {
           <em>RECEIPTS?</em>
         </h2>
         <Link href="/works">
-          VIEW ALL WORKS <span>↗</span>
+          <C value={ui.allWorks} /> <span>↗</span>
         </Link>
       </section>
 

@@ -5,16 +5,52 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
-import { navItems, site } from "@/lib/site";
+import { C, useLang } from "./Lang";
+import { navItems, site, ui } from "@/lib/site";
+
+/**
+ * JA / EN switch. The active state is driven by `data-lang` in CSS rather than
+ * React state, so it is already correct on the first paint — the inline script
+ * in <head> has set the attribute long before hydration.
+ */
+function LangToggle({ onSwitch }: { onSwitch?: () => void }) {
+  const { lang, setLang } = useLang();
+
+  return (
+    <div className="langToggle" role="group" aria-label="Language">
+      <button
+        type="button"
+        className="langJa"
+        aria-pressed={lang === "ja"}
+        onClick={() => {
+          setLang("ja");
+          onSwitch?.();
+        }}
+      >
+        JA
+      </button>
+      <span aria-hidden="true">/</span>
+      <button
+        type="button"
+        className="langEn"
+        aria-pressed={lang === "en"}
+        onClick={() => {
+          setLang("en");
+          onSwitch?.();
+        }}
+      >
+        EN
+      </button>
+    </div>
+  );
+}
 
 /**
  * Site navigation and the GSAP hamburger menu.
  *
- * The markup and class names are the ones the homepage already ships, so the
- * bar and the full-bleed panel keep their existing look. The motion is a
- * single paused timeline that plays forward on open and reverses on close,
- * which keeps the panel and the burger strokes in sync however fast the
- * button is tapped.
+ * The motion is a single paused timeline that plays forward on open and
+ * reverses on close, which keeps the panel and the burger strokes in sync
+ * however fast the button is tapped.
  */
 export default function SiteNav() {
   const root = useRef<HTMLDivElement>(null);
@@ -105,6 +141,7 @@ export default function SiteNav() {
                 {item.label}
               </Link>
             ))}
+          <LangToggle />
         </div>
         <button
           type="button"
@@ -122,7 +159,9 @@ export default function SiteNav() {
 
       <div className="mobileMenu" id="site-menu" aria-hidden={!open}>
         <div className="mobileMenuMeta">
-          <span>NAVIGATION</span>
+          <span>
+            <C value={ui.navigation} />
+          </span>
           <span>
             {site.name} / {site.year}
           </span>
@@ -137,12 +176,17 @@ export default function SiteNav() {
               onClick={() => setOpen(false)}
             >
               <small>{item.index}</small>
-              {item.label}
+              <span className="mobileMenuLabel">
+                {item.label}
+                <b>
+                  <C value={item.sub} />
+                </b>
+              </span>
             </Link>
           ))}
         </div>
         <div className="mobileMenuFoot">
-          <span>{site.place}</span>
+          <LangToggle onSwitch={() => setOpen(false)} />
           <a href={`mailto:${site.email}`} tabIndex={open ? 0 : -1}>
             {site.email.toUpperCase()}
           </a>

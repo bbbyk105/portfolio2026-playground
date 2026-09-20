@@ -134,3 +134,67 @@ html{overflow-x:clip}
  .directRow{grid-template-columns:1fr auto}
  .directRow span{grid-column:1/-1}
 }
+
+/* ── Bilingual output ──────────────────────────────────────────────────────
+   Both languages ship in the markup and the stylesheet hides one, so the
+   correct copy is on screen from the first paint — the inline script in <head>
+   sets data-lang before anything renders. */
+.tEn,.tJa{display:contents}
+[data-lang="ja"] .tEn{display:none}
+:root:not([data-lang="ja"]) .tJa{display:none}
+body{font-family:Arial,Helvetica,"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",Meiryo,sans-serif}
+.upper{text-transform:uppercase}
+[data-lang="ja"] .bio p,[data-lang="ja"] .detailBody p,[data-lang="ja"] .journeyBody p{line-height:1.95}
+[data-lang="ja"] .project p,[data-lang="ja"] .practiceCard p{line-height:1.8}
+
+.langToggle{display:flex;align-items:center;gap:6px;font:11px monospace;letter-spacing:.08em;color:#75817e}
+.langToggle button{background:none;border:0;padding:0;font:inherit;color:inherit;letter-spacing:inherit;cursor:pointer}
+.langToggle button:hover{color:#f2f5f4}
+[data-lang="ja"] .langToggle .langJa,:root:not([data-lang="ja"]) .langToggle .langEn{color:#70f4df}
+.navlinks .langToggle{padding-left:20px;border-left:1px solid #ffffff1e}
+.mobileMenuLabel{display:block}
+.mobileMenuLabel b{display:block;margin-top:11px;font:400 10px monospace;letter-spacing:.08em;color:#75817e}
+[data-lang="ja"] .mobileMenuLabel b{font-family:inherit;font-size:11px}
+
+/* ── Per-route background figures ──────────────────────────────────────────
+   Every page is black, so without a distinct figure per route a client-side
+   navigation is hard to notice. Pattern + shapes, all in CSS. */
+.pageBg{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.pageBg span{position:absolute;display:block}
+.bgPattern{inset:0;mask-image:linear-gradient(to bottom,#000 12%,transparent 92%)}
+.pageHead--works{background:#080b0c}
+.pageHead--detail{background:linear-gradient(180deg,#060d0e,#080b0c 72%)}
+.pageHead--about{background:linear-gradient(180deg,#0b0f10,#080b0c 80%)}
+.pageHead--contact{background:linear-gradient(180deg,#080b0c,#071010 55%,#080b0c)}
+
+/* WORKS — a register: horizontal rules and a stack of frames. */
+.pageBg--works .bgPattern{background-image:repeating-linear-gradient(to right,#ffffff1c 0 1px,transparent 1px 12.5%),repeating-linear-gradient(to bottom,#ffffff12 0 1px,transparent 1px 44px)}
+.pageBg--works .bgShape{right:-70px;top:56px;width:430px;height:330px;border:1px solid #70f4df45;box-shadow:0 0 120px #70f4df14,inset 0 0 90px #70f4df0a}
+.pageBg--works .bgShapeAlt{right:180px;top:212px;width:300px;height:280px;border:1px solid #ffffff20;background:linear-gradient(140deg,#70f4df0d,transparent 62%)}
+
+/* CASE STUDY — a section through the product; --seed shifts it per work. */
+.pageBg--detail .bgPattern{background-image:repeating-radial-gradient(circle at calc(60% + 7% * var(--seed)) calc(22% + 6% * var(--seed)),#70f4df14 0 1px,transparent 1px 54px)}
+.pageBg--detail .bgShape{right:calc(-50px + 26px * var(--seed));top:calc(86px + 16px * var(--seed));width:360px;height:360px;border-radius:50%;border:1px solid #70f4df40;box-shadow:0 0 110px #70f4df12}
+.pageBg--detail .bgShapeAlt{right:calc(88px + 26px * var(--seed));top:calc(196px + 16px * var(--seed));width:150px;height:150px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#70f4df33,transparent 62%)}
+
+/* ABOUT — a dot matrix and a long lens shape. */
+.pageBg--about .bgPattern{background-image:radial-gradient(#ffffff1c 1px,transparent 1px);background-size:24px 24px}
+.pageBg--about .bgShape{right:-30px;top:36px;width:300px;height:520px;border-radius:300px/260px;border:1px solid #70f4df33;background:linear-gradient(160deg,#70f4df14,transparent 62%)}
+.pageBg--about .bgShapeAlt{right:250px;bottom:-90px;width:210px;height:210px;border-radius:50%;border:1px dashed #ffffff1c}
+
+/* CONTACT — diagonal hatching, a ring and a tilted square. */
+.pageBg--contact .bgPattern{background-image:repeating-linear-gradient(-45deg,#ffffff0d 0 1px,transparent 1px 20px)}
+.pageBg--contact .bgShape{right:-120px;top:16px;width:430px;height:430px;border-radius:50%;border:1px solid #70f4df3a;background:radial-gradient(circle at 50% 50%,transparent 57%,#70f4df14 58%,transparent 73%)}
+.pageBg--contact .bgShapeAlt{right:176px;top:252px;width:120px;height:120px;border:1px solid #70f4df55;transform:rotate(45deg)}
+
+/* Masked lines, so a page's title can rise into place on arrival. */
+.pageHead h1 .lineMask{display:block;overflow:hidden;padding-bottom:.06em}
+.pageHead h1 .lineMask>span{display:block}
+
+@media(max-width:760px){
+ .navlinks .langToggle{padding-left:0;border-left:0}
+ .pageBg .bgShape,.pageBg .bgShapeAlt{transform:scale(.6);transform-origin:top right}
+ .pageBg--contact .bgShapeAlt{transform:rotate(45deg) scale(.6)}
+ .pageBg--about .bgShapeAlt{transform-origin:bottom right}
+ .mobileMenuFoot{align-items:center}
+}

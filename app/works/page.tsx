@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
+import PageHead from "@/components/PageHead";
 import Reveal from "@/components/Reveal";
+import { C } from "@/components/Lang";
 import { works } from "@/lib/works";
-import { practice } from "@/lib/site";
+import { practice, ui, works_page } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Works — Byakko Kondo",
@@ -17,29 +19,23 @@ export default function WorksPage() {
     <main>
       <SiteNav />
 
-      <section className="pageHead">
-        <div className="gridbg" />
-        <div className="orb o1" />
-        <p className="eyebrow">
-          <i /> 01 / WORKS — FIVE PRODUCTS IN PRODUCTION
-        </p>
-        <h1>
-          SHIPPED,
-          <br />
-          <em>AND LIVE.</em>
-        </h1>
-        <div className="pageLede">
-          <p>
-            Products and sites I designed and built end to end, from the information architecture to
-            the deploy — each one live, each one in use. Open a case study for what was built and how.
-          </p>
-          <span className="pageLedeMeta">
+      <PageHead
+        variant="works"
+        eyebrow={
+          <>
+            01 / WORKS — <C value={works_page.meta} />
+          </>
+        }
+        lines={[{ text: "SHIPPED," }, { text: "AND LIVE.", faint: true }]}
+        lede={<C value={works_page.lede} />}
+        meta={
+          <>
             2025—2026
             <br />
             DESIGN / ENGINEERING / SYSTEMS
-          </span>
-        </div>
-      </section>
+          </>
+        }
+      />
 
       <section className="work ledger">
         <div className="workList">
@@ -48,22 +44,28 @@ export default function WorksPage() {
               <article className="project">
                 <div className="projectMeta">
                   <span>{w.index}</span>
-                  <span>{w.sector.toUpperCase()}</span>
+                  <span className="upper">
+                    <C value={w.sector} />
+                  </span>
                   <span>{w.year}</span>
                 </div>
                 <div className="projectBody">
                   <div>
                     <h3>{w.name}</h3>
-                    <p>{w.statement}</p>
+                    <p>
+                      <C value={w.statement} />
+                    </p>
                     <div className="chips">
                       {w.stack.map((x) => (
                         <span key={x}>{x}</span>
                       ))}
                     </div>
-                    <Link href={`/works/${w.slug}`}>CASE STUDY →</Link>
+                    <Link href={`/works/${w.slug}`}>
+                      <C value={ui.caseStudy} /> →
+                    </Link>
                   </div>
                   <Link className="screen" href={`/works/${w.slug}`}>
-                    <img src={w.screens.desktop} alt={`${w.name} — desktop screen`} width={1600} height={1000} />
+                    <img src={w.screens.desktop} alt={`${w.name}`} width={1600} height={1000} />
                     <span>LIVE / {w.index}</span>
                   </Link>
                 </div>
@@ -82,20 +84,24 @@ export default function WorksPage() {
             <em>AUTOMATION.</em>
           </h2>
           <p className="side">
-            NOT PUBLIC URLS
-            <br />
-            RESEARCH / PIPELINES
+            <C value={works_page.practiceNote} />
           </p>
         </header>
         <Reveal className="practiceGrid">
           {practice.map((p) => (
             <article className="practiceCard" key={p.id}>
               <div className="practiceMeta">
-                <span>{p.meta.join(" / ")}</span>
+                <span className="upper">
+                  <C value={p.meta} />
+                </span>
                 <span>{p.year}</span>
               </div>
-              <h3>{p.title}</h3>
-              <p>{p.statement}</p>
+              <h3>
+                <C value={p.title} />
+              </h3>
+              <p>
+                <C value={p.statement} />
+              </p>
               <div className="chips">
                 {p.notes.map((n) => (
                   <span key={n}>{n}</span>
@@ -114,7 +120,7 @@ export default function WorksPage() {
           <em>LET&apos;S BUILD IT.</em>
         </h2>
         <Link href="/contact">
-          GET IN TOUCH <span>↗</span>
+          <C value={ui.getInTouch} /> <span>↗</span>
         </Link>
       </section>
 
