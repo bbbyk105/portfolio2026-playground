@@ -10,7 +10,7 @@ Design direction: **Digital Playground** — black + Tiffany blue, oversized kin
 | --- | --- |
 | `/` | Hero, selected work, about, capabilities, contact |
 | `/works` | Register of the five products in production, plus research / automation practice |
-| `/works/[slug]` | Client case study: spec table, desktop & mobile screens, project, delivered, technology |
+| `/works/[slug]` | Client case study: spec table, screens, project, how it works, delivered, technology |
 | `/works/research/[slug]` | Research & automation case study: the pipeline stage by stage, the architecture tiers, the core calculation, outputs |
 | `/about` | Profile, journey, what I do, capability groups |
 | `/contact` | Enquiry form (composes a mail draft) and direct links |
@@ -26,6 +26,13 @@ in the navigation overrides the guess and is remembered.
 
 Oversized display headings stay in English: the tight tracking and outlined
 second line are the design, and Japanese does not sit in that treatment.
+
+## Case studies
+
+Each case study carries a **how it works** section written from the project's
+own repository rather than from the pitch — the decision behind the
+implementation, not a list of features. The research pages go further and set
+out the full pipeline stage by stage.
 
 ## Backgrounds
 

@@ -5,7 +5,7 @@ import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import PageHead from "@/components/PageHead";
 import Reveal from "@/components/Reveal";
-import { C } from "@/components/Lang";
+import { C, T } from "@/components/Lang";
 import { works, getWork } from "@/lib/works";
 import { ui } from "@/lib/site";
 
@@ -139,10 +139,41 @@ export default async function WorkDetailPage({ params }: Params) {
             ))}
           </div>
         </Reveal>
+      </section>
 
+      <section className="mechanism">
+        <header className="sectionHead">
+          <p>02 / HOW IT WORKS</p>
+          <h2>
+            THE DECISIONS
+            <br />
+            <em>UNDER IT.</em>
+          </h2>
+          <p className="side">
+            <T en="FROM THE IMPLEMENTATION" ja="実装から" />
+          </p>
+        </header>
+        <Reveal className="pipeline" stagger={0.06}>
+          {work.mechanism.map((m, i) => (
+            <article className="pipeStep" key={m.title.en}>
+              <span className="pipeN">{String(i + 1).padStart(2, "0")}</span>
+              <div className="pipeBody">
+                <b>
+                  <C value={m.title} />
+                </b>
+                <p>
+                  <C value={m.body} />
+                </p>
+              </div>
+            </article>
+          ))}
+        </Reveal>
+      </section>
+
+      <section className="detail">
         <Reveal className="detailBlock">
           <header className="detailHead">
-            <p>02 / DELIVERED</p>
+            <p>03 / DELIVERED</p>
             <h2>
               WHAT WAS
               <br />
@@ -163,7 +194,7 @@ export default async function WorkDetailPage({ params }: Params) {
 
         <Reveal className="detailBlock">
           <header className="detailHead">
-            <p>03 / TECHNOLOGY</p>
+            <p>04 / TECHNOLOGY</p>
             <h2>
               THE STACK
               <br />
