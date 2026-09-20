@@ -52,9 +52,7 @@ export default function PageHead({ variant, seed = 0, eyebrow, lines, lede, meta
         <span className="bgShapeAlt" />
       </div>
 
-      <p className="eyebrow pageHeadEyebrow">
-        <i /> {eyebrow}
-      </p>
+      <p className="eyebrow pageHeadEyebrow">{eyebrow}</p>
 
       <h1>
         {lines.map((line, i) => (

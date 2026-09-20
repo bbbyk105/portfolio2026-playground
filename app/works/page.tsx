@@ -78,11 +78,11 @@ export default function WorksPage() {
 
       <section className="practice">
         <header className="sectionHead">
-          <p>02 / PRACTICE</p>
+          <p>02 / RESEARCH</p>
           <h2>
-            RESEARCH AND
+            BUILT FOR
             <br />
-            <em>AUTOMATION.</em>
+            <em>A QUESTION.</em>
           </h2>
           <p className="side">
             <C value={works_page.practiceNote} />

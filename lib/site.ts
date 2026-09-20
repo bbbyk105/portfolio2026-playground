@@ -134,8 +134,8 @@ export const works_page = {
     ja: "稼働中のプロダクト5件",
   },
   practiceNote: {
-    en: "NOT PUBLIC URLS / RESEARCH / PIPELINES",
-    ja: "非公開の取り組み / 研究 / パイプライン",
+    en: "UNIVERSITY RESEARCH / NO PUBLIC URL",
+    ja: "大学研究 / 公開URLなし",
   },
 };
 

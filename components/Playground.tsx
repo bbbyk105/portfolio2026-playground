@@ -13,7 +13,7 @@ export default function Playground(){
   <SiteNav/>
   <section className="hero">
    <div className="gridbg"/>
-   <div className="heroTop reveal"><p className="eyebrow"><i/> <C value={home.eyebrow}/></p><p className="heroMeta"><C value={site.place}/><br/><C value={ui.available}/></p></div>
+   <div className="heroTop reveal"><p className="eyebrow"><C value={home.eyebrow}/></p><p className="heroMeta"><C value={site.place}/><br/><C value={ui.available}/></p></div>
    <h1 className="reveal">BUILDING<br/><em>DIGITAL SYSTEMS</em><br/>THAT SHIP.</h1>
    <div className="heroFoot">
     <div className="heroBottom reveal"><p><C value={home.intro}/></p><a href="#work"><C value={home.exploreWork}/> <b>↘</b></a></div>

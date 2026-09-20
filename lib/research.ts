@@ -1,8 +1,8 @@
 import type { Copy } from "./i18n";
 
 /**
- * Research and automation work — the projects that have no public URL, so the
- * case study has to carry the mechanism instead of a screenshot.
+ * Research work — the projects that have no public URL, so the case study has
+ * to carry the mechanism instead of a screenshot.
  *
  * Everything here is taken from the implementation, not from memory:
  * github.com/bbbyk105/okada_lab (the FastAPI service and the DSA domain code)
@@ -248,82 +248,6 @@ export const research: Research[] = [
       "Mol*",
     ],
     notes: ["UniProt / PDB", "Cα distances", "mmCIF", "UMF"],
-  },
-  {
-    slug: "workflow-automation",
-    index: "R.02",
-    name: "Workflow Automation",
-    title: ["WORKFLOW", "AUTOMATION"],
-    kind: { en: "Workflow automation / API integration", ja: "業務自動化 / API連携" },
-    sector: { en: "Client operations", ja: "クライアント業務" },
-    role: {
-      en: "Process mapping, integration, implementation, operation",
-      ja: "業務整理、連携設計、実装、運用",
-    },
-    year: "2025—2026",
-    statement: {
-      en: "Automation for client operations — taking the repetitive parts of how a business already works and connecting them so they run without anyone re-typing anything.",
-      ja: "クライアントの業務自動化です。すでにある業務の繰り返し部分を取り出し、誰も入力し直さずに回るようつなぎます。",
-    },
-    brief: [
-      {
-        en: "These are not greenfield systems. The work starts from a process a business already runs by hand — an enquiry that gets copied into a spreadsheet, a document that gets produced from that spreadsheet, a notification someone remembers to send — and replaces the copying with an integration.",
-        ja: "ゼロから作るシステムではありません。すでに手作業で回っている業務から始めます。問い合わせをスプレッドシートに転記し、そこから書類を作り、誰かが忘れずに通知を送る、といった流れの「転記」の部分を連携に置き換えます。",
-      },
-      {
-        en: "The scope is deliberately small per step and explicit about what happens when something fails, because an automation that silently drops a record is worse than the manual process it replaced.",
-        ja: "1ステップあたりの範囲は意図的に小さくし、失敗したときに何が起きるかを明示します。記録を黙って取りこぼす自動化は、置き換えたはずの手作業より悪いからです。",
-      },
-    ],
-    pipeline: [
-      {
-        n: "01",
-        title: { en: "Map the process as it is", ja: "現状の業務を書き出す" },
-        body: {
-          en: "Write down what actually happens today, including the steps people do not think of as steps. The parts worth automating are usually the ones described as \"and then I just…\".",
-          ja: "今実際に起きていることを、本人が手順だと思っていない部分まで含めて書き出します。自動化する価値があるのは、たいてい「あとはちょっと〜するだけ」と説明される部分です。",
-        },
-      },
-      {
-        n: "02",
-        title: { en: "Pick the trigger", ja: "起点を決める" },
-        body: {
-          en: "Decide what starts the flow — a form submission, an inbound email, a row appearing, a schedule — and make that the single entry point, so there is one place to look when something did not run.",
-          ja: "フォーム送信、受信メール、行の追加、スケジュールなど、何が処理を開始するかを決め、それを唯一の入口にします。動かなかったときに見る場所がひとつで済みます。",
-        },
-      },
-      {
-        n: "03",
-        title: { en: "Connect the systems", ja: "システムをつなぐ" },
-        body: {
-          en: "Wire the steps together across whatever the business already uses, with the transforms between them written explicitly rather than assumed.",
-          ja: "すでに使っているツールをまたいで各ステップをつなぎます。あいだの変換は暗黙にせず、明示的に書きます。",
-        },
-      },
-      {
-        n: "04",
-        title: { en: "Handle the failure case", ja: "失敗時を設計する" },
-        body: {
-          en: "Decide what a failed run does: retry, notify, or park the record for a human. Every flow has to end somewhere a person can see.",
-          ja: "失敗した実行がどうなるかを決めます。リトライするか、通知するか、人が見る場所に退避させるか。どの処理も、人が確認できる場所で終わる必要があります。",
-        },
-      },
-      {
-        n: "05",
-        title: { en: "Hand it over", ja: "引き渡す" },
-        body: {
-          en: "Leave the client able to see what ran, what did not, and how to change the parts that will need changing.",
-          ja: "何が動いて何が動かなかったか、そして今後変えたくなる部分をどう変えるかが、クライアント側で分かる状態にして引き渡します。",
-        },
-      },
-    ],
-    outputs: [
-      { en: "Manual re-entry removed from the steps that had it", ja: "転記が発生していた工程から手入力をなくす" },
-      { en: "One entry point per flow, and one place to check a run", ja: "処理ごとに入口をひとつ、実行を確認する場所もひとつ" },
-      { en: "Explicit failure handling rather than silent drops", ja: "黙って取りこぼさない、明示的な失敗時の扱い" },
-    ],
-    stack: ["Python", "FastAPI", "n8n", "REST APIs"],
-    notes: ["n8n", "API integration", "Scheduled jobs"],
   },
 ];
 

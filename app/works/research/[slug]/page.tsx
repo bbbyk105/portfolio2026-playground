@@ -263,15 +263,25 @@ export default async function ResearchDetailPage({ params }: Params) {
       </section>
 
       <section className="nextWork">
-        <Link className="nextLink" href={`/works/research/${next.slug}`}>
-          <span className="nextLabel">
-            <C value={ui.next} /> — {next.index}
-          </span>
-          <span className="nextName">{next.name}</span>
-          <span className="nextArrow">→</span>
-        </Link>
-        <Link className="allLink" href="/works">
-          <C value={ui.allWorks} /> ↗
+        {next && next.slug !== entry.slug ? (
+          <Link className="nextLink" href={`/works/research/${next.slug}`}>
+            <span className="nextLabel">
+              <C value={ui.next} /> — {next.index}
+            </span>
+            <span className="nextName">{next.name}</span>
+            <span className="nextArrow">→</span>
+          </Link>
+        ) : (
+          <Link className="nextLink" href="/works">
+            <span className="nextLabel">
+              <C value={ui.allWorks} />
+            </span>
+            <span className="nextName">WORKS</span>
+            <span className="nextArrow">→</span>
+          </Link>
+        )}
+        <Link className="allLink" href="/contact">
+          <C value={ui.getInTouch} /> ↗
         </Link>
       </section>
 
