@@ -46,30 +46,46 @@ export const ui = {
   available: { en: "AVAILABLE FOR PROJECTS", ja: "ご相談を受け付けています" },
 };
 
+/** The capabilities grid on the home page. Sixteen entries, so it fills a 4x4. */
 export const tech = [
   "TYPESCRIPT",
   "PYTHON",
+  "GO",
   "NEXT.JS",
   "REACT",
   "REACT NATIVE",
   "EXPO",
+  "GSAP",
   "FASTAPI",
   "SUPABASE",
   "POSTGRESQL",
   "DOCKER",
+  "STRIPE",
   "N8N",
-  "GSAP",
+  "CLAUDE CODE",
+  "CODEX",
 ];
+
+/**
+ * The marquee. Same list minus React Native, which has no mark of its own —
+ * it ships React's atom, and two identical atoms scrolling past read as a
+ * duplicate rather than as two tools. Expo carries the mobile side here.
+ */
+export const tickerTech = tech.filter((t) => t !== "REACT NATIVE");
 
 export type CapabilityGroup = { label: Copy; items: string[] };
 
 export const capabilityGroups: CapabilityGroup[] = [
-  { label: { en: "LANGUAGES", ja: "言語" }, items: ["TypeScript", "Python"] },
-  { label: { en: "WEB", ja: "Web" }, items: ["Next.js", "React"] },
+  { label: { en: "LANGUAGES", ja: "言語" }, items: ["TypeScript", "Python", "Go"] },
+  { label: { en: "WEB", ja: "Web" }, items: ["Next.js", "React", "GSAP"] },
   { label: { en: "MOBILE", ja: "モバイル" }, items: ["React Native", "Expo", "Supabase"] },
   {
     label: { en: "BACKEND / AUTOMATION", ja: "バックエンド / 自動化" },
-    items: ["FastAPI", "PostgreSQL", "Docker", "n8n"],
+    items: ["FastAPI", "PostgreSQL", "Docker", "Stripe", "n8n"],
+  },
+  {
+    label: { en: "AI-ASSISTED DEVELOPMENT", ja: "AI を使った開発" },
+    items: ["Claude Code", "Codex"],
   },
 ];
 

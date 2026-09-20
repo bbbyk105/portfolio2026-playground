@@ -1,11 +1,11 @@
 import { brands } from "@/lib/brand";
-import { tech } from "@/lib/site";
+import { tickerTech } from "@/lib/site";
 
 /**
- * The technology marquee. Each entry carries its official brand mark in its
- * official colour, set on a white disc — the band itself is Tiffany, and
- * several of the brand colours (React, Supabase, FastAPI, GSAP) would sink
- * straight into it otherwise.
+ * The technology marquee: each tool's official mark in its official colour,
+ * drawn straight onto the band. The band is dark for that reason — on the
+ * Tiffany fill the marks needed a plate behind them to stay legible, and the
+ * plates read as stickers stuck on top of the strip.
  *
  * The row is duplicated because the CSS animation translates it by -50%.
  */
@@ -13,16 +13,21 @@ export default function Ticker() {
   return (
     <div className="ticker">
       <div>
-        {[...tech, ...tech].map((name, i) => {
+        {[...tickerTech, ...tickerTech].map((name, i) => {
           const brand = brands[name];
           return (
             <span key={i}>
               {brand ? (
-                <i className="brandBadge" style={{ color: `#${brand.hex}` }} aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="currentColor" role="presentation">
-                    <path d={brand.path} />
-                  </svg>
-                </i>
+                <svg
+                  className="brandMark"
+                  viewBox="0 0 24 24"
+                  fill={`#${brand.hex}`}
+                  fillRule="evenodd"
+                  aria-hidden="true"
+                  role="presentation"
+                >
+                  <path d={brand.path} />
+                </svg>
               ) : null}
               {name}
             </span>
