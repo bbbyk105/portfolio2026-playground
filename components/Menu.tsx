@@ -1,5 +1,0 @@
-"use client";
-import {useEffect,useRef,useState} from "react";import Link from "next/link";import {gsap} from "gsap";
-export default function Menu(){const [open,setOpen]=useState(false);const panel=useRef<HTMLDivElement>(null);
-useEffect(()=>{if(!panel.current)return;gsap.to(panel.current,{clipPath:open?"inset(0 0 0 0)":"inset(0 0 100% 0)",duration:open?.7:.5,ease:"power4.inOut"});gsap.to(".menu-link",{y:open?0:28,opacity:open?1:0,duration:.55,stagger:.05,delay:open?.18:0,ease:"power3.out"});document.body.style.overflow=open?"hidden":"";return()=>{document.body.style.overflow=""}},[open]);
-return <><button className={"menu-btn "+(open?"is-open":"")} onClick={()=>setOpen(v=>!v)} aria-label="Menu"><span/><span/></button><div className="menu-panel" ref={panel}><div className="menu-meta">NAVIGATION / 2026</div><nav>{[["Home","/"],["Works","/#work"],["About","/about"],["Contact","/contact"]].map(([x,h],i)=><Link className="menu-link" onClick={()=>setOpen(false)} href={h} key={x}><small>0{i+1}</small>{x}</Link>)}</nav><div className="menu-foot"><span>TOKYO / JAPAN</span><a href="mailto:byakkokondo@gmail.com">BYAKKOKONDO@GMAIL.COM</a></div></div></>}
