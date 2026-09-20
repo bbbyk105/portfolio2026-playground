@@ -1,5 +1,5 @@
 "use client";
-import {useEffect,useState} from "react";
+import {useEffect,useRef,useState} from "react";
 import {gsap} from "gsap";
 
 const works=[
@@ -12,10 +12,28 @@ const works=[
 const tech=["TYPESCRIPT","PYTHON","NEXT.JS","REACT","REACT NATIVE","EXPO","FASTAPI","SUPABASE","POSTGRESQL","DOCKER","N8N","GSAP"];
 export default function Playground(){
  const [menu,setMenu]=useState(false);
+ const menuPanel=useRef<HTMLDivElement>(null);
  useEffect(()=>{gsap.from(".reveal",{y:32,opacity:0,duration:1.05,stagger:.08,ease:"power3.out"});gsap.to(".orb",{y:-18,x:12,duration:4,repeat:-1,yoyo:true,ease:"sine.inOut"})},[]);
+ useEffect(()=>{
+  if(!menuPanel.current)return;
+  const links=menuPanel.current.querySelectorAll(".mobileMenuLink");
+  gsap.to(menuPanel.current,{clipPath:menu?"inset(0 0 0% 0)":"inset(0 0 100% 0)",duration:menu?.72:.5,ease:"power4.inOut",pointerEvents:menu?"auto":"none"});
+  gsap.to(links,{y:menu?0:30,opacity:menu?1:0,duration:.55,stagger:.055,delay:menu?.14:0,ease:"power3.out"});
+  document.body.style.overflow=menu?"hidden":"";
+  return()=>{document.body.style.overflow=""};
+ },[menu]);
  return <main>
-  <nav className="nav"><a className="brand" href="#">BK<span>.</span></a><div className="navlinks"><a href="#work">WORK</a><a href="#about">ABOUT</a><a href="mailto:byakkokondo@gmail.com">CONTACT</a></div><button className="menuBtn" onClick={()=>setMenu(!menu)}>MENU</button></nav>
-  {menu&&<div className="mobileMenu"><a onClick={()=>setMenu(false)} href="#work">WORK</a><a onClick={()=>setMenu(false)} href="#about">ABOUT</a><a href="mailto:byakkokondo@gmail.com">CONTACT</a></div>}
+  <nav className="nav"><a className="brand" href="#">BK<span>.</span></a><div className="navlinks"><a href="#work">WORK</a><a href="#about">ABOUT</a><a href="mailto:byakkokondo@gmail.com">CONTACT</a></div><button className={"menuBtn "+(menu?"isOpen":"")} onClick={()=>setMenu(!menu)} aria-expanded={menu} aria-label="Toggle navigation"><span/><span/><b>{menu?"CLOSE":"MENU"}</b></button></nav>
+  <div className="mobileMenu" ref={menuPanel}>
+   <div className="mobileMenuMeta"><span>NAVIGATION</span><span>BYAKKO KONDO / 2026</span></div>
+   <div className="mobileMenuNav">
+    <a className="mobileMenuLink" onClick={()=>setMenu(false)} href="#"><small>00</small>HOME</a>
+    <a className="mobileMenuLink" onClick={()=>setMenu(false)} href="#work"><small>01</small>WORK</a>
+    <a className="mobileMenuLink" onClick={()=>setMenu(false)} href="#about"><small>02</small>ABOUT</a>
+    <a className="mobileMenuLink" onClick={()=>setMenu(false)} href="mailto:byakkokondo@gmail.com"><small>03</small>CONTACT</a>
+   </div>
+   <div className="mobileMenuFoot"><span>TOKYO, JAPAN</span><span>ENGINEER / CREATIVE DEVELOPER</span></div>
+  </div>
   <section className="hero">
    <div className="gridbg"/><div className="orb o1"/><div className="orb o2"/>
    <p className="eyebrow reveal"><i/> BYAKKO KONDO / ENGINEER / CREATIVE DEVELOPER</p>
