@@ -38,27 +38,27 @@ export const works: Work[] = [
     kind: { en: "AI / Mobile product", ja: "AI / モバイルプロダクト" },
     place: { en: "iOS & Android", ja: "iOS / Android" },
     role: {
-      en: "Planning, UI/UX, development, operations",
-      ja: "企画、UI/UX、開発、運用",
+      en: "Planning, UI/UX, mobile and backend development, data design, release and operation",
+      ja: "企画、UI/UX、モバイル・バックエンド開発、データ設計、リリース・運用",
     },
     year: "2026",
     url: "https://www.caroot.app",
     statement: {
-      en: "A personal calorie and nutrition management app designed to reduce the effort of everyday meal logging.",
-      ja: "日々の食事記録の手間を減らすことを目的に設計した、個人向けのカロリー・栄養管理アプリです。",
+      en: "A calorie and nutrition app where logging a meal is one photograph. AI splits the plate into individual dishes, and a correction you make once is applied to that dish from then on.",
+      ja: "食事の記録を写真1枚で終わらせるための、カロリー・栄養管理アプリ。AIが料理を品目ごとに見分け、一度直した内容はその料理に次回から自動で適用されます。",
     },
     brief: [
       {
-        en: "CaRoot is a personal product developed from planning through UI/UX, frontend, backend, AI features, database design and App Store release work.",
-        ja: "CaRootは、企画からUI/UX、フロントエンド、バックエンド、AI機能、データベース設計、App Storeのリリース対応まで、一貫して開発している個人プロダクトです。",
+        en: "Calorie counting does not fail because people lack willpower; it fails because typing in every meal is tedious. CaRoot exists to remove that step. It is my own product, developed end to end — planning, UI/UX, the app, the backend, the AI features, the data design and the App Store release.",
+        ja: "カロリー計算が続かないのは意志が弱いからではなく、毎食入力するのが面倒だからです。CaRootはその工程をなくすために作りました。企画、UI/UX、アプリ、バックエンド、AI機能、データ設計、App Storeのリリースまで一貫して開発している個人プロダクトです。",
       },
       {
-        en: "Users can analyse a meal from a photo, scan a barcode or read a nutrition label, then manage calories and PFC from the resulting record. The app also supports manual entry, weight and water tracking, weekly reports, meal reminders and Japanese / English use.",
-        ja: "写真からの食事解析、バーコードのスキャン、栄養成分表示の読み取りに対応し、その記録からカロリーとPFCを管理できます。手入力、体重・水分の記録、週次レポート、食事リマインダー、日本語・英語での利用にも対応しています。",
+        en: "There are five ways in. Photograph the meal and it is broken into dishes; scan a barcode; photograph a nutrition label; search; or type it. Search covers roughly 8,500 menu items from 56 restaurant chains' published nutrition data and about 2,500 entries from Japan's official food composition tables — in English it switches to around 7,800 USDA entries. Products with no barcode record yet can be added by whoever scans them first, so the product database grows with use.",
+        ja: "入口は5つあります。写真を撮れば品目ごとに分解され、バーコードをかざし、栄養成分表示を撮り、検索し、あるいは手で入力します。検索の対象は、56ブランドの外食チェーンが公表する栄養データ約8,500メニューと、日本食品標準成分表（八訂）約2,500件です。英語表示ではUSDAの約7,800件に切り替わります。まだバーコードの登録がない商品は最初にスキャンした人が登録でき、商品データベースは使われるほど育ちます。",
       },
       {
-        en: "Food data includes Japan's official food composition data and restaurant / chain menu data based on published nutrition information. AI photo analysis is handled through a server-side function, while the core logging features remain available without relying on the photo-analysis connection.",
-        ja: "食品データには日本食品標準成分表と、公開されている栄養情報にもとづく飲食店・チェーンのメニューデータを収録しています。AIによる写真解析はサーバーサイドの関数で処理し、写真解析の接続に依存せずとも記録の基本機能は利用できる構成にしています。",
+        en: "Around the log sit the things that make it a habit: targets computed from body composition and goal, a diary, calendar and analytics view, weight and water, a photo roll, streaks, weekly reports and meal reminders. There is a social side too — posts, follows, leaderboards and invite codes — and the app funds itself through a subscription and a one-off ad-free purchase.",
+        ja: "記録のまわりには、習慣にするための仕組みを置いています。体組成と目標から算出する目標値、日記・カレンダー・分析のビュー、体重と水分、写真一覧、連続記録、週間レポート、食事リマインダー。投稿・フォロー・ランキング・招待コードといったソーシャル面もあり、サブスクリプションと広告オフの買い切りで運営しています。",
       },
     ],
     mechanism: [
@@ -70,6 +70,13 @@ export const works: Work[] = [
         },
       },
       {
+        title: { en: "A correction is made once", ja: "直すのは一度だけ" },
+        body: {
+          en: "When an estimate is wrong, the corrected figures are stored against the normalised dish name and reapplied every time that dish appears. It also learns the alias: if the model calls something 醤油つけ麺 and you rename it, the correction is keyed to what the model said and mapped to what you called it, so the next photo of it comes back with your name and your numbers. Corrections with nothing in them are not learned, and saving a total without a breakdown clears the old breakdown rather than leaving it to contradict the total.",
+          ja: "推定が違っていたら、直した数値を正規化した料理名に紐づけて保存し、その料理が出るたびに再適用します。別名も学習します。モデルが「醤油つけ麺」と呼んだものを別の名前に直した場合、モデルが言った名前をキーに、ユーザーが付けた名前を値として保存するので、次に同じ料理を撮ると名前も数値もユーザーのものが返ります。中身が空の補正は学習せず、内訳なしで合計だけ保存したときは古い内訳を消します。合計と矛盾した内訳が残らないようにするためです。",
+        },
+      },
+      {
         title: { en: "Writes are queued before they are sent", ja: "送信より先に書き込みを積む" },
         body: {
           en: "Every write goes into a typed queue in local storage first, then to the server; it is removed only on success. Failures — offline, app killed, a transient error — are retried FIFO on the next write, on foreground, and at launch. While the queue is not empty, syncing down from the cloud is suspended, because the cloud is known to be behind. Before this, a failed write vanished silently and the next launch rolled local data back.",
@@ -77,47 +84,66 @@ export const works: Work[] = [
         },
       },
       {
-        title: { en: "Three ways in, and none of them required", ja: "入口は3つ、どれも必須ではない" },
+        title: { en: "Every way in is optional", ja: "どの入口も必須ではない" },
         body: {
-          en: "A meal can be logged from a photo, a barcode or a nutrition label. All three can fail — a bad photo, an unknown product, a label that will not read — so manual entry is a first-class path, not a fallback. The app stays fully usable when the analysis service is unreachable.",
-          ja: "食事は写真、バーコード、栄養成分表示のいずれからでも記録できます。3つとも失敗しうる（写真が悪い、未収録の商品、読めないラベル）ので、手入力は代替手段ではなく対等な経路として用意しています。解析サービスに到達できなくても、アプリは問題なく使えます。",
+          en: "Photo analysis, barcodes and label reading can all fail — a bad photo, an unlisted product, a label that will not read — so search and manual entry are first-class paths rather than fallbacks. The app stays fully usable when the analysis service is unreachable, which is also why the food tables ship inside the app instead of behind an API.",
+          ja: "写真解析もバーコードもラベル読み取りも失敗しえます（写真が悪い、未収録の商品、読めないラベル）。そのため検索と手入力は代替手段ではなく対等な経路として用意しています。解析サービスに到達できなくてもアプリは問題なく使え、食品データをAPIの向こうではなくアプリ内に同梱しているのも同じ理由です。",
         },
       },
       {
         title: { en: "The subscription tier is not client state", ja: "課金状態はクライアントの状態ではない" },
         body: {
-          en: "Rows are separated per user by row-level security in the database. The subscription tier lands there from the store's webhook and is write-protected, so it cannot be set from the app — the paywall is a consequence of the data, not a check in the UI.",
-          ja: "データはデータベースの行レベルセキュリティでユーザーごとに分離しています。課金プランはストアのWebhook経由で書き込まれ、書き換えから保護されているので、アプリ側からは設定できません。ペイウォールはUIのチェックではなく、データの結果として成立します。",
+          en: "Rows are separated per user by row-level security in the database. The subscription tier lands there from the store's webhook and is write-protected, so it cannot be set from the app — the paywall is a consequence of the data, not a check in the UI. Invite rewards work the same way: redeeming a code runs as a database function that refuses a second redemption, rather than as a client that promises not to ask twice.",
+          ja: "データはデータベースの行レベルセキュリティでユーザーごとに分離しています。課金プランはストアのWebhook経由で書き込まれ、書き換えから保護されているので、アプリ側からは設定できません。ペイウォールはUIのチェックではなく、データの結果として成立します。招待の報酬も同じ考え方で、コードの引き換えはデータベース関数として実行し、2回目を関数側で拒否します。クライアントが二重に要求しないと約束する形にはしていません。",
         },
       },
     ],
     built: [
       {
-        en: "AI meal-photo analysis with editable calorie and PFC estimates",
-        ja: "AIによる食事写真の解析と、カロリー・PFC推定値の編集機能",
+        en: "AI meal-photo analysis that splits a plate into dishes, with every estimate editable on the spot",
+        ja: "料理を品目ごとに分解するAI写真解析と、その場で編集できる推定値",
       },
       {
-        en: "Barcode scanning and nutrition-label photo reading",
-        ja: "バーコードスキャンと栄養成分表示の写真読み取り",
+        en: "Barcode scanning, nutrition-label reading, and user-contributed records for products not yet listed",
+        ja: "バーコードスキャン、栄養成分表示の読み取り、未登録商品のユーザー登録",
       },
       {
-        en: "Calorie / PFC targets based on profile, activity and goal settings",
-        ja: "プロフィール・活動量・目標設定にもとづくカロリー / PFC目標の算出",
+        en: "Bundled food data: ~8,500 menu items from 56 restaurant chains, ~2,500 from Japan's composition tables, ~7,800 USDA entries in English",
+        ja: "同梱の食品データ：外食56ブランド約8,500メニュー、日本食品標準成分表 約2,500件、英語表示ではUSDA 約7,800件",
       },
       {
-        en: "Manual food entry, weight and water tracking, weekly reports and meal reminders",
-        ja: "食事の手入力、体重・水分の記録、週次レポート、食事リマインダー",
+        en: "Per-dish correction learning, including the alias between what the model called it and what you call it",
+        ja: "料理ごとの補正学習（モデルの呼び名とユーザーの呼び名の対応づけを含む）",
       },
       {
-        en: "Japanese / English support and App Store release preparation",
-        ja: "日本語・英語対応とApp Storeのリリース準備",
+        en: "Calorie and PFC targets derived from body composition, activity and goal, adjustable by hand",
+        ja: "体組成・活動量・目標から導くカロリー / PFC目標と、手動での微調整",
       },
       {
-        en: "End-to-end product development from planning and UI/UX through frontend, backend and database work",
-        ja: "企画・UI/UXからフロントエンド、バックエンド、データベースまでの一貫したプロダクト開発",
+        en: "Diary, calendar, analytics, weight and water logs, photo roll, streaks, weekly reports and meal reminders",
+        ja: "日記、カレンダー、分析、体重・水分の記録、写真一覧、連続記録、週間レポート、食事リマインダー",
+      },
+      {
+        en: "A social layer — posts, follows, leaderboards, invite codes — with rewards granted server-side",
+        ja: "ソーシャル機能（投稿、フォロー、ランキング、招待コード）と、サーバー側で付与する報酬",
+      },
+      {
+        en: "Subscription and one-off purchase handled through the store webhook, ads, Japanese / English, and account deletion",
+        ja: "ストアのWebhook経由で扱うサブスクリプションと買い切り、広告、日本語・英語対応、アカウント削除",
       },
     ],
-    stack: ["Expo", "React Native", "TypeScript", "Supabase", "Gemini"],
+    stack: [
+      "Expo",
+      "React Native",
+      "TypeScript",
+      "NativeWind",
+      "Zustand",
+      "Supabase",
+      "PostgreSQL",
+      "Edge Functions",
+      "Gemini",
+      "RevenueCat",
+    ],
     screens: { desktop: "/works/caroot.webp", mobile: "/works/caroot-mobile.webp" },
   },
   {
