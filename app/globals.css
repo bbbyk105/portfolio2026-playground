@@ -159,7 +159,14 @@ html{overflow-x:clip}
 body{font-family:Arial,Helvetica,"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",Meiryo,sans-serif}
 .upper{text-transform:uppercase}
 [data-lang="ja"] .bio p,[data-lang="ja"] .detailBody p,[data-lang="ja"] .journeyBody p{line-height:1.95}
-[data-lang="ja"] .project p,[data-lang="ja"] .practiceCard p{line-height:1.8}
+/* Kinsoku: keep a line from starting on a small kana or a long-vowel mark
+   ("ソフトウ / ェア"). Inherited, so it covers every Japanese line on the page. */
+[data-lang="ja"]{line-break:strict}
+/* Display copy set for English is too tight for Japanese: kana and kanji fill
+   their full em, so the lines collide at 1.04 and the negative tracking closes
+   the last of the gap. Give the Japanese lead its own size and leading. */
+[data-lang="ja"] .bigcopy{font-size:clamp(30px,3.3vw,46px);line-height:1.55;letter-spacing:.005em}
+[data-lang="ja"] .project p,[data-lang="ja"] .practiceCard p,[data-lang="ja"] .canDoCard p{line-height:1.85}
 
 .langToggle{display:flex;align-items:center;gap:6px;font:11px monospace;letter-spacing:.08em;color:#75817e}
 .langToggle button{background:none;border:0;padding:0;font:inherit;color:inherit;letter-spacing:inherit;cursor:pointer}
@@ -302,6 +309,34 @@ body{font-family:Arial,Helvetica,"Hiragino Sans","Hiragino Kaku Gothic ProN","No
 .brandMark{display:block;width:15px;height:15px;flex:none}
 @media(prefers-reduced-motion:reduce){.ticker>div{animation:none}}
 
+/* ── What I can do (homepage 01) ───────────────────────────────────────────
+   Four capabilities on the same hairline grid the rest of the site uses. The
+   mark sits in its own plate so the animation has an edge to play against —
+   on the bare background the thin strokes read as dirt on the screen. */
+.canDo{padding:110px var(--gutter);border-top:1px solid #ffffff18;background:#0b0f10}
+.canDoGrid{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #ffffff24}
+.canDoCard{display:grid;grid-template-columns:96px 1fr;gap:30px;padding:42px 48px 46px 0;border-bottom:1px solid #ffffff18}
+.canDoCard:nth-child(odd){border-right:1px solid #ffffff18}
+.canDoCard:nth-child(even){padding-left:48px}
+.canDoMark{width:96px;height:96px;flex:none;border:1px solid #ffffff1e;background:#0d1112}
+.lottieMark,.lottieMark svg{display:block;width:100%;height:100%}
+.canDoIndex{display:block;font:10px monospace;letter-spacing:.08em;color:#70f4df}
+.canDoCard h3{margin:14px 0 14px;font-size:21px;letter-spacing:-.02em;text-transform:uppercase}
+.canDoCard p{margin:0;max-width:44em;color:#9ba6a3;font-size:14px;line-height:1.7}
+.canDoWorks{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-top:64px;padding:24px 0;border-top:1px solid #ffffff24;border-bottom:1px solid #ffffff24;font:11px monospace;letter-spacing:.06em;color:#aab3b1}
+.canDoWorks b{flex:none;font-weight:400;color:#70f4df}
+.canDoWorks:hover{color:#f2f5f4}
+.canDoWorks:hover b{border-bottom:1px solid #70f4df;padding-bottom:3px}
+@media(max-width:760px){
+ .canDo{padding:80px var(--gutter)}
+ .canDoGrid{grid-template-columns:1fr}
+ .canDoCard,.canDoCard:nth-child(even){grid-template-columns:1fr;gap:22px;padding:32px 0 34px}
+ .canDoCard:nth-child(odd){border-right:0}
+ .canDoMark{width:76px;height:76px}
+ .canDoWorks{display:block;margin-top:44px}
+ .canDoWorks b{display:block;margin-top:14px}
+}
+
 /* ── Tablets and small laptops ────────────────────────────────────────────
    Without this band the desktop grid takes over at 761px, so every column
    gets narrower as the screen gets wider — the phone layout reads better at
@@ -315,6 +350,9 @@ body{font-family:Arial,Helvetica,"Hiragino Sans","Hiragino Kaku Gothic ProN","No
  .aboutGrid{grid-template-columns:1fr;gap:40px}
  .timeline{grid-template-columns:1fr 1fr}
  .techgrid{grid-template-columns:repeat(2,1fr)}
+ .canDoGrid{grid-template-columns:1fr}
+ .canDoCard,.canDoCard:nth-child(even){padding:36px 0 40px}
+ .canDoCard:nth-child(odd){border-right:0}
  .pageLede{display:block}
  .pageLedeMeta{margin-top:26px;text-align:left;white-space:normal}
  .spec{grid-template-columns:repeat(3,1fr)}

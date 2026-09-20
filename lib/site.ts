@@ -89,6 +89,63 @@ export const capabilityGroups: CapabilityGroup[] = [
   },
 ];
 
+export type Capability = {
+  index: string;
+  /** A generated mark in public/lottie; see scripts/gen-lottie.mjs. */
+  mark: string;
+  title: Copy;
+  body: Copy;
+  items: string[];
+};
+
+/**
+ * The homepage opens on what I can take on rather than on a list of past
+ * work — the case studies are one click away on /works, and a visitor who
+ * has not decided what they need yet is not served by five screenshots.
+ */
+export const capabilities: Capability[] = [
+  {
+    index: "01",
+    mark: "/lottie/product.json",
+    title: { en: "PRODUCT DEVELOPMENT", ja: "プロダクト開発" },
+    body: {
+      en: "An idea taken through to a released app: information architecture, screens, data model, store submission. One Expo codebase covers iOS and Android, so a feature is built once.",
+      ja: "アイデアの整理から画面設計、データ構造、ストア申請まで通して引き受けます。iOS と Android は Expo で1つのコードから出すので、機能をつくるのは一度で済みます。",
+    },
+    items: ["React Native", "Expo", "Supabase", "TypeScript"],
+  },
+  {
+    index: "02",
+    mark: "/lottie/web.json",
+    title: { en: "WEB ENGINEERING", ja: "Web・フロントエンド" },
+    body: {
+      en: "Corporate sites, landing pages and commerce, from the information design to the deploy — with the load speed, the search traffic and the motion treated as part of the build, not as an afterthought.",
+      ja: "コーポレートサイト、LP、EC を情報設計からデプロイまで。表示速度・検索流入・動きの設計も、後付けではなく制作の一部として組み込みます。",
+    },
+    items: ["Next.js", "React", "GSAP", "Stripe"],
+  },
+  {
+    index: "03",
+    mark: "/lottie/research.json",
+    title: { en: "RESEARCH SOFTWARE", ja: "研究用ソフトウェア" },
+    body: {
+      en: "Tools that take the manual work out of research data — reading the files, running the calculation, plotting the result. The protein-structure pipeline I wrote at university is the shape of it.",
+      ja: "研究データの手作業をなくすツールをつくります。ファイルの読み込み、計算、結果の可視化まで。大学で書いたタンパク質の構造解析パイプラインがその原型です。",
+    },
+    items: ["Python", "FastAPI", "PostgreSQL", "Docker"],
+  },
+  {
+    index: "04",
+    mark: "/lottie/automation.json",
+    title: { en: "WORKFLOW AUTOMATION", ja: "業務自動化" },
+    body: {
+      en: "The manual steps of a business wired together: a form that reaches the right person, services that talk to each other, jobs that run on a schedule and say something when they fail.",
+      ja: "手で回している業務をつなぎます。問い合わせを担当者まで届ける、サービス同士を連携させる、定期実行して失敗したら知らせる、といったところまで。",
+    },
+    items: ["n8n", "Docker", "Claude Code", "Codex"],
+  },
+];
+
 export const home = {
   eyebrow: {
     en: "BYAKKO KONDO / ENGINEER / CREATIVE DEVELOPER",
@@ -98,7 +155,15 @@ export const home = {
     en: "I design and build digital products, web experiences and automation systems — from research prototypes to production services.",
     ja: "デジタルプロダクト、Web体験、業務自動化のシステムを設計・開発しています。研究用のプロトタイプから、実運用のサービスまで。",
   },
-  exploreWork: { en: "EXPLORE WORK", ja: "実績を見る" },
+  exploreWork: { en: "WHAT I CAN DO", ja: "できることを見る" },
+  canDoSide: {
+    en: "PRODUCT / WEB / RESEARCH / AUTOMATION",
+    ja: "プロダクト / Web / 研究 / 自動化",
+  },
+  canDoWorks: {
+    en: "Five products built this way are live and in daily use.",
+    ja: "この内容でつくったプロダクト5件が、いまも公開・運用されています。",
+  },
   aboutLede: {
     en: "I work across product development, web engineering, research software and workflow automation.",
     ja: "プロダクト開発、Webエンジニアリング、研究用ソフトウェア、業務自動化を横断して手がけています。",

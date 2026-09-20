@@ -28,7 +28,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-lang="en">
+    // The inline script below rewrites lang/data-lang before React hydrates,
+    // so the attributes here are only the neutral starting point.
+    <html lang="en" data-lang="en" suppressHydrationWarning>
       <head>
         {/* Runs before first paint so the page never flashes the wrong language. */}
         <script dangerouslySetInnerHTML={{ __html: LANG_INIT_SCRIPT }} />
