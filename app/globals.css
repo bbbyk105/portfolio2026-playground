@@ -208,3 +208,24 @@ body{font-family:Arial,Helvetica,"Hiragino Sans","Hiragino Kaku Gothic ProN","No
 @media(max-width:760px){
  .brand{font-size:12px;letter-spacing:.12em}
 }
+
+/* ── Hero composition ─────────────────────────────────────────────────────
+   With no figure on the right, the hero has to hold together on setting
+   alone: the eyebrow is balanced by where and whether I am free, the CTA
+   follows the paragraph it belongs to instead of floating mid-canvas, and
+   the paragraph and terminal pair up across one row rather than stacking
+   with a gap between them. */
+.heroTop{position:relative;display:flex;align-items:flex-start;justify-content:space-between;gap:40px}
+.heroTop p{margin:0}
+.heroMeta{font:10px/1.9 monospace;letter-spacing:.08em;color:#77827f;text-align:right;white-space:nowrap}
+.heroFoot{position:relative;margin-top:64px;display:grid;grid-template-columns:1fr 1.12fr;gap:7vw;align-items:end}
+.heroBottom{display:block;margin:0;max-width:520px}
+.heroBottom a{display:inline-block;margin-top:30px}
+.terminal{margin:0;width:100%}
+
+@media(max-width:760px){
+ .heroMeta{display:none}
+ .heroFoot{grid-template-columns:1fr;gap:46px;margin-top:46px}
+ .heroBottom a{margin-top:24px}
+ .terminal{margin:0}
+}
