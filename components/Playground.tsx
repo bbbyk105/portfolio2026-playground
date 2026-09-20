@@ -17,8 +17,8 @@ export default function Playground(){
  useEffect(()=>{
   if(!menuPanel.current)return;
   const links=menuPanel.current.querySelectorAll(".mobileMenuLink");
-  gsap.to(menuPanel.current,{clipPath:menu?"inset(0 0 0% 0)":"inset(0 0 100% 0)",duration:menu?.72:.5,ease:"power4.inOut",pointerEvents:menu?"auto":"none"});
-  gsap.to(links,{y:menu?0:30,opacity:menu?1:0,duration:.55,stagger:.055,delay:menu?.14:0,ease:"power3.out"});
+  gsap.to(menuPanel.current,{clipPath:menu?"inset(0 0 0% 0)":"inset(0 0 100% 0)",duration:menu ? .72 : .5,ease:"power4.inOut",pointerEvents:menu?"auto":"none"});
+  gsap.to(links,{y:menu?0:30,opacity:menu?1:0,duration:.55,stagger:.055,delay:menu ? .14 : 0,ease:"power3.out"});
   document.body.style.overflow=menu?"hidden":"";
   return()=>{document.body.style.overflow=""};
  },[menu]);
