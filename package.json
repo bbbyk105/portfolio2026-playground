@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
+    "test": "vitest run",
     "deploy": "next build && npx --yes wrangler@latest pages deploy out --project-name=byakko-engineer"
   },
   "dependencies": {
@@ -18,10 +19,11 @@
   },
   "devDependencies": {
     "@lobehub/icons-static-svg": "^1.95.0",
-    "@types/node": "^20",
+    "@types/node": "^22.20.4",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "simple-icons": "^16.32.0",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^5.0.1"
   }
 }
