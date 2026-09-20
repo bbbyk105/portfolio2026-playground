@@ -1,40 +1,37 @@
 "use client";
-import {useEffect,useRef} from "react";
+import {useEffect,useState} from "react";
 import {gsap} from "gsap";
-import {ScrollTrigger} from "gsap/ScrollTrigger";
 
 const works=[
-["01","CaRoot","Product / App","AI-assisted calorie and nutrition management.","https://www.caroot.app"],
-["02","Hakuho","Web / Manufacturing","Digital presence for precision manufacturing.","https://www.hakuhofactory.com"],
-["03","Goodwill Legal","Web / Legal","Content and consultation platform for a legal office.","https://goodwill-legal.jp"],
-["04","Jurakuen","Commerce / Tea","Bilingual commerce for an organic tea producer.","https://www.jurakuen.com"],
-["05","DMC Fuji","Web / Studio","Photography-led bilingual studio experience.","https://www.dmc123.jp"]
+ {n:"01",name:"CaRoot",kind:"AI / MOBILE PRODUCT",year:"2026",desc:"A personal calorie and nutrition management app designed to make everyday meal logging dramatically easier.",url:"https://www.caroot.app",img:"https://raw.githubusercontent.com/bbbyk105/Portfolio2026-ver4/main/public/works/caroot.webp",stack:["Expo","React Native","TypeScript","Supabase","Gemini"]},
+ {n:"02",name:"Hakuho",kind:"PRECISION MACHINING / WEB",year:"2026",desc:"Corporate platform for a precision-machining company, connecting technical capability directly to quote conversion.",url:"https://www.hakuhofactory.com",img:"https://raw.githubusercontent.com/bbbyk105/Portfolio2026-ver4/main/public/works/hakuho.webp",stack:["Next.js","React","TypeScript","GSAP","Resend"]},
+ {n:"03",name:"Goodwill Legal",kind:"LEGAL / CONTENT PLATFORM",year:"2026",desc:"A publishing-led website for a Sapporo administrative scrivener, built around clear service information and consultation.",url:"https://goodwill-legal.jp",img:"https://raw.githubusercontent.com/bbbyk105/Portfolio2026-ver4/main/public/works/goodwill.webp",stack:["Next.js","TypeScript","CMS","SEO","Resend"]},
+ {n:"04",name:"Jurakuen",kind:"COMMERCE / ORGANIC TEA",year:"2025",desc:"A bilingual direct-to-consumer experience for an organic tea producer in Fuji.",url:"https://www.jurakuen.com",img:"https://raw.githubusercontent.com/bbbyk105/Portfolio2026-ver4/main/public/works/jurakuen.webp",stack:["Next.js","Stripe","TypeScript","i18n"]},
+ {n:"05",name:"DMC Fuji",kind:"STUDIO / PHOTOGRAPHY",year:"2025",desc:"A bilingual digital home for photography and experience services at the foot of Mt. Fuji.",url:"https://www.dmc123.jp",img:"https://raw.githubusercontent.com/bbbyk105/Portfolio2026-ver4/main/public/works/dmc-fuji.webp",stack:["Next.js","Supabase","TypeScript","CMS"]}
 ];
-
-function Mark(){return <span className="mark" aria-hidden="true"><i/><i/><i/><i/></span>}
+const tech=["TYPESCRIPT","PYTHON","NEXT.JS","REACT","REACT NATIVE","EXPO","FASTAPI","SUPABASE","POSTGRESQL","DOCKER","N8N","GSAP"];
 export default function Playground(){
- const root=useRef<HTMLDivElement>(null);
- useEffect(()=>{gsap.registerPlugin(ScrollTrigger);const ctx=gsap.context(()=>{
-  gsap.from(".hero-copy>*",{y:50,opacity:0,duration:.9,stagger:.08,ease:"power3.out"});
-  gsap.to(".hero-orb",{y:-28,rotate:12,duration:5,repeat:-1,yoyo:true,ease:"sine.inOut"});
-  gsap.utils.toArray<HTMLElement>(".work-card").forEach((el)=>gsap.from(el,{y:70,opacity:0,scrollTrigger:{trigger:el,start:"top 90%",end:"top 62%",scrub:1}}));
-  gsap.to(".rail-inner",{xPercent:-20,ease:"none",scrollTrigger:{trigger:".rail",start:"top bottom",end:"bottom top",scrub:1}});
- },root);return()=>ctx.revert()},[]);
- return <div ref={root} className="site">
- <header className="topbar"><a className="brand" href="#"><Mark/>BYAKKO</a><nav><a href="#work">Work</a><a href="#about">About</a><a href="#stack">Stack</a></nav><a className="top-cta" href="mailto:byakkokondo@gmail.com">Contact <span>↗</span></a></header>
- <main>
- <section className="hero">
-   <div className="hero-grid"/>
-   <div className="hero-copy"><p className="kicker">CREATIVE DEVELOPER / TOKYO, JAPAN</p><h1>BUILDING DIGITAL<br/><span>EXPERIENCES</span><br/>THAT MOVE.</h1><p className="lead">I design and build products, websites and systems from idea to operation — combining engineering, interface design and motion.</p><div className="hero-actions"><a className="btn primary" href="#work">Explore work <b>→</b></a><a className="btn ghost" href="#about">About me</a></div></div>
-   <div className="hero-visual"><div className="hero-orb"><Mark/></div><div className="data-card d1"><small>STATUS</small><strong>AVAILABLE</strong><span>2026 / TOKYO</span></div><div className="data-card d2"><small>SYSTEM</small><strong>DESIGN × CODE</strong><span>GSAP / NEXT.JS</span></div></div>
- </section>
- <section className="rail"><div className="rail-inner">PRODUCT ENGINEERING　/　WEB DEVELOPMENT　/　INTERACTION DESIGN　/　AUTOMATION　/　PRODUCT ENGINEERING　/　WEB DEVELOPMENT　/　INTERACTION DESIGN　/　AUTOMATION　/　</div></section>
- <section className="intro" id="about"><p className="section-label">WHAT I DO</p><div><h2>From complex requirements<br/>to clear digital products.</h2><p>My background began in life science at Gakushuin University and software development in the Okada Lab. Today I work across product development, web experiences, backend integrations and automation.</p></div></section>
- <section className="work-section" id="work"><div className="section-head"><p className="section-label">SELECTED WORK / 01—05</p><h2>Projects built<br/>end to end.</h2></div><div className="work-grid">{works.map(w=><a className="work-card" href={w[4]} target="_blank" rel="noreferrer" key={w[1]}><div className="card-top"><span>{w[0]}</span><span>{w[2]}</span></div><div className="project-art"><div className="mini-grid"/><Mark/><span className="project-name">{w[1]}</span></div><div className="card-copy"><h3>{w[1]}</h3><p>{w[3]}</p><span className="card-link">View project →</span></div></a>)}</div></section>
- <section className="metrics"><div><strong>05</strong><span>SELECTED PROJECTS</span></div><div><strong>END—TO—END</strong><span>PLANNING TO OPERATION</span></div><div><strong>JP / EN</strong><span>MULTILINGUAL DELIVERY</span></div><div><strong>2026</strong><span>BASED IN TOKYO</span></div></section>
- <section className="stack-section" id="stack"><div><p className="section-label">TECHNOLOGY</p><h2>Tools chosen for<br/>the problem.</h2></div><div className="stack-list">{["TypeScript","Next.js / React","React Native / Expo","Python / FastAPI","Supabase / PostgreSQL","Docker / n8n","GSAP"].map((x,i)=><div key={x}><span>0{i+1}</span><strong>{x}</strong></div>)}</div></section>
- <section className="contact"><div className="contact-mark"><Mark/></div><p className="section-label">START A PROJECT</p><h2>Have something<br/>worth building?</h2><p>For projects, collaborations, or a conversation about an idea.</p><a className="btn primary" href="mailto:byakkokondo@gmail.com">byakkokondo@gmail.com <b>↗</b></a></section>
+ const [menu,setMenu]=useState(false);
+ useEffect(()=>{gsap.from(".reveal",{y:32,opacity:0,duration:1.05,stagger:.08,ease:"power3.out"});gsap.to(".orb",{y:-18,x:12,duration:4,repeat:-1,yoyo:true,ease:"sine.inOut"})},[]);
+ return <main>
+  <nav className="nav"><a className="brand" href="#">BK<span>.</span></a><div className="navlinks"><a href="#work">WORK</a><a href="#about">ABOUT</a><a href="mailto:byakkokondo@gmail.com">CONTACT</a></div><button className="menuBtn" onClick={()=>setMenu(!menu)}>MENU</button></nav>
+  {menu&&<div className="mobileMenu"><a onClick={()=>setMenu(false)} href="#work">WORK</a><a onClick={()=>setMenu(false)} href="#about">ABOUT</a><a href="mailto:byakkokondo@gmail.com">CONTACT</a></div>}
+  <section className="hero">
+   <div className="gridbg"/><div className="orb o1"/><div className="orb o2"/>
+   <p className="eyebrow reveal"><i/> BYAKKO KONDO / ENGINEER / CREATIVE DEVELOPER</p>
+   <h1 className="reveal">BUILDING<br/><em>DIGITAL SYSTEMS</em><br/>THAT SHIP.</h1>
+   <div className="heroBottom reveal"><p>I design and build digital products, web experiences and automation systems — from research prototypes to production services.</p><a href="#work">EXPLORE WORK <b>↘</b></a></div>
+   <div className="terminal reveal"><div className="termbar"><span>~/byakko/portfolio</span><span>● LIVE</span></div><pre><span className="cyan">$</span> whoami{"\n"}Byakko Kondo{"\n"}<span className="muted">engineer / creative developer / tokyo</span>{"\n\n"}<span className="cyan">$</span> status{"\n"}shipping products <span className="green">✓</span>{"\n"}building systems <span className="green">✓</span>{"\n"}open to projects <span className="green">✓</span><span className="cursor">▋</span></pre></div>
+  </section>
+  <div className="ticker"><div>{[...tech,...tech].map((t,i)=><span key={i}>{t}<b>✳</b></span>)}</div></div>
+  <section id="work" className="work"><header className="sectionHead"><p>01 / SELECTED WORK</p><h2>PRODUCTS IN<br/><em>PRODUCTION.</em></h2><p className="side">2025—2026<br/>DESIGN / ENGINEERING / SYSTEMS</p></header>
+   <div className="workList">{works.map((w,i)=><article className="project" key={w.name}><div className="projectMeta"><span>{w.n}</span><span>{w.kind}</span><span>{w.year}</span></div><div className="projectBody"><div><h3>{w.name}</h3><p>{w.desc}</p><div className="chips">{w.stack.map(x=><span key={x}>{x}</span>)}</div><a href={w.url} target="_blank">VIEW PROJECT ↗</a></div><a className="screen" href={w.url} target="_blank"><img src={w.img} alt=""/><span>LIVE / {String(i+1).padStart(2,"0")}</span></a></div></article>)}</div>
+  </section>
+  <section id="about" className="about"><div className="sectionHead"><p>02 / ABOUT</p><h2>IDEA TO<br/><em>IMPLEMENTATION.</em></h2></div><div className="aboutGrid"><p className="bigcopy">I work across product development, web engineering, research software and workflow automation.</p><div className="bio"><p>My background began in life science at Gakushuin University. In the Okada Lab, I worked on protein-structure analysis using inter-carbon distances and developed software to automate structural-data workflows.</p><p>After practical engineering experience at Letterfan and Drumroll, I moved into freelance engineering. I now build mobile products, corporate platforms, commerce systems, backend integrations and automation.</p><p>Alongside client work, I develop CaRoot. Since August 2026, I have also served as a director of NPO Proud, supporting IT and web initiatives.</p></div></div>
+   <div className="timeline"><div><span>2025—26</span><b>GAKUSHUIN UNIVERSITY</b><p>Life Science / Okada Lab</p></div><div><span>2026</span><b>FREELANCE ENGINEER</b><p>Products / Web / Systems</p></div><div><span>2026—</span><b>CAROOT</b><p>Founder / Product Developer</p></div><div><span>2026.08—</span><b>NPO PROUD</b><p>Director / IT & Web</p></div></div>
+  </section>
+  <section className="stack"><p>03 / CAPABILITIES</p><h2>THE STACK IS A TOOL.<br/><em>THE OUTCOME IS THE PRODUCT.</em></h2><div className="techgrid">{tech.map((t,i)=><div key={t}><span>{String(i+1).padStart(2,"0")}</span>{t}<b>↗</b></div>)}</div></section>
+  <section className="contact"><p>04 / START A PROJECT</p><h2>HAVE AN IDEA?<br/><em>LET'S BUILD IT.</em></h2><a href="mailto:byakkokondo@gmail.com">BYAKKOKONDO@GMAIL.COM <span>↗</span></a></section>
+  <footer><b>BYAKKO KONDO</b><span>ENGINEER / CREATIVE DEVELOPER</span><span>TOKYO, JAPAN — 2026</span><a href="#">BACK TO TOP ↑</a></footer>
  </main>
- <footer><a className="brand" href="#"><Mark/>BYAKKO</a><span>© 2026 BYAKKO KONDO</span><a href="https://github.com/bbbyk105">GITHUB ↗</a></footer>
- </div>
 }

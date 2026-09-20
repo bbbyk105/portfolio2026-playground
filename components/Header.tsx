@@ -1,0 +1,1 @@
+import Link from "next/link";import Menu from "./Menu";export default function Header(){return <header className="topbar"><Link className="brand" href="/">BYAKKO</Link><div className="desktop-nav"><Link href="/#work">Work</Link><Link href="/about">About</Link><Link href="/contact">Contact</Link></div><Menu/></header>}
