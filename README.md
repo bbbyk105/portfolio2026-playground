@@ -55,6 +55,37 @@ navigation between two dark pages is hard to notice.
   [protein-flexibility-platform](https://github.com/bbbyk105/protein-flexibility-platform)
 - `public/works/` — live-site captures (desktop + mobile)
 
+## Deploy — Cloudflare Pages
+
+Every route is static (no API routes, server actions or middleware), so the
+site exports to plain files and is served from the edge with no runtime in the
+request path. `next build` writes the whole site to `out/`.
+
+**Connect the repository** (recommended — every push to `main` redeploys):
+
+| Setting | Value |
+| --- | --- |
+| Framework preset | None |
+| Build command | `npm run build` |
+| Build output directory | `out` |
+| Node version | `22` (set `NODE_VERSION=22` if the default is older) |
+
+Then add `byakko-engineer.com` (and `www`) under the project's **Custom
+domains**. With the zone already on Cloudflare the DNS records are created for
+you; certificates issue on their own.
+
+**Or deploy from a terminal**, once `wrangler login` has been run:
+
+```bash
+npm run deploy      # next build && wrangler pages deploy out
+```
+
+The project name in that script is `byakko-engineer` — change it in
+`package.json` if the Pages project is called something else.
+
+The canonical origin lives in one place, `site.url` in `lib/site.ts`, and
+feeds `metadataBase`, the Open Graph tags, `sitemap.xml` and `robots.txt`.
+
 ## Run
 
 ```bash

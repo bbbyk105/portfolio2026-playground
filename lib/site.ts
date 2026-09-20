@@ -10,6 +10,7 @@ import type { Copy } from "./i18n";
 
 export const site = {
   name: "BYAKKO KONDO",
+  url: "https://byakko-engineer.com",
   role: { en: "ENGINEER / CREATIVE DEVELOPER", ja: "エンジニア / クリエイティブデベロッパー" },
   place: { en: "TOKYO, JAPAN", ja: "東京, 日本" },
   email: "byakkokondo@gmail.com",

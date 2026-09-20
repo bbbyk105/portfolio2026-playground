@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "deploy": "next build && npx --yes wrangler@latest pages deploy out --project-name=byakko-engineer"
   },
   "dependencies": {
     "next": "16.2.9",
