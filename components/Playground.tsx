@@ -18,7 +18,7 @@ export default function Playground(){
    <h1 className="reveal">BUILDING<br/><em>DIGITAL SYSTEMS</em><br/>THAT SHIP.</h1>
    <div className="heroFoot">
     <div className="heroBottom reveal"><p><C value={home.intro}/></p><a href="#work"><C value={home.exploreWork}/> <b>↘</b></a></div>
-    <div className="terminal reveal"><div className="termbar"><span>~/byakko/portfolio</span><span>● LIVE</span></div><pre><span className="cyan">$</span> whoami{"\n"}Byakko Kondo{"\n"}<span className="muted">engineer / creative developer / tokyo</span>{"\n\n"}<span className="cyan">$</span> status{"\n"}shipping products <span className="green">✓</span>{"\n"}building systems <span className="green">✓</span>{"\n"}open to projects <span className="green">✓</span><span className="cursor">▋</span></pre></div>
+    <div className="terminal reveal"><div className="termbar"><span>~/byakko/portfolio</span></div><pre><span className="cyan">$</span> whoami{"\n"}Byakko Kondo{"\n"}<span className="muted">engineer / creative developer / tokyo</span>{"\n\n"}<span className="cyan">$</span> status{"\n"}shipping products <span className="green">✓</span>{"\n"}building systems <span className="green">✓</span>{"\n"}open to projects <span className="green">✓</span><span className="cursor">▋</span></pre></div>
    </div>
   </section>
   <Ticker/>
