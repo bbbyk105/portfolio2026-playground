@@ -59,6 +59,20 @@ const CYCLE = 6.4;
 /** The entrance is still finishing when the first loop starts. */
 const LOOP_IN = 1.5;
 
+/**
+ * Makes a loop last exactly as long as it claims to.
+ *
+ * A timeline's duration is whatever its last tween happens to end on, not the
+ * beat it was written against — so a cycle whose final fade lands at 5.25s
+ * repeats every 5.25s while everything around it repeats on CYCLE, and the
+ * packet on the rail drifts away from the module it is supposed to be
+ * building. Padding the tail keeps the scenes on one clock.
+ */
+function hold(tl: gsap.core.Timeline, period: number) {
+  tl.repeatDelay(Math.max(0, period - tl.duration()));
+  return tl;
+}
+
 /** A y on the canvas grid, as a CSS length. */
 const row = (n: number) => `calc(var(--hm-row) * ${n})`;
 
@@ -349,6 +363,9 @@ function WorksScene() {
     // Front, middle, back, waiting — one cycle apart, and locked there
     // because they all start on the same tick.
     journeys.forEach((tl, i) => tl.time(CYCLE * WORKS_ORDER[i]));
+    hold(cycle, CYCLE);
+    journeys.forEach((tl) => hold(tl, CYCLE * 4));
+
     gsap.delayedCall(LOOP_IN, () => {
       cycle.play();
       journeys.forEach((tl) => tl.play());
@@ -449,6 +466,7 @@ function DetailScene({ seed }: { seed: number }) {
       .to(q(".hmCardLive i"), { yPercent: 115, duration: 0.35, ease: "power2.in" }, CYCLE - 0.5)
       .to(q(".hmCardDot"), { backgroundColor: "#586562", boxShadow: DOT_OFF, duration: 0.5 }, CYCLE - 0.5);
 
+    hold(cycle, CYCLE);
     gsap.delayedCall(LOOP_IN, () => cycle.play());
 
     pulseRule(q);
@@ -558,6 +576,7 @@ function AboutScene() {
       .to(q(".hmCardLive i"), { yPercent: 115, duration: 0.35, ease: "power2.in" }, CYCLE - 0.55)
       .to(q(".hmCardDot"), { backgroundColor: "#586562", boxShadow: DOT_OFF, duration: 0.5 }, CYCLE - 0.55);
 
+    hold(cycle, CYCLE);
     gsap.delayedCall(LOOP_IN, () => cycle.play());
 
     pulseRule(q);
@@ -653,6 +672,7 @@ function ContactScene() {
       gsap.to(p, { x: run, duration: 7.8 + i * 3.2, ease: "none", repeat: -1, delay: LOOP_IN + i * 2.6 });
     });
 
+    hold(cycle, CYCLE);
     gsap.delayedCall(LOOP_IN, () => cycle.play());
 
     pulseRule(q);
