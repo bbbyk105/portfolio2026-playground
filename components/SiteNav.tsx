@@ -131,7 +131,7 @@ export default function SiteNav() {
     <div ref={root}>
       <nav className="nav">
         <Link className="brand" href="/">
-          BK<span>.</span>
+          BYAKKO KONDO
         </Link>
         <div className="navlinks">
           {navItems

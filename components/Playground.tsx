@@ -8,11 +8,11 @@ import {home,tech,ui} from "@/lib/site";
 import {works} from "@/lib/works";
 
 export default function Playground(){
- useEffect(()=>{gsap.from(".reveal",{y:32,opacity:0,duration:1.05,stagger:.08,ease:"power3.out"});gsap.to(".orb",{y:-18,x:12,duration:4,repeat:-1,yoyo:true,ease:"sine.inOut"})},[]);
+ useEffect(()=>{gsap.from(".reveal",{y:32,opacity:0,duration:1.05,stagger:.08,ease:"power3.out"})},[]);
  return <main>
   <SiteNav/>
   <section className="hero">
-   <div className="gridbg"/><div className="orb o1"/><div className="orb o2"/>
+   <div className="gridbg"/>
    <p className="eyebrow reveal"><i/> <C value={home.eyebrow}/></p>
    <h1 className="reveal">BUILDING<br/><em>DIGITAL SYSTEMS</em><br/>THAT SHIP.</h1>
    <div className="heroBottom reveal"><p><C value={home.intro}/></p><a href="#work"><C value={home.exploreWork}/> <b>↘</b></a></div>
