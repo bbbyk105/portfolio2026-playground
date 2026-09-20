@@ -3,6 +3,7 @@ import {useEffect} from "react";
 import {gsap} from "gsap";
 import SiteNav from "./SiteNav";
 import SiteFooter from "./SiteFooter";
+import Ticker from "./Ticker";
 import {C} from "./Lang";
 import {home,site,tech,ui} from "@/lib/site";
 import {works} from "@/lib/works";
@@ -20,7 +21,7 @@ export default function Playground(){
     <div className="terminal reveal"><div className="termbar"><span>~/byakko/portfolio</span><span>● LIVE</span></div><pre><span className="cyan">$</span> whoami{"\n"}Byakko Kondo{"\n"}<span className="muted">engineer / creative developer / tokyo</span>{"\n\n"}<span className="cyan">$</span> status{"\n"}shipping products <span className="green">✓</span>{"\n"}building systems <span className="green">✓</span>{"\n"}open to projects <span className="green">✓</span><span className="cursor">▋</span></pre></div>
    </div>
   </section>
-  <div className="ticker"><div>{[...tech,...tech].map((t,i)=><span key={i}>{t}<b>✳</b></span>)}</div></div>
+  <Ticker/>
   <section id="work" className="work"><header className="sectionHead"><p>01 / SELECTED WORK</p><h2>PRODUCTS IN<br/><em>PRODUCTION.</em></h2><p className="side">2025—2026<br/>DESIGN / ENGINEERING / SYSTEMS</p></header>
    <div className="workList">{works.map(w=><article className="project" key={w.slug}><div className="projectMeta"><span>{w.index}</span><span className="upper"><C value={w.kind}/></span><span>{w.year}</span></div><div className="projectBody"><div><h3>{w.name}</h3><p><C value={w.statement}/></p><div className="chips">{w.stack.map(x=><span key={x}>{x}</span>)}</div><a href={w.url} target="_blank" rel="noreferrer"><C value={ui.viewProject}/> ↗</a></div><a className="screen" href={w.url} target="_blank" rel="noreferrer"><img src={w.screens.desktop} alt={w.name} width={1600} height={1000}/><span>LIVE / {w.index}</span></a></div></article>)}</div>
   </section>
