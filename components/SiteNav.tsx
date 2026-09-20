@@ -57,6 +57,11 @@ export default function SiteNav() {
   const root = useRef<HTMLDivElement>(null);
   const timeline = useRef<gsap.core.Timeline | null>(null);
   const [open, setOpen] = useState(false);
+  // Whether closing the menu should put the reader back where they were, and
+  // whether the effect below has seen a real navigation yet — its first run is
+  // the mount, which is not one.
+  const restore = useRef(true);
+  const navigated = useRef(false);
   const pathname = usePathname();
 
   useGSAP(
@@ -106,22 +111,54 @@ export default function SiteNav() {
   }, [open]);
 
   // Lock the page behind the panel and close it on Escape.
+  //
+  // `overflow: hidden` on the body does not hold it: the viewport scrolls the
+  // document element here, so the body's value never reaches it — and iOS
+  // ignores it for touch whichever element carries it. Taking the body out of
+  // flow at its current offset is the one that holds everywhere; the offset
+  // has to be put back by hand afterwards, because the page has moved to the
+  // top underneath the panel while it was fixed.
   useEffect(() => {
     if (!open) return;
-    const previous = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+
+    const body = document.body;
+    const y = window.scrollY;
+    const previous = {
+      position: body.style.position,
+      top: body.style.top,
+      left: body.style.left,
+      right: body.style.right,
+      width: body.style.width,
+    };
+
+    body.style.position = "fixed";
+    body.style.top = `-${y}px`;
+    body.style.left = "0";
+    body.style.right = "0";
+    body.style.width = "100%";
+
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setOpen(false);
     };
     window.addEventListener("keydown", onKey);
+
     return () => {
-      document.body.style.overflow = previous;
+      Object.assign(body.style, previous);
       window.removeEventListener("keydown", onKey);
+      // Closing the menu is not a journey, and `html` scrolls smoothly — so
+      // put the reader back where they were rather than gliding them there.
+      // Unless the menu closed because a link in it was followed, in which
+      // case the new page's own scroll position is the right one to keep.
+      if (restore.current) window.scrollTo({ top: y, behavior: "instant" });
+      restore.current = true;
     };
   }, [open]);
 
-  // A completed navigation always leaves the menu closed.
+  // A completed navigation always leaves the menu closed, and starts the next
+  // page wherever the router put it rather than where this one was left.
   useEffect(() => {
+    if (navigated.current) restore.current = false;
+    navigated.current = true;
     setOpen(false);
   }, [pathname]);
 
