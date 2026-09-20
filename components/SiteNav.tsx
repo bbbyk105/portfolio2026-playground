@@ -5,7 +5,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
-import { C, useLang } from "./Lang";
+import { C } from "./Lang";
+import { useLang } from "./LangProvider";
 import { navItems, site, ui } from "@/lib/site";
 
 /**

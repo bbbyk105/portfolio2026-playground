@@ -14,7 +14,7 @@ import type { AnimationItem } from "lottie-web";
  * The marks are decorative — every one of them repeats what the heading next
  * to it already says — so they are hidden from assistive technology.
  */
-export default function LottieMark({ src }: { src: string }) {
+export default function LottieMark({ src, className }: { src: string; className?: string }) {
   const host = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -64,5 +64,5 @@ export default function LottieMark({ src }: { src: string }) {
     };
   }, [src]);
 
-  return <div className="lottieMark" ref={host} aria-hidden="true" />;
+  return <div className={className ? `lottieMark ${className}` : "lottieMark"} ref={host} aria-hidden="true" />;
 }

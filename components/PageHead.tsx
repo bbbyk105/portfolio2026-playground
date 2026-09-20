@@ -1,17 +1,15 @@
-"use client";
+import type { CSSProperties, ReactNode } from "react";
+import HeroMotion, { type HeroVariant } from "./HeroMotion";
+import PageHeadEntrance from "./PageHeadEntrance";
 
-import { useRef, type ReactNode } from "react";
-import { gsap } from "gsap";
-import { useGSAP } from "@gsap/react";
-
-export type BgVariant = "works" | "detail" | "about" | "contact";
+export type BgVariant = HeroVariant;
 
 type Line = { text: ReactNode; faint?: boolean };
 
 type Props = {
-  /** Picks the background figure, so each route reads as a different place. */
+  /** Picks the background figure and the motion scene, so each route reads as a different place. */
   variant: BgVariant;
-  /** Shifts the figure per case study, so one work does not look like the next. */
+  /** Shifts the figure and the scene's phase per case study, so one work does not look like the next. */
   seed?: number;
   eyebrow: ReactNode;
   lines: Line[];
@@ -21,35 +19,21 @@ type Props = {
 };
 
 /**
- * The masthead every subpage opens with. Beyond layout it does two jobs:
- * it carries a per-route background figure, and it plays an entrance on mount
- * — without one, a client-side navigation between two dark pages is hard to
- * notice at all.
+ * The masthead every subpage opens with: type down the left, a motion canvas
+ * in the right three columns.
+ *
+ * The markup is rendered on the server — it is the same handful of elements on
+ * every route, and none of it depends on the browser. The two things that do
+ * are siblings that render nothing: PageHeadEntrance plays the arrival, and
+ * HeroMotion drives the canvas.
  */
 export default function PageHead({ variant, seed = 0, eyebrow, lines, lede, meta, children }: Props) {
-  const scope = useRef<HTMLElement>(null);
-
-  useGSAP(
-    () => {
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-      gsap
-        .timeline({ defaults: { ease: "power3.out" } })
-        .from(".pageBg", { opacity: 0, scale: 1.08, duration: 1.3, ease: "power2.out" }, 0)
-        .from(".pageHeadEyebrow", { y: 14, opacity: 0, duration: 0.7 }, 0.08)
-        .from(".lineMask > span", { yPercent: 108, duration: 0.95, stagger: 0.08 }, 0.12)
-        .from(".pageHeadLede > *", { y: 20, opacity: 0, duration: 0.8, stagger: 0.09 }, 0.42)
-        .from(".pageHeadExtra", { y: 22, opacity: 0, duration: 0.8 }, 0.54);
-    },
-    { scope }
-  );
-
   return (
-    <section className={`pageHead pageHead--${variant}`} ref={scope}>
-      <div className={`pageBg pageBg--${variant}`} style={{ "--seed": seed } as React.CSSProperties} aria-hidden="true">
+    <section className={`pageHead pageHead--${variant}`}>
+      <PageHeadEntrance />
+
+      <div className={`pageBg pageBg--${variant}`} style={{ "--seed": seed } as CSSProperties} aria-hidden="true">
         <span className="bgPattern" />
-        <span className="bgShape" />
-        <span className="bgShapeAlt" />
       </div>
 
       <p className="eyebrow pageHeadEyebrow">{eyebrow}</p>
@@ -66,6 +50,8 @@ export default function PageHead({ variant, seed = 0, eyebrow, lines, lede, meta
         <p>{lede}</p>
         {meta ? <span className="pageLedeMeta">{meta}</span> : null}
       </div>
+
+      <HeroMotion variant={variant} seed={seed} />
 
       {children ? <div className="pageHeadExtra">{children}</div> : null}
     </section>

@@ -24,7 +24,13 @@ export default function Reveal({ children, className, y = 26, stagger = 0.07 }: 
 
   useGSAP(
     () => {
-      const targets = gsap.utils.toArray<HTMLElement>(scope.current?.children ?? []);
+      // Read the element once. A ScrollTrigger built with a null trigger does
+      // not fail where it is written — it fails later, inside a refresh, as an
+      // unreadable `end`, which is a long way from the cause.
+      const root = scope.current;
+      if (!root) return;
+
+      const targets = gsap.utils.toArray<HTMLElement>(root.children);
       if (!targets.length) return;
 
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -41,7 +47,7 @@ export default function Reveal({ children, className, y = 26, stagger = 0.07 }: 
         // Drop the inline styles once the entrance is done: after this the
         // element cannot be re-hidden by a later refresh or resize.
         onComplete: () => gsap.set(targets, { clearProps: "opacity,transform" }),
-        scrollTrigger: { trigger: scope.current, start: "top 88%", once: true },
+        scrollTrigger: { trigger: root, start: "top 88%", once: true },
       });
 
       // Screens carry intrinsic dimensions, but fonts and late layout still

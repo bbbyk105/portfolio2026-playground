@@ -5,6 +5,7 @@ import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import PageHead from "@/components/PageHead";
 import Reveal from "@/components/Reveal";
+import CodeBlock from "@/components/CodeBlock";
 import { C, T } from "@/components/Lang";
 import { research, getResearch } from "@/lib/research";
 import { ui } from "@/lib/site";
@@ -205,20 +206,7 @@ export default async function ResearchDetailPage({ params }: Params) {
             </h2>
           </header>
           <Reveal>
-            <div className="terminal">
-              <div className="termbar">
-                <span>{entry.code.filename}</span>
-                <span>{entry.code.label}</span>
-              </div>
-              <pre>
-                {entry.code.lines.map((line, i) => (
-                  <span key={i} className={line.startsWith("#") ? "muted" : undefined}>
-                    {line}
-                    {"\n"}
-                  </span>
-                ))}
-              </pre>
-            </div>
+            <CodeBlock filename={entry.code.filename} label={entry.code.label} lines={entry.code.lines} />
           </Reveal>
         </section>
       ) : null}

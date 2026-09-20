@@ -1,7 +1,8 @@
 "use client";
 
 import { useMemo, useRef, useState, type FormEvent } from "react";
-import { C, useLang } from "./Lang";
+import { C } from "./Lang";
+import { useLang } from "./LangProvider";
 import { contact, site } from "@/lib/site";
 import {
   buildMailto,

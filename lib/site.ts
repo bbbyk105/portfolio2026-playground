@@ -22,7 +22,7 @@ export type NavItem = { label: string; sub: Copy; href: string; index: string };
 
 export const navItems: NavItem[] = [
   { label: "HOME", sub: { en: "Home", ja: "ホーム" }, href: "/", index: "00" },
-  { label: "WORK", sub: { en: "Selected work", ja: "実績" }, href: "/works", index: "01" },
+  { label: "WORKS", sub: { en: "Selected work", ja: "実績" }, href: "/works", index: "01" },
   { label: "ABOUT", sub: { en: "About me", ja: "経歴・できること" }, href: "/about", index: "02" },
   { label: "CONTACT", sub: { en: "Get in touch", ja: "お問い合わせ" }, href: "/contact", index: "03" },
 ];

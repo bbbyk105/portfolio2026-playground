@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { LanguageProvider } from "@/components/Lang";
+import DisplayReveal from "@/components/DisplayReveal";
+import { LanguageProvider } from "@/components/LangProvider";
 import { LANG_INIT_SCRIPT } from "@/lib/i18n";
 import { site } from "@/lib/site";
 import "./globals.css";
@@ -32,11 +33,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     // so the attributes here are only the neutral starting point.
     <html lang="en" data-lang="en" suppressHydrationWarning>
       <head>
-        {/* Runs before first paint so the page never flashes the wrong language. */}
-        <script dangerouslySetInnerHTML={{ __html: LANG_INIT_SCRIPT }} />
+        {/* Runs before first paint: the language the page will be read in, and
+            a flag that scripting is on. The flag lets the stylesheet hold the
+            hero headline back until HeroReveal has cut it into characters —
+            without it, a visitor with no JavaScript would be left with an
+            invisible headline. */}
+        <script dangerouslySetInnerHTML={{ __html: `${LANG_INIT_SCRIPT}document.documentElement.classList.add("js");` }} />
       </head>
       <body>
         <LanguageProvider>{children}</LanguageProvider>
+        <DisplayReveal />
       </body>
     </html>
   );

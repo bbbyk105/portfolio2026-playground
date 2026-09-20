@@ -1,45 +1,17 @@
-"use client";
-
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-  type ReactNode,
-} from "react";
-import { applyLang, currentLang, type Copy, type Lang } from "@/lib/i18n";
-
-type Ctx = { lang: Lang; setLang: (lang: Lang) => void };
-
-const LangContext = createContext<Ctx>({ lang: "en", setLang: () => {} });
-
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  // The server cannot know the visitor's language, so render neutral and pick
-  // up what the inline script already decided once we are on the client.
-  const [lang, setLangState] = useState<Lang>("en");
-
-  useEffect(() => {
-    setLangState(currentLang());
-  }, []);
-
-  const setLang = useCallback((next: Lang) => {
-    applyLang(next);
-    setLangState(next);
-  }, []);
-
-  return <LangContext.Provider value={{ lang, setLang }}>{children}</LangContext.Provider>;
-}
-
-/** For attributes and other places that cannot hold two nodes at once. */
-export function useLang() {
-  return useContext(LangContext);
-}
+import type { ReactNode } from "react";
+import type { Copy } from "@/lib/i18n";
 
 /**
- * Renders both languages and lets the stylesheet hide one. Doing it this way
- * rather than branching in JS keeps the correct copy on screen from the very
- * first paint, and leaves both languages in the markup for search engines.
+ * Bilingual copy. There is no directive at the top of this file on purpose:
+ * both of these are pure render, so they stay on the server and the copy they
+ * carry is in the HTML rather than in a bundle — which matters, because almost
+ * every string on the site goes through them.
+ *
+ * Rendering both languages and letting the stylesheet hide one, rather than
+ * branching in JavaScript, keeps the correct copy on screen from the very
+ * first paint and leaves both languages in the markup for search engines.
+ * The language itself is decided by the inline script in the layout; only the
+ * nav toggle and the form need to read it, and those use LangProvider.
  */
 export function T({ en, ja }: { en: ReactNode; ja: ReactNode }) {
   return (

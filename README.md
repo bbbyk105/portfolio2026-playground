@@ -40,15 +40,41 @@ Every page is black, so each route carries its own CSS background figure —
 a ledger grid on `/works`, a section through the product on a case study
 (shifted per work), a dot matrix on `/about`, diagonal hatching on `/contact`
 — and `PageHead` plays an entrance on mount. Without both, a client-side
-navigation between two dark pages is hard to notice.
+navigation between two dark pages is hard to notice. The figure is the page's
+floor; what sits on top of it in the right three columns is `HeroMotion`.
 
 ## Structure
 
-- `app/` — routes and `globals.css` (the whole design system, no CSS framework)
+- `app/` — routes and `globals.css` (the whole design system, no CSS framework).
+  Pages are Server Components; what needs the browser is pulled in as an island,
+  and three of those islands — `HeroReveal`, `HeroEntrance`, `PageHeadEntrance` —
+  render nothing at all and only carry behaviour
 - `components/SiteNav.tsx` — nav bar and the GSAP hamburger panel, shared by every page
-- `components/PageHead.tsx` — per-route background figure and arrival animation
-- `components/Lang.tsx`, `lib/i18n.ts` — language detection, provider and `<T>` / `<C>`
+- `components/PageHead.tsx` — the subpage masthead: type down the left, motion
+  canvas in the right three columns, and an arrival animation on mount
+- `components/HeroMotion.tsx` — that canvas. One motion system, four scenes:
+  works runs a deployment, a case study compiles its stack, about converges
+  four strands of a practice, contact sends a message and waits for the
+  receipt. Everything sits on the masthead's own 44px grid, reveals by clip /
+  mask / scale rather than opacity, and settles into an idle a few pixels
+  wide. Reduced motion is left with the stylesheet's resting state, which is
+  the last frame of the entrance
+- `components/Lang.tsx` — `<T>` / `<C>`, which render both languages and let the
+  stylesheet hide one. Deliberately not a client component: almost every string
+  on the site goes through them, so they stay in the HTML rather than in a bundle
+- `components/LangProvider.tsx`, `lib/i18n.ts` — language detection and the state
+  the two places that cannot render both languages at once read from: the nav's
+  toggle and the form's attributes
 - `components/Reveal.tsx` — ScrollTrigger entrance for subpage content
+- `components/HeroReveal.tsx` — the homepage headline, assembled a character at
+  a time. The choreography is gsap.com's, read off their homepage bundle: the
+  same per-letter entrances (rise behind a clip, drop, slide in from the left,
+  scale from nothing, turn on `rotationX` / `rotationY`), the same
+  `power2.out` / 0.6s defaults, and their uneven offsets rather than a flat
+  stagger. The heading waits out of sight — `.js .hero h1` — until the
+  timeline has it
+- `components/DisplayReveal.tsx` — the same character reveal, in its plain
+  form, on every other oversized heading, played as each one scrolls in
 - `lib/works.ts`, `lib/site.ts` — client work and site-wide copy, carried over from Portfolio2026-ver4
 - `lib/research.ts` — the research case study, written from the implementations in
   [okada_lab](https://github.com/bbbyk105/okada_lab) and

@@ -1,7 +1,7 @@
 *{box-sizing:border-box}/* The page gutter. Past ~1800px it grows instead of the content, so a wide
    monitor gets margins rather than a 2,400px line of text. */
 :root{--gutter:max(3vw,(100vw - 1760px)/2)}
-html{scroll-behavior:smooth}body{margin:0;background:#080b0c;color:#f2f5f4;font-family:Arial,Helvetica,sans-serif}a{color:inherit;text-decoration:none}::selection{background:#70f4df;color:#06110f}.nav{position:fixed;z-index:20;top:0;left:0;width:100%;height:72px;padding:0 var(--gutter);display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff18;background:#080b0ccc;backdrop-filter:blur(16px)}.cyan{color:#70f4df}.navlinks{display:flex;gap:34px;font:11px monospace;letter-spacing:.08em}.navlinks a:hover{color:#70f4df}.menuBtn{display:none;background:none;color:white;border:0;font:11px monospace;position:relative;align-items:center;gap:6px;padding:12px 0;cursor:pointer}.menuBtn span{display:block;width:17px;height:1px;background:#f2f5f4;position:absolute;right:0}.menuBtn span:first-child{top:10px}.menuBtn span:nth-child(2){top:16px}.menuBtn b{font:inherit;font-weight:400;margin-right:27px}.navlinks a.isActive{color:#70f4df}.hero{min-height:100vh;min-height:100svh;padding:150px var(--gutter) 60px;position:relative;overflow:hidden;border-bottom:1px solid #ffffff18}.gridbg{position:absolute;inset:0;background-image:linear-gradient(#fff0 95%,#ffffff0c 95%),linear-gradient(90deg,#fff0 95%,#ffffff0c 95%);background-size:70px 70px;mask-image:linear-gradient(to bottom,#000,transparent 90%)}.eyebrow{position:relative;font:11px monospace;letter-spacing:.08em;color:#aab3b1}.hero h1,.sectionHead h2,.stack h2,.contact h2{position:relative;margin:42px 0 0;font-size:clamp(114px,9.5vw,150px);line-height:.82;letter-spacing:-.075em;text-transform:uppercase}.hero h1 em,.sectionHead h2 em,.stack h2 em,.contact h2 em{font-style:normal;color:transparent;-webkit-text-stroke:1px #7d8986}.heroBottom{position:relative;margin-top:55px;display:flex;gap:10vw;align-items:end}.heroBottom p{max-width:520px;color:#aab3b1;font-size:18px;line-height:1.5}.heroBottom a{font:12px monospace;border-bottom:1px solid #70f4df;padding-bottom:9px}.heroBottom b{color:#70f4df}.terminal{position:relative;margin:70px 0 0 auto;width:min(650px,62vw);background:#090d0e;border:1px solid #ffffff1e;box-shadow:0 40px 100px #0008}.termbar{height:42px;padding:0 15px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff18;font:10px monospace;color:#75817e}.termbar span+span{color:#70f4df}.terminal pre{padding:24px;margin:0;font:12px/1.75 monospace;color:#c7cfcd;overflow-x:auto}.muted{color:#5f6c69}.green{color:#70f4df}.cursor{animation:blink 1s infinite;color:#70f4df}@keyframes blink{50%{opacity:0}}.ticker{overflow:hidden;border-bottom:1px solid #ffffff18;background:#0d1112;color:#c3cdca;-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}.ticker>div{display:flex;width:max-content;animation:ticker 40s linear infinite}.ticker span{font:11px monospace;letter-spacing:.13em;padding:17px 25px;white-space:nowrap;display:inline-flex;align-items:center;gap:11px}@keyframes ticker{to{transform:translateX(-50%)}}.work,.about,.stack{padding:110px var(--gutter)}.sectionHead{display:grid;grid-template-columns:1fr 3fr 1fr;gap:30px;align-items:end;margin-bottom:80px}.sectionHead>p,.stack>p,.contact>p{font:10px monospace;color:#77827f;letter-spacing:.08em}.sectionHead h2,.stack h2,.contact h2{font-size:clamp(84px,7vw,110px);margin:0}.side{line-height:1.8}.project{border-top:1px solid #ffffff24;padding:20px 0 70px}.projectMeta{display:grid;grid-template-columns:80px 1fr auto;font:10px monospace;color:#75817e}.projectBody{display:grid;grid-template-columns:1fr 1.35fr;gap:7vw;align-items:center;margin-top:45px}.project h3{font-size:clamp(42px,6vw,90px);letter-spacing:-.06em;margin:0 0 25px}.project p{color:#9ba6a3;max-width:520px;line-height:1.6}.projectBody>div>a{display:inline-block;margin-top:35px;font:11px monospace;border-bottom:1px solid #70f4df;padding-bottom:7px}.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:24px}.chips span{border:1px solid #ffffff1e;padding:7px 9px;font:9px monospace;color:#aab3b1}.screen{position:relative;display:block;background:#101617;border:1px solid #ffffff1c;padding:8px;overflow:hidden}.screen img{display:block;width:100%;height:auto;filter:saturate(.7);transition:.7s transform,.7s filter}.screen:hover img{transform:scale(1.025);filter:saturate(1)}.screen span{position:absolute;right:16px;bottom:16px;background:#70f4df;color:#06110f;padding:7px 9px;font:9px monospace}.about{border-top:1px solid #ffffff18;background:#0b0f10}.aboutGrid{display:grid;grid-template-columns:1.15fr 1fr;gap:10vw;border-top:1px solid #ffffff18;padding-top:50px}.bigcopy{font-size:clamp(38px,4vw,58px);line-height:1.04;letter-spacing:-.04em;margin:0}.bio p{color:#aab3b1;line-height:1.75;margin:0 0 24px}.timeline{display:grid;grid-template-columns:repeat(4,1fr);margin-top:100px;border-top:1px solid #ffffff24}.timeline div{padding:24px 20px 10px 0;border-right:1px solid #ffffff18;min-height:150px}.timeline span{display:block;font:10px monospace;color:#70f4df;margin-bottom:40px}.timeline b{font-size:12px}.timeline p{font:10px monospace;color:#6f7b78}.stack{border-top:1px solid #ffffff18}.stack h2{max-width:1200px}.techgrid{display:grid;grid-template-columns:repeat(4,1fr);margin-top:70px;border-top:1px solid #ffffff24}.techgrid div{padding:22px 12px;border-bottom:1px solid #ffffff18;border-right:1px solid #ffffff18;font:13px monospace;display:flex;align-items:center;gap:20px}.techgrid div:hover{background:#70f4df;color:#06110f}.techgrid span{font-size:9px;color:#6f7b78}.techgrid b{margin-left:auto}.contact{padding:120px var(--gutter) 90px;background:#70f4df;color:#06110f}.contact h2{max-width:1200px}.contact h2 em{-webkit-text-stroke:1px #06110f88}.contact>a{display:flex;justify-content:space-between;margin-top:80px;padding:24px 0;border-top:1px solid #06110f;border-bottom:1px solid #06110f;font:14px monospace}.contact>a span{font-size:24px}footer{padding:35px var(--gutter);display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:20px;font:9px monospace;color:#7d8885;border-top:1px solid #ffffff18}footer b{color:white}.mobileMenu{display:none;position:fixed;z-index:19;inset:72px 0 0;background:#080b0c;color:#f2f5f4;clip-path:inset(0 0 100% 0);pointer-events:none;padding:42px 6vw 28px;flex-direction:column}.mobileMenuMeta,.mobileMenuFoot{display:flex;justify-content:space-between;font:9px monospace;letter-spacing:.08em;color:#75817e}.mobileMenuNav{margin:auto 0;display:flex;flex-direction:column}.mobileMenuLink{display:flex;align-items:flex-start;gap:18px;padding:11px 0;border-bottom:1px solid #ffffff1c;font-size:clamp(48px,16vw,82px);font-weight:700;line-height:.9;letter-spacing:-.065em}.mobileMenuLink:first-child{border-top:1px solid #ffffff1c}.mobileMenuLink small{font:9px monospace;color:#70f4df;letter-spacing:0;margin-top:7px}.mobileMenuFoot{padding-top:24px;border-top:1px solid #ffffff1c}
+html{scroll-behavior:smooth}body{margin:0;background:#080b0c;color:#f2f5f4;font-family:Arial,Helvetica,sans-serif}a{color:inherit;text-decoration:none}::selection{background:#70f4df;color:#06110f}.nav{position:fixed;z-index:20;top:0;left:0;width:100%;height:72px;padding:0 var(--gutter);display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff18;background:#080b0ccc;backdrop-filter:blur(16px)}.cyan{color:#70f4df}.navlinks{display:flex;gap:34px;font:11px monospace;letter-spacing:.08em}.navlinks a:hover{color:#70f4df}.menuBtn{display:none;background:none;color:white;border:0;font:11px monospace;position:relative;align-items:center;gap:6px;padding:12px 0;cursor:pointer}.menuBtn span{display:block;width:17px;height:1px;background:#f2f5f4;position:absolute;right:0}.menuBtn span:first-child{top:10px}.menuBtn span:nth-child(2){top:16px}.menuBtn b{font:inherit;font-weight:400;margin-right:27px}.navlinks a.isActive{color:#70f4df}.hero{min-height:100vh;min-height:100svh;padding:150px var(--gutter) 60px;position:relative;overflow:hidden;border-bottom:1px solid #ffffff18}.gridbg{position:absolute;inset:0;background-image:linear-gradient(#fff0 95%,#ffffff0c 95%),linear-gradient(90deg,#fff0 95%,#ffffff0c 95%);background-size:70px 70px;mask-image:linear-gradient(to bottom,#000,transparent 90%)}.eyebrow{position:relative;font:11px monospace;letter-spacing:.08em;color:#aab3b1}.hero h1,.sectionHead h2,.stack h2,.contact h2{position:relative;margin:42px 0 0;font-size:clamp(114px,9.5vw,150px);line-height:.82;letter-spacing:-.075em;text-transform:uppercase}.hero h1 em,.sectionHead h2 em,.stack h2 em,.contact h2 em{font-style:normal;color:transparent;-webkit-text-stroke:1px #7d8986}.heroBottom{position:relative;margin-top:55px;display:flex;gap:10vw;align-items:end}.heroBottom p{max-width:520px;color:#aab3b1;font-size:18px;line-height:1.5}.heroBottom a{font:12px monospace;border-bottom:1px solid #70f4df;padding-bottom:9px}.heroBottom b{color:#70f4df}.terminal{position:relative;margin:70px 0 0 auto;width:min(650px,62vw);background:#090d0e;border:1px solid #ffffff1e;box-shadow:0 40px 100px #0008}.termbar{height:42px;padding:0 15px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff18;font:10px monospace;color:#75817e}.termbar span+span{color:#70f4df}.terminal pre{padding:24px;margin:0;font:12px/1.75 monospace;color:#c7cfcd;overflow-x:auto}.muted{color:#5f6c69}.green{color:#70f4df}.cursor{animation:blink 1s infinite;color:#70f4df}@keyframes blink{50%{opacity:0}}.ticker{overflow:hidden;border-bottom:1px solid #ffffff18;background:#0d1112;color:#c3cdca;-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}.ticker>div{display:flex;width:max-content;animation:ticker 40s linear infinite}.ticker span{font:11px monospace;letter-spacing:.13em;padding:17px 25px;white-space:nowrap;display:inline-flex;align-items:center;gap:11px}@keyframes ticker{to{transform:translateX(-50%)}}.work,.about,.stack{padding:110px var(--gutter)}.sectionHead{display:grid;grid-template-columns:1fr 3fr 1fr;gap:30px;align-items:end;margin-bottom:80px}.sectionHead>p,.stack>p,.contact>p{font:10px monospace;color:#77827f;letter-spacing:.08em}.sectionHead h2,.stack h2,.contact h2{font-size:clamp(84px,7vw,110px);margin:0}.side{line-height:1.8}.project{border-top:1px solid #ffffff24;padding:20px 0 70px}.projectMeta{display:grid;grid-template-columns:80px 1fr auto;font:10px monospace;color:#75817e}.projectBody{display:grid;grid-template-columns:1fr 1.35fr;gap:7vw;align-items:center;margin-top:45px}.project h3{font-size:clamp(42px,6vw,90px);letter-spacing:-.06em;margin:0 0 25px}.project p{color:#9ba6a3;max-width:520px;line-height:1.6}.projectBody>div>a{display:inline-block;margin-top:35px;font:11px monospace;border-bottom:1px solid #70f4df;padding-bottom:7px}.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:24px}.chips span{border:1px solid #ffffff1e;padding:7px 9px;font:9px monospace;color:#aab3b1}.screen{position:relative;display:block;background:#101617;border:1px solid #ffffff1c;padding:8px;overflow:hidden}.screen img{display:block;width:100%;height:auto;filter:saturate(.7);transition:.7s transform,.7s filter}.screen:hover img{transform:scale(1.025);filter:saturate(1)}.screen span{position:absolute;right:16px;bottom:16px;background:#70f4df;color:#06110f;padding:7px 9px;font:9px monospace}.about{border-top:1px solid #ffffff18;background:#0b0f10}.aboutGrid{display:grid;grid-template-columns:1.05fr 1fr;gap:7vw;align-items:baseline;border-top:1px solid #ffffff18;padding-top:50px}.bigcopy{max-width:14em;font-size:clamp(38px,4vw,58px);line-height:1.04;letter-spacing:-.04em;margin:0;text-wrap:pretty}.bio p{max-width:40em;color:#b3bebb;font-size:17px;line-height:1.8;margin:0 0 26px}.timeline{display:grid;grid-template-columns:repeat(4,1fr);margin-top:100px;border-top:1px solid #ffffff24}.timeline div{padding:24px 20px 10px 0;border-right:1px solid #ffffff18;min-height:150px}.timeline span{display:block;font:10px monospace;color:#70f4df;margin-bottom:40px}.timeline b{font-size:12px}.timeline p{font:10px monospace;color:#6f7b78}.stack{border-top:1px solid #ffffff18}.stack h2{max-width:1200px}.techgrid{display:grid;grid-template-columns:repeat(4,1fr);margin-top:70px;border-top:1px solid #ffffff24}.techgrid div{padding:22px 12px;border-bottom:1px solid #ffffff18;border-right:1px solid #ffffff18;font:13px monospace;display:flex;align-items:center;gap:20px}.techgrid div:hover{background:#70f4df;color:#06110f}.techgrid span{font-size:9px;color:#6f7b78}.techgrid b{margin-left:auto}.contact{padding:120px var(--gutter) 90px;background:#70f4df;color:#06110f}.contact h2{max-width:1200px}.contact h2 em{-webkit-text-stroke:1px #06110f88}.contact>a{display:flex;justify-content:space-between;margin-top:80px;padding:24px 0;border-top:1px solid #06110f;border-bottom:1px solid #06110f;font:14px monospace}.contact>a span{font-size:24px}footer{padding:35px var(--gutter);display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:20px;font:9px monospace;color:#7d8885;border-top:1px solid #ffffff18}footer b{color:white}.mobileMenu{display:none;position:fixed;z-index:19;inset:72px 0 0;background:#080b0c;color:#f2f5f4;clip-path:inset(0 0 100% 0);pointer-events:none;padding:42px 6vw 28px;flex-direction:column}.mobileMenuMeta,.mobileMenuFoot{display:flex;justify-content:space-between;font:9px monospace;letter-spacing:.08em;color:#75817e}.mobileMenuNav{margin:auto 0;display:flex;flex-direction:column}.mobileMenuLink{display:flex;align-items:flex-start;gap:18px;padding:11px 0;border-bottom:1px solid #ffffff1c;font-size:clamp(48px,16vw,82px);font-weight:700;line-height:.9;letter-spacing:-.065em}.mobileMenuLink:first-child{border-top:1px solid #ffffff1c}.mobileMenuLink small{font:9px monospace;color:#70f4df;letter-spacing:0;margin-top:7px}.mobileMenuFoot{padding-top:24px;border-top:1px solid #ffffff1c}
 @media(max-width:760px){:root{--gutter:6vw}.navlinks{display:none}.menuBtn{display:flex}.mobileMenu{display:flex}.hero{padding:125px var(--gutter) 45px}.hero h1{font-size:15vw}.heroBottom{display:block}.heroBottom a{display:inline-block;margin-top:20px}.terminal{width:100%;margin-top:55px}.sectionHead{grid-template-columns:1fr;gap:18px}.side{display:none}.work,.about,.stack{padding:80px var(--gutter)}.projectBody{grid-template-columns:1fr;gap:40px}.projectMeta{grid-template-columns:45px 1fr auto}.aboutGrid{grid-template-columns:1fr}.timeline{grid-template-columns:1fr 1fr}.techgrid{grid-template-columns:1fr 1fr}.contact{padding:80px var(--gutter)}.contact h2{font-size:15vw}.contact>a{font-size:10px;overflow-wrap:anywhere}footer{grid-template-columns:1fr 1fr}.sectionHead h2,.stack h2{font-size:13vw}}
 /* ── Subpage shell (works / about / contact) ───────────────────────────── */
 .pageHead{position:relative;overflow:hidden;padding:150px var(--gutter) 70px;border-bottom:1px solid #ffffff18}
@@ -82,25 +82,37 @@ html{scroll-behavior:smooth}body{margin:0;background:#080b0c;color:#f2f5f4;font-
 .form{border-top:1px solid #ffffff24;padding-top:40px}
 .formGrid{display:grid;grid-template-columns:1fr 1fr;gap:26px 4vw}
 .field{display:block;scroll-margin-top:96px}
-.field>label{display:block;margin-bottom:12px;font:9px monospace;color:#70f4df;letter-spacing:.08em}
-.field input,.field textarea{width:100%;padding:14px;background:#0d1213;border:1px solid #ffffff1e;color:#f2f5f4;font:13px/1.6 monospace;outline:0;transition:border-color .25s ease}
+.field>label{display:block;margin-bottom:12px;font:10px monospace;color:#70f4df;letter-spacing:.08em}
+.field input,.field textarea{width:100%;padding:15px 14px;background:#0d1213;border:1px solid #ffffff1e;color:#f2f5f4;font:15px/1.7 monospace;outline:0;transition:border-color .25s ease}
 .field input::placeholder,.field textarea::placeholder{color:#5f6c69}
 .field input:focus,.field textarea:focus{border-color:#70f4df}
 .field textarea{resize:vertical}
 .fieldWide{margin-top:26px}
 .formSubmit{margin-top:40px;width:100%;display:flex;align-items:center;gap:20px;padding:22px 24px;background:#70f4df;color:#06110f;border:0;text-align:left;cursor:pointer;transition:background .25s ease}
 .formSubmit:hover{background:#8ff8e8}
-.formSubmitKicker{font:9px monospace;letter-spacing:.08em}
+.formSubmitKicker{font:10px monospace;letter-spacing:.08em}
 .formSubmitTitle{margin-left:auto;font-size:clamp(20px,2.4vw,34px);font-weight:700;letter-spacing:-.04em;text-transform:uppercase}
 .formSubmitArrow{font:16px monospace}
-.formNote{margin:18px 0 0;font:9px monospace;color:#75817e;letter-spacing:.08em}
+.formNote{margin:18px 0 0;font:10px/1.6 monospace;color:#75817e;letter-spacing:.08em}
 /* Validation. The browser's own bubbles are off, so these carry the whole message. */
 .field input[aria-invalid="true"],.field textarea[aria-invalid="true"]{border-color:#c2564f}
 .field input[aria-invalid="true"]:focus,.field textarea[aria-invalid="true"]:focus{border-color:#f09a94}
-.fieldError{display:block;margin-top:10px;font:400 9px/1.7 monospace;letter-spacing:.06em;color:#f09a94}
-.fieldCount{display:block;margin-top:10px;text-align:right;font:9px monospace;letter-spacing:.06em;color:#5f6c69}
-.formErrors{margin:0;font:9px/1.7 monospace;letter-spacing:.08em;color:#f09a94}
+.fieldError{display:block;margin-top:10px;font:400 10px/1.7 monospace;letter-spacing:.06em;color:#f09a94}
+.fieldCount{display:block;margin-top:10px;text-align:right;font:10px monospace;letter-spacing:.06em;color:#5f6c69}
+.formErrors{margin:0;font:10px/1.7 monospace;letter-spacing:.08em;color:#f09a94}
 .formErrors:not(:empty){margin-top:30px}
+/* The enquiry form is the one place on the site where the small type has to
+   be read and typed into rather than glanced at. Japanese also carries none
+   of the tracking that makes a 9-10px Latin label work — at that size, with
+   .08em pushed between them, 「会社・組織名」 reads as a mistake rather than
+   as a label. So Japanese gets a couple of points and its spacing back. */
+[data-lang="ja"] .field>label,
+[data-lang="ja"] .formSubmitKicker,
+[data-lang="ja"] .formNote,
+[data-lang="ja"] .fieldError,
+[data-lang="ja"] .formErrors{font-size:12px;letter-spacing:.02em}
+[data-lang="ja"] .field input,
+[data-lang="ja"] .field textarea{letter-spacing:.02em}
 .directList{border-top:1px solid #ffffff24}
 .directRow{display:grid;grid-template-columns:140px 1fr auto;gap:20px;align-items:center;padding:26px 0;border-bottom:1px solid #ffffff18}
 .directRow:hover{background:#ffffff06}
@@ -139,6 +151,8 @@ html{overflow-x:clip}
  .practice,.journey,.caps,.enquiry{padding:70px var(--gutter)}
  .direct{padding:0 var(--gutter) 70px}
  .practiceGrid,.capsGrid,.formGrid{grid-template-columns:1fr}
+ /* Safari zooms the page when it focuses an input under 16px. */
+ .field input,.field textarea{font-size:16px}
  .practiceCard,.practiceCard:last-child{padding:28px 0 36px;border-right:0;border-bottom:1px solid #ffffff18}
  .capsGroup{padding:26px 0 32px;border-right:0}
  .journeyRow{grid-template-columns:40px 1fr;gap:12px 14px}
@@ -149,6 +163,33 @@ html{overflow-x:clip}
  .directRow span{grid-column:1/-1}
 }
 
+/* The hero headline is assembled a character at a time by HeroReveal, so it
+   waits out of sight until that has something to show. Gated on .js: with no
+   scripting the heading is simply never hidden. */
+.js .hero h1{visibility:hidden}
+
+/* SplitText clips each character to its own box, and the display type is set
+   on a line-height below 1 — the box is shorter than the glyph, so the clip
+   shaved the top and bottom off every letter. The padding gives it room; the
+   matching negative margin leaves the margin box, and with it the baseline an
+   overflow:clip inline-block takes from its bottom edge, exactly where it was.
+   The sides need it too: the tracking here is negative, so the box is
+   narrower than the glyph and the clip was shaving the right-hand stroke off
+   letters. The entrances travel 120% to clear the taller clip. */
+.heroChar-mask,.splitChar-mask{padding:.18em;margin:-.18em}
+/* A split word is a row of inline-blocks, which the browser is free to
+   break between — an oversized word like IMPLEMENTATION. would drop its
+   last letter onto a line of its own. Hold each word together and the
+   line breaks where it did before the heading was cut up. */
+.heroWord,.splitWord{white-space:nowrap}
+
+/* The colour gsap.com keeps in its hero, in this site's own terms: the
+   outlined line of the headline is drawn in the accent rather than in grey,
+   and the full stop is solid accent. Everything else stays as it was — the
+   rest of the colour arrives with the letters and leaves with them. */
+.hero h1 em{-webkit-text-stroke:1px rgba(112,244,223,.42)}
+.hero h1 .heroAccent{color:#70f4df}
+
 /* ── Bilingual output ──────────────────────────────────────────────────────
    Both languages ship in the markup and the stylesheet hides one, so the
    correct copy is on screen from the first paint — the inline script in <head>
@@ -158,14 +199,23 @@ html{overflow-x:clip}
 :root:not([data-lang="ja"]) .tJa{display:none}
 body{font-family:Arial,Helvetica,"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",Meiryo,sans-serif}
 .upper{text-transform:uppercase}
-[data-lang="ja"] .bio p,[data-lang="ja"] .detailBody p,[data-lang="ja"] .journeyBody p{line-height:1.95}
+[data-lang="ja"] .bio p{line-height:1.92}
+[data-lang="ja"] .detailBody p,[data-lang="ja"] .journeyBody p{line-height:1.95}
 /* Kinsoku: keep a line from starting on a small kana or a long-vowel mark
    ("ソフトウ / ェア"). Inherited, so it covers every Japanese line on the page. */
 [data-lang="ja"]{line-break:strict}
+/* The lede and the biography are read as a pair, so they start on the same
+   baseline and stay within reach of each other in size — a 58px statement
+   beside 16px body copy reads as two unrelated blocks. The lede is held to a
+   measure of its own rather than run to the full column. */
 /* Display copy set for English is too tight for Japanese: kana and kanji fill
    their full em, so the lines collide at 1.04 and the negative tracking closes
    the last of the gap. Give the Japanese lead its own size and leading. */
-[data-lang="ja"] .bigcopy{font-size:clamp(30px,3.3vw,46px);line-height:1.55;letter-spacing:.005em}
+/* Japanese has no spaces, so the default wrap breaks words wherever the
+   measure runs out — at display size that reads as a mistake
+   (「ソフトウェ / ア」, 「手が / けています」). auto-phrase breaks at phrase
+   boundaries instead; the wider measure gives it somewhere to break. */
+[data-lang="ja"] .bigcopy{font-size:clamp(28px,2.7vw,39px);line-height:1.62;letter-spacing:.01em;max-width:17em;word-break:auto-phrase}
 [data-lang="ja"] .project p,[data-lang="ja"] .practiceCard p,[data-lang="ja"] .canDoCard p{line-height:1.85}
 
 .langToggle{display:flex;align-items:center;gap:6px;font:11px monospace;letter-spacing:.08em;color:#75817e}
@@ -179,7 +229,10 @@ body{font-family:Arial,Helvetica,"Hiragino Sans","Hiragino Kaku Gothic ProN","No
 
 /* ── Per-route background figures ──────────────────────────────────────────
    Every page is black, so without a distinct figure per route a client-side
-   navigation is hard to notice. Pattern + shapes, all in CSS. */
+   navigation is hard to notice. Each masthead carries its route's pattern in
+   CSS and, behind the type, a line figure drawn by scripts/gen-lottie.mjs —
+   a register, an orbit, a section, a signal — turning on a fifteen-second
+   loop that has no beginning and no end. */
 .pageBg{position:absolute;inset:0;overflow:hidden;pointer-events:none}
 .pageBg span{position:absolute;display:block}
 .bgPattern{inset:0;mask-image:linear-gradient(to bottom,#000 12%,transparent 92%)}
@@ -190,23 +243,15 @@ body{font-family:Arial,Helvetica,"Hiragino Sans","Hiragino Kaku Gothic ProN","No
 
 /* WORKS — a register: horizontal rules and a stack of frames. */
 .pageBg--works .bgPattern{background-image:repeating-linear-gradient(to right,#ffffff1c 0 1px,transparent 1px 12.5%),repeating-linear-gradient(to bottom,#ffffff12 0 1px,transparent 1px 44px)}
-.pageBg--works .bgShape{right:-70px;top:56px;width:430px;height:330px;border:1px solid #70f4df45;box-shadow:0 0 120px #70f4df14,inset 0 0 90px #70f4df0a}
-.pageBg--works .bgShapeAlt{right:180px;top:212px;width:300px;height:280px;border:1px solid #ffffff20;background:linear-gradient(140deg,#70f4df0d,transparent 62%)}
 
 /* CASE STUDY — a section through the product; --seed shifts it per work. */
 .pageBg--detail .bgPattern{background-image:repeating-radial-gradient(circle at calc(60% + 7% * var(--seed)) calc(22% + 6% * var(--seed)),#70f4df14 0 1px,transparent 1px 54px)}
-.pageBg--detail .bgShape{right:calc(-50px + 26px * var(--seed));top:calc(86px + 16px * var(--seed));width:360px;height:360px;border-radius:50%;border:1px solid #70f4df40;box-shadow:0 0 110px #70f4df12}
-.pageBg--detail .bgShapeAlt{right:calc(88px + 26px * var(--seed));top:calc(196px + 16px * var(--seed));width:150px;height:150px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#70f4df33,transparent 62%)}
 
 /* ABOUT — a dot matrix and a long lens shape. */
 .pageBg--about .bgPattern{background-image:radial-gradient(#ffffff1c 1px,transparent 1px);background-size:24px 24px}
-.pageBg--about .bgShape{right:-30px;top:36px;width:300px;height:520px;border-radius:300px/260px;border:1px solid #70f4df33;background:linear-gradient(160deg,#70f4df14,transparent 62%)}
-.pageBg--about .bgShapeAlt{right:250px;bottom:-90px;width:210px;height:210px;border-radius:50%;border:1px dashed #ffffff1c}
 
 /* CONTACT — diagonal hatching, a ring and a tilted square. */
 .pageBg--contact .bgPattern{background-image:repeating-linear-gradient(-45deg,#ffffff0d 0 1px,transparent 1px 20px)}
-.pageBg--contact .bgShape{right:-120px;top:16px;width:430px;height:430px;border-radius:50%;border:1px solid #70f4df3a;background:radial-gradient(circle at 50% 50%,transparent 57%,#70f4df14 58%,transparent 73%)}
-.pageBg--contact .bgShapeAlt{right:176px;top:252px;width:120px;height:120px;border:1px solid #70f4df55;transform:rotate(45deg)}
 
 /* Masked lines, so a page's title can rise into place on arrival. */
 .pageHead h1 .lineMask{display:block;overflow:hidden;padding-bottom:.06em}
@@ -214,9 +259,6 @@ body{font-family:Arial,Helvetica,"Hiragino Sans","Hiragino Kaku Gothic ProN","No
 
 @media(max-width:760px){
  .navlinks .langToggle{padding-left:0;border-left:0}
- .pageBg .bgShape,.pageBg .bgShapeAlt{transform:scale(.6);transform-origin:top right}
- .pageBg--contact .bgShapeAlt{transform:rotate(45deg) scale(.6)}
- .pageBg--about .bgShapeAlt{transform-origin:bottom right}
  .mobileMenuFoot{align-items:center}
 }
 
@@ -274,7 +316,34 @@ body{font-family:Arial,Helvetica,"Hiragino Sans","Hiragino Kaku Gothic ProN","No
 
 /* ── The one line that matters ────────────────────────────────────────── */
 .codeScene{padding:110px var(--gutter);border-top:1px solid #ffffff18}
-.codeScene .terminal{width:min(820px,100%);margin:0}
+
+/* ── Code listing, set the way an editor sets one ──────────────────────
+   A file tab, a line-number gutter that holds still while the source
+   scrolls under it, and a status strip. The colours are the site's own
+   value range plus the teal for literals, so it reads as syntax
+   highlighting without importing an editor theme's palette. */
+.codeBlock{width:min(820px,100%);margin:0;background:#090d0e;border:1px solid #ffffff1e;box-shadow:0 40px 100px #0008;font:13px/1.85 monospace}
+.codeTabs{display:flex;align-items:stretch;justify-content:space-between;border-bottom:1px solid #ffffff18;background:#0b1011}
+.codeTab{position:relative;padding:13px 20px;color:#e6ebea;background:#090d0e;border-right:1px solid #ffffff18;font-size:11px}
+.codeTab::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:#70f4df}
+.codeLang{align-self:center;padding:0 20px;font-size:10px;letter-spacing:.1em;color:#70f4df}
+.codeBody{display:flex;align-items:stretch}
+.codeGutter{flex:none;display:flex;flex-direction:column;padding:18px 0;min-width:52px;text-align:right;border-right:1px solid #ffffff14;background:#0a0e0f;color:#4d5957;user-select:none}
+.codeGutter span{padding:0 14px 0 12px}
+.codeScroll{flex:1;min-width:0;overflow-x:auto}
+.codeScroll pre{margin:0;padding:18px 22px;font:inherit;color:#c7cfcd}
+.codeLine{display:block}
+/* Tokens. */
+.t-com{color:#5b6764;font-style:italic}
+.t-str{color:#70f4df}
+.t-num{color:#8fd9c9}
+.t-key{color:#e6ebea}
+.t-fn{color:#f2f5f4}
+.t-attr{color:#aeb9b6}
+.t-arg{color:#95a4a0}
+.t-op{color:#6b7774}
+.t-var{color:#c7cfcd}
+.codeStatus{display:flex;justify-content:space-between;padding:9px 20px;border-top:1px solid #ffffff14;background:#0b1011;font-size:9px;letter-spacing:.1em;color:#6b7774}
 
 /* The practice cards link through to those case studies now. */
 .practiceCard{display:block}
@@ -286,10 +355,15 @@ body{font-family:Arial,Helvetica,"Hiragino Sans","Hiragino Kaku Gothic ProN","No
  .pipeStep{grid-template-columns:40px 1fr;gap:12px 14px}
  .pipeOut{grid-column:2;padding-top:0}
  .layerRow{grid-template-columns:40px 1fr;gap:14px;padding:26px 0}
+ /* Narrow the chrome so the source, not the gutter, gets the width. */
+ .codeBlock{font-size:12px}
+ .codeGutter{min-width:40px}
+ .codeGutter span{padding:0 10px 0 8px}
+ .codeScroll pre{padding:15px 16px}
+ .codeTab{padding:11px 15px}
+ .codeLang,.codeStatus{padding-left:15px;padding-right:15px}
 }
 
-/* Long code lines scroll inside the window rather than widening the page. */
-.codeScene .terminal pre{overflow-x:auto;max-width:100%}
 .spec dd{overflow-wrap:anywhere}
 
 @media(max-width:760px){
@@ -361,4 +435,142 @@ body{font-family:Arial,Helvetica,"Hiragino Sans","Hiragino Kaku Gothic ProN","No
  .journeyRow{grid-template-columns:44px 120px 1fr;gap:18px}
  .pipeStep{grid-template-columns:58px 1fr;gap:16px 28px}
  .pipeOut{grid-column:2;padding-top:0}
+}
+
+/* ── Hero motion canvas ────────────────────────────────────────────────
+   The right three columns of a subpage masthead, run as one composition.
+   Everything inside is laid out on the masthead's own background grid:
+   the canvas starts on the 62.5% column line and is nine 44px rows tall,
+   so rails, card edges and labels land on lines that are already drawn.
+   What the stylesheet leaves on screen is the last frame of the entrance,
+   which is what reduced motion gets to keep. */
+.heroMotion{
+  --hm-row:44px;               /* one row of the masthead grid */
+  --hm-card:calc(var(--hm-row) * 1.5);
+  --hm-edge:var(--gutter);     /* the page's content edge, on the right */
+  --hm-gut:44px;               /* the module's index gutter — one grid row */
+  --hm-lead:84px;              /* where a leader line clears the stop labels */
+  --hm-type:9px;
+  --hm-line:#ffffff2e;
+  --hm-idle:#6d7a77;
+  position:absolute;left:62.5%;right:0;
+  top:calc(var(--hm-row) * 2);height:calc(var(--hm-row) * 9);
+  pointer-events:none
+}
+/* A case study's masthead is shorter, and about's second headline line runs
+   most of the way across the page — so those two canvases stop earlier. */
+.heroMotion--detail{height:calc(var(--hm-row) * 7)}
+.heroMotion--about{height:calc(var(--hm-row) * 6)}
+.hmStage{position:relative;width:100%;height:100%}
+
+/* Rails and rules. The vertical rail fades at both ends rather than being
+   cut, so the system reads as continuing past the frame. */
+.hmRail{position:absolute;left:0;top:0;bottom:0;width:1px;display:block;background:#ffffff3d;transform-origin:50% 0;
+  -webkit-mask-image:linear-gradient(to bottom,transparent,#000 9%,#000 82%,transparent);
+  mask-image:linear-gradient(to bottom,transparent,#000 9%,#000 82%,transparent)}
+.hmRule{position:absolute;left:0;right:0;height:1px;display:block;background:var(--hm-line);transform-origin:0 50%;overflow:hidden}
+.hmRuleFoot{right:var(--hm-edge)}
+.hmSheen{position:absolute;left:0;top:0;width:30%;height:100%;opacity:0;background:linear-gradient(90deg,transparent,#70f4df,transparent)}
+
+/* Technical type. The span is the mask, the italic is what travels in it. */
+.hmTag{position:absolute;left:14px;display:block;overflow:hidden;font:var(--hm-type)/1.5 monospace;letter-spacing:.12em;color:#7d8986;white-space:nowrap}
+.hmTag i{display:block;font-style:normal}
+.hmFrameTag{color:#93a09c;letter-spacing:.17em}
+.hmFrameEnd{left:auto;right:var(--hm-edge)}
+.hmStageTag{transform:translateY(-50%)}
+
+/* Marks on a rail: a stop, and the thing moving between stops. */
+.hmNode{position:absolute;left:0;width:7px;height:7px;margin:-3.5px 0 0 -3.5px;display:block;border-radius:1px;background:var(--hm-idle)}
+.hmPacket{position:absolute;left:0;width:7px;height:7px;margin:-3.5px 0 0 -3.5px;display:block;border-radius:1px;background:#70f4df;opacity:0;box-shadow:0 0 0 2px #70f4df1c}
+/* Leader lines: every stop on the rail reaches across to the module column,
+   and whichever stop is live reaches across brightly. */
+.hmLead{position:absolute;left:var(--hm-lead);width:calc(33.333% - var(--hm-lead));height:1px;display:block;background:#ffffff17;transform-origin:0 50%}
+.hmLink{position:absolute;left:var(--hm-lead);width:calc(33.333% - var(--hm-lead));height:1px;display:block;background:#70f4df7a;transform-origin:0 50%}
+
+/* The module: one card shape for all four scenes. */
+.hmCard{position:absolute;left:33.333%;right:var(--hm-edge);height:var(--hm-card);background:#0d1415e8;border:1px solid #ffffff36;box-shadow:0 24px 54px #00000066;transform-origin:100% 50%}
+.hmLane0{top:calc(var(--hm-row) * 2);opacity:.3;transform:translateX(16px) scale(.92)}
+.hmLane1{top:calc(var(--hm-row) * 4);opacity:.58;transform:translateX(8px) scale(.96)}
+.hmLane2{top:calc(var(--hm-row) * 6)}
+.hmLane3{top:calc(var(--hm-row) * 2);opacity:0}
+/* Inside the module, the same index gutter and rule the work listings use. */
+.hmCardIn{position:absolute;inset:0}
+.hmCardGut{position:absolute;left:var(--hm-gut);top:0;bottom:0;width:1px;display:block;background:var(--hm-line)}
+.hmCardIndex{left:0;top:50%;width:var(--hm-gut);text-align:center;color:#a3aeab;transform:translateY(-50%)}
+.hmCardBody{position:absolute;left:var(--hm-gut);right:0;top:0;bottom:0;padding:0 13px;display:flex;flex-direction:column}
+.hmCardRow{flex:1;display:flex;align-items:center;gap:11px}
+.hmCardSplit{display:block;height:1px;margin:0 -13px;background:var(--hm-line)}
+.hmCardBar{display:block;height:2px;background:#ffffff42}
+.hmCardRow+.hmCardRow .hmCardBar{background:#ffffff26}
+.hmCardRow+.hmCardRow .hmCardBar:last-child{background:#70f4df66}
+.hmCardStatus{margin-left:auto;display:flex;align-items:center;gap:7px}
+.hmCardLive{position:static;left:auto;color:#70f4df}
+.hmCardLive i{transform:translateY(115%)}
+.hmCardDot{display:block;width:6px;height:6px;border-radius:50%;background:#7d8986}
+.hmLane2 .hmCardDot,.hmCardSolo .hmCardDot{box-shadow:0 0 0 3px #70f4df1f}
+.hmCardProgress{position:absolute;left:0;right:0;bottom:0;height:1px;background:#70f4df;transform:scaleX(0);transform-origin:0 50%}
+/* Whichever module is at the front of the frame is the one that is live, and
+   at rest — which is what reduced motion keeps — it is shown that way. */
+.hmLane2 .hmCardDot,.hmCardSolo .hmCardDot,.hmStripStatus .hmCardDot,.hmNodeLive,.hmNodeIn{background:#70f4df}
+.hmLane2 .hmCardLive i,.hmCardSolo .hmCardLive i,.hmStripStatus .hmCardLive i{transform:none}
+.hmLane2 .hmCardProgress,.hmCardSolo .hmCardProgress{transform:scaleX(1)}
+
+/* DETAIL — a stack of layers and the pass that compiles them. */
+.hmStrip{position:absolute;left:33.333%;right:var(--hm-edge);height:26px;margin-top:-13px;display:flex;align-items:center;gap:11px;padding:0 13px;background:#0d1415d9;border:1px solid #ffffff2b;transform-origin:100% 50%}
+.hmStripBar{display:block;height:2px;background:#70f4df66;opacity:.5;transform:scaleX(.7);transform-origin:0 50%}
+.hmStripStatus{margin-left:auto;display:flex;align-items:center;gap:7px}
+.hmDepth0{opacity:.3;transform:scale(.93)}
+.hmDepth1{opacity:.5;transform:scale(.96)}
+.hmDepth2{opacity:.74;transform:scale(.98)}
+.hmDepth3{opacity:1}
+.hmSweep{position:absolute;left:0;right:0;height:1px;display:block;opacity:0;background:linear-gradient(90deg,#70f4df,#70f4df00)}
+
+/* ABOUT — strands off the trunk, gathered onto one bus. */
+.hmBranch{position:absolute;left:var(--hm-lead);width:calc(33.333% - var(--hm-lead));height:1px;display:block;background:#ffffff17;transform-origin:0 50%;overflow:hidden}
+.heroMotion--about .hmStageTag{transform:translate(0,calc(-50% - 12px))}
+
+/* CONTACT — a message written, sent down a channel, and answered for. */
+.hmCardWrite .hmCardRow+.hmCardRow,.hmCardWrite .hmCardSplit{visibility:hidden}
+.hmCardWrite .hmCardLive i{transform:none}
+.hmWrite{position:absolute;left:calc(33.333% + var(--hm-gut) + 13px);right:calc(var(--hm-edge) + 14px);top:calc(var(--hm-row) * 2 + 34px);display:flex;flex-direction:column;gap:6px}
+.hmWrite i{display:block;height:2px;background:#ffffff38;transform-origin:0 50%}
+.hmWrite i:last-child{background:#70f4df57}
+.hmDrop{position:absolute;left:33.333%;top:calc(var(--hm-row) * 3.5);width:1px;height:calc(var(--hm-row) * 1.5);display:block;background:var(--hm-line);transform-origin:50% 0}
+.hmChannel{position:absolute;left:0;right:0;height:1px;display:block;background:var(--hm-line);transform-origin:0 50%}
+.hmChannelBack{left:25%;opacity:.6}
+.hmChannelDeep{left:50%;opacity:.34}
+.hmNodeBack{left:25%;opacity:.6}
+.hmNodeDeep{left:50%;width:5px;height:5px;margin:-2.5px 0 0 -2.5px;opacity:.4}
+.hmPacketLead{left:33.333%}
+.hmPacketBack{left:25%}
+.hmPacketDeep{left:50%}
+.hmPacketBack{width:5px;height:5px;opacity:.45;box-shadow:none}
+.hmPacketDeep{width:4px;height:4px;opacity:.26;box-shadow:none}
+.hmNodeIn{left:auto;right:var(--hm-edge);margin-right:-3.5px}
+.hmTagIn{left:auto;right:var(--hm-edge);transform:translate(0,calc(-50% - 13px))}
+.hmAck{left:auto;right:var(--hm-edge);color:#70f4df;transform:translate(0,calc(-50% + 14px))}
+.heroMotion--contact .hmStageTag{transform:translate(0,calc(-50% - 13px))}
+.heroMotion--contact .hmTagIn,.heroMotion--contact .hmAck{transform:translate(0,calc(-50% - 13px))}
+.heroMotion--contact .hmAck{transform:translate(0,calc(-50% + 14px))}
+
+/* Tablet: the same composition, fewer layers running in it. */
+@media(max-width:1180px){
+  .heroMotion{--hm-row:34px;--hm-type:8px;--hm-gut:34px;--hm-lead:74px;left:56%;top:88px}
+  .hmCardBody{padding:0 11px}
+  .hmCardSplit{margin:0 -11px}
+  .hmRuleFoot,.hmChannelDeep,.hmPacketDeep,.hmRule .hmSheen{display:none}
+}
+
+/* Mobile: out of the corner and into the flow, under the description. */
+@media(max-width:760px){
+  .heroMotion{--hm-row:26px;--hm-card:42px;--hm-type:8px;--hm-edge:16px;--hm-gut:34px;--hm-lead:70px;
+    position:static;top:auto;width:100%;height:calc(var(--hm-row) * 9);margin-top:44px}
+  .heroMotion--detail{height:calc(var(--hm-row) * 7)}
+  .heroMotion--about{height:calc(var(--hm-row) * 6)}
+  .hmCardBody{padding:0 10px}
+  .hmCardSplit{margin:0 -10px}
+  .hmLead{display:none}
+  .hmChannelBack,.hmPacketBack{opacity:.4}
+  .hmWrite{top:calc(var(--hm-row) * 2 + 24px)}
+  .hmStrip{height:22px;margin-top:-11px}
 }
