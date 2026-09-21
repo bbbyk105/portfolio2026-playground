@@ -50,9 +50,13 @@ html{scroll-behavior:smooth}[id]{scroll-margin-top:96px}body{margin:0;background
 .spec dd{margin:0;font:11px/1.6 monospace;color:#c7cfcd}
 .spec dd a{border-bottom:1px solid #70f4df}
 .plates{padding:0 var(--gutter);border-bottom:1px solid #ffffff18}
-.platesGrid{display:grid;grid-template-columns:1.6fr 1fr;gap:3vw;padding:70px 0 90px;align-items:start}
+/* Two plates, each at its own shape. The phone capture is one 390x844
+   viewport at 2x, so its column is cut to a phone's proportions and the
+   whole screen shows. It used to be forced into a landscape box with
+   object-fit: cover, which threw away the bottom half of it. The ratio is
+   set so the two plates come out the same height. */
+.platesGrid{display:grid;grid-template-columns:3.4fr 1fr;gap:3vw;padding:70px 0 90px;align-items:start}
 /* The mobile capture is portrait; crop it to the desktop plate's band so the two align. */
-.screenMobile img{height:35vw;object-fit:cover;object-position:top center}
 
 /* ── Work detail: body blocks ─────────────────────────────────────────── */
 .detail{padding:110px var(--gutter);background:#0b0f10;border-bottom:1px solid #ffffff18}
@@ -167,7 +171,9 @@ html{overflow-x:clip}
  .spec>div{padding:18px 14px 18px 0;border-bottom:1px solid #ffffff18}
  .plates{padding:0 var(--gutter)}
  .platesGrid{grid-template-columns:1fr;gap:26px;padding:40px 0 60px}
- .screenMobile img{height:auto;object-fit:fill}
+ /* Stacked, the phone plate would run to full width and stand three times
+    the desktop one's height. Hold it to a phone's width instead. */
+ .screenMobile{max-width:340px}
  .detail{padding:70px var(--gutter)}
  .detailBlock{grid-template-columns:1fr;gap:28px;padding:40px 0}
  .detailHead h2{font-size:9vw}
