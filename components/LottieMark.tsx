@@ -22,6 +22,8 @@ export default function LottieMark({ src, className }: { src: string; className?
     if (!el) return;
 
     let animation: AnimationItem | null = null;
+    let loading = false;
+    let visible = false;
     let disposed = false;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -40,17 +42,34 @@ export default function LottieMark({ src, className }: { src: string; className?
       animation.addEventListener("DOMLoaded", () => {
         if (disposed || !animation) return;
         if (reduced) animation.goToAndStop(170, true);
-        else animation.play();
+        // The import and the fetch take long enough to scroll past: play only
+        // if the mark is still where it can be seen.
+        else if (visible) animation.play();
       });
     }
 
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          if (!animation) load(el);
-          else if (!reduced) animation.play();
-        } else {
+      (entries) => {
+        // A delivery can carry more than one entry for the same target — a
+        // fast programmatic scroll, such as the way back to the top, is
+        // exactly when it does. The last one is where the mark ended up;
+        // acting on the first would leave it paused for good.
+        const entry = entries[entries.length - 1];
+        visible = entry.isIntersecting;
+
+        if (!visible) {
           animation?.pause();
+          return;
+        }
+        // `loading` rather than `animation`: the player is a dynamic import,
+        // so there is a gap where the load is under way and there is still
+        // nothing to hold on to. Without the flag a second crossing in that
+        // gap starts a second player into the same container.
+        if (!loading) {
+          loading = true;
+          load(el);
+        } else if (animation && !reduced) {
+          animation.play();
         }
       },
       { rootMargin: "240px" }

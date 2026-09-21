@@ -103,15 +103,33 @@ function useScene(scope: React.RefObject<HTMLDivElement | null>, build: (unit: n
 
           // A masthead that has been scrolled past has nothing to say, so
           // park whatever was running until it comes back.
+          //
+          // Roots only. A child of a timeline is already driven by its
+          // parent's playhead, so pausing the parent stops it — and pausing
+          // it on its own does not survive the resume: GSAP re-seats a
+          // child's start time against the parent's current time, which walks
+          // a tween written for `CYCLE * 2` off the end of a four-cycle loop,
+          // and it never plays again. That is what took the progress bars out
+          // of the works masthead after one trip back to the top.
           let parked: gsap.core.Animation[] = [];
           const io = new IntersectionObserver(
-            ([entry]) => {
+            (entries) => {
+              // A delivery can carry more than one entry for the same target —
+              // a fast programmatic scroll is exactly when it does. The last
+              // one is where the masthead actually ended up; acting on the
+              // first would leave the scene parked for good.
+              const entry = entries[entries.length - 1];
               if (entry.isIntersecting) {
                 parked.forEach((a) => a.resume());
                 parked = [];
-              } else {
+              } else if (!parked.length) {
+                // Already parked: re-reading now would find nothing running
+                // and throw away the record of what to bring back.
                 parked = (ctx.data as gsap.core.Animation[]).filter(
-                  (a) => typeof a?.paused === "function" && !a.paused()
+                  (a) =>
+                    typeof a?.paused === "function" &&
+                    !a.paused() &&
+                    a.parent === gsap.globalTimeline
                 );
                 parked.forEach((a) => a.pause());
               }
