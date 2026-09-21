@@ -6,42 +6,50 @@ import { usePathname } from "next/navigation";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { C } from "./Lang";
-import { useLang } from "./LangProvider";
+import { localeHref, readPath, STORAGE_KEY, type Lang } from "@/lib/i18n";
 import { navItems, site, ui } from "@/lib/site";
 
 /**
- * JA / EN switch. The active state is driven by `data-lang` in CSS rather than
- * React state, so it is already correct on the first paint — the inline script
- * in <head> has set the attribute long before hydration.
+ * JA / EN switch.
+ *
+ * Each language is its own URL now, so this navigates rather than repainting
+ * in place: it links to the same page in the other tree, which is also what
+ * makes the two versions reachable by a crawler that does not run scripts.
+ *
+ * The choice is remembered so a returning visitor lands in the language they
+ * picked — see LangPreference, which is the only thing that reads it.
  */
-function LangToggle({ onSwitch }: { onSwitch?: () => void }) {
-  const { lang, setLang } = useLang();
+function LangToggle({ lang, path, onSwitch }: { lang: Lang; path: string; onSwitch?: () => void }) {
+  const remember = (choice: Lang) => () => {
+    try {
+      localStorage.setItem(STORAGE_KEY, choice);
+    } catch {
+      // Private mode or blocked storage: the choice just will not persist.
+    }
+    onSwitch?.();
+  };
+
+  const link = (choice: Lang, label: string) =>
+    choice === lang ? (
+      <b className={choice === "ja" ? "langJa isCurrent" : "langEn isCurrent"} aria-current="true">
+        {label}
+      </b>
+    ) : (
+      <Link
+        className={choice === "ja" ? "langJa" : "langEn"}
+        href={localeHref(choice, path)}
+        hrefLang={choice}
+        onClick={remember(choice)}
+      >
+        {label}
+      </Link>
+    );
 
   return (
-    <div className="langToggle" role="group" aria-label="Language">
-      <button
-        type="button"
-        className="langJa"
-        aria-pressed={lang === "ja"}
-        onClick={() => {
-          setLang("ja");
-          onSwitch?.();
-        }}
-      >
-        JA
-      </button>
+    <div className="langToggle" aria-label={lang === "ja" ? "言語" : "Language"}>
+      {link("ja", "JA")}
       <span aria-hidden="true">/</span>
-      <button
-        type="button"
-        className="langEn"
-        aria-pressed={lang === "en"}
-        onClick={() => {
-          setLang("en");
-          onSwitch?.();
-        }}
-      >
-        EN
-      </button>
+      {link("en", "EN")}
     </div>
   );
 }
@@ -53,7 +61,7 @@ function LangToggle({ onSwitch }: { onSwitch?: () => void }) {
  * reverses on close, which keeps the panel and the burger strokes in sync
  * however fast the button is tapped.
  */
-export default function SiteNav() {
+export default function SiteNav({ lang, langPath }: { lang: Lang; langPath?: string }) {
   const root = useRef<HTMLDivElement>(null);
   const timeline = useRef<gsap.core.Timeline | null>(null);
   const [open, setOpen] = useState(false);
@@ -162,24 +170,33 @@ export default function SiteNav() {
     setOpen(false);
   }, [pathname]);
 
-  const isActive = (href: string) =>
-    href === "/" ? pathname === "/" : pathname.startsWith(href);
+  // Compare the language-neutral part, so /en/works lights WORKS up too.
+  const here = readPath(pathname).path;
+  // What the language toggle should point at. Normally this page in the
+  // other tree; the 404 overrides it, because the URL that missed here would
+  // miss there too and the counterpart is the other tree's home instead.
+  const swapTo = langPath ?? here;
+  const isActive = (href: string) => (href === "" ? here === "" : here.startsWith(href));
 
   return (
     <div ref={root}>
-      <nav className="nav">
-        <Link className="brand" href="/">
+      <nav className="nav" aria-label={lang === "ja" ? "メインナビゲーション" : "Main"}>
+        <Link className="brand" href={localeHref(lang, "")}>
           BYAKKO KONDO
         </Link>
         <div className="navlinks">
           {navItems
-            .filter((item) => item.href !== "/")
+            .filter((item) => item.href !== "")
             .map((item) => (
-              <Link key={item.href} href={item.href} className={isActive(item.href) ? "isActive" : undefined}>
+              <Link
+                key={item.href}
+                href={localeHref(lang, item.href)}
+                className={isActive(item.href) ? "isActive" : undefined}
+              >
                 {item.label}
               </Link>
             ))}
-          <LangToggle />
+          <LangToggle lang={lang} path={swapTo} />
         </div>
         <button
           type="button"
@@ -187,7 +204,9 @@ export default function SiteNav() {
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-controls="site-menu"
-          aria-label={open ? "Close navigation" : "Open navigation"}
+          aria-label={
+            lang === "ja" ? (open ? "メニューを閉じる" : "メニューを開く") : open ? "Close navigation" : "Open navigation"
+          }
         >
           <span />
           <span />
@@ -198,7 +217,7 @@ export default function SiteNav() {
       <div className="mobileMenu" id="site-menu" aria-hidden={!open}>
         <div className="mobileMenuMeta">
           <span>
-            <C value={ui.navigation} />
+            <C lang={lang} value={ui.navigation} />
           </span>
           <span>
             {site.name} / {site.year}
@@ -209,7 +228,7 @@ export default function SiteNav() {
             <Link
               key={item.href}
               className={"mobileMenuLink " + (isActive(item.href) ? "isActive" : "")}
-              href={item.href}
+              href={localeHref(lang, item.href)}
               tabIndex={open ? 0 : -1}
               onClick={() => setOpen(false)}
             >
@@ -217,14 +236,14 @@ export default function SiteNav() {
               <span className="mobileMenuLabel">
                 {item.label}
                 <b>
-                  <C value={item.sub} />
+                  <C lang={lang} value={item.sub} />
                 </b>
               </span>
             </Link>
           ))}
         </div>
         <div className="mobileMenuFoot">
-          <LangToggle onSwitch={() => setOpen(false)} />
+          <LangToggle lang={lang} path={swapTo} onSwitch={() => setOpen(false)} />
           <a href={`mailto:${site.email}`} tabIndex={open ? 0 : -1}>
             {site.email.toUpperCase()}
           </a>

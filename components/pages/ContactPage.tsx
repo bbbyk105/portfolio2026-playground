@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
@@ -6,28 +5,34 @@ import PageHead from "@/components/PageHead";
 import ContactForm from "@/components/ContactForm";
 import Reveal from "@/components/Reveal";
 import { C } from "@/components/Lang";
+import JsonLd from "@/components/JsonLd";
+import { localeHref, type Lang } from "@/lib/i18n";
+import { contactPageGraph } from "@/lib/seo";
 import { contact, site, ui } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Contact — Byakko Kondo",
-  description: "Contact Byakko Kondo about product development, web engineering and digital projects.",
-};
-
-export default function ContactPage() {
+export default function ContactPage({ lang }: { lang: Lang }) {
+  const to = (path: string) => localeHref(lang, path);
   return (
     <main>
-      <SiteNav />
+      <SiteNav lang={lang} />
+
+      <JsonLd graph={contactPageGraph(lang)} />
 
       <PageHead
+        lang={lang}
         variant="contact"
+        crumbs={[
+          { name: "HOME", path: "" },
+          { name: "CONTACT", path: "/contact" },
+        ]}
         eyebrow="01 / CONTACT — PROJECTS / COLLABORATION / ENQUIRIES"
         lines={[{ text: "LET’S BUILD" }, { text: "SOMETHING.", faint: true }]}
-        lede={<C value={contact.lede} />}
+        lede={<C lang={lang} value={contact.lede} />}
         meta={
           <>
-            <C value={site.place} />
+            <C lang={lang} value={site.place} />
             <br />
-            <C value={ui.available} />
+            <C lang={lang} value={ui.available} />
           </>
         }
       />
@@ -38,14 +43,14 @@ export default function ContactPage() {
           <h2>
             TELL ME WHAT
             <br />
-            <em>YOU NEED.</em>
+            <span className="faint">YOU NEED.</span>
           </h2>
           <p className="side">
-            <C value={contact.note} />
+            <C lang={lang} value={contact.note} />
           </p>
         </header>
         <Reveal>
-          <ContactForm />
+          <ContactForm lang={lang} />
         </Reveal>
       </section>
 
@@ -55,7 +60,7 @@ export default function ContactPage() {
           <h2>
             OR REACH ME
             <br />
-            <em>STRAIGHT AWAY.</em>
+            <span className="faint">STRAIGHT AWAY.</span>
           </h2>
         </header>
         <Reveal className="directList" stagger={0.08}>
@@ -68,7 +73,7 @@ export default function ContactPage() {
               rel={link.href.startsWith("http") ? "noreferrer" : undefined}
             >
               <span>
-                <C value={link.label} />
+                <C lang={lang} value={link.label} />
               </span>
               <b>{link.value}</b>
               <i>↗</i>
@@ -82,14 +87,14 @@ export default function ContactPage() {
         <h2>
           WANT THE
           <br />
-          <em>RECEIPTS?</em>
+          <span className="faint">RECEIPTS?</span>
         </h2>
-        <Link href="/works">
-          <C value={ui.allWorks} /> <span>↗</span>
+        <Link href={to("/works")}>
+          <C lang={lang} value={ui.allWorks} /> <span>↗</span>
         </Link>
       </section>
 
-      <SiteFooter />
+      <SiteFooter lang={lang} />
     </main>
   );
 }

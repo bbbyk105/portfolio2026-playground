@@ -415,85 +415,14 @@ export const works: Work[] = [
     stack: ["Next.js", "React", "TypeScript", "Stripe", "next-intl", "Framer Motion"],
     screens: { desktop: "/works/jurakuen.webp", mobile: "/works/jurakuen-mobile.webp" },
   },
-  {
-    slug: "dmc-fuji",
-    index: "05",
-    name: "DMC Fuji",
-    title: ["DMC", "FUJI"],
-    client: { en: "DMC LLC — DMC FUJI", ja: "合同会社DMC — DMC FUJI" },
-    sector: {
-      en: "Studio / Photography & experience",
-      ja: "スタジオ / 撮影・体験",
-    },
-    kind: { en: "Studio / Photography", ja: "スタジオ / 撮影" },
-    place: { en: "Fuji, Shizuoka", ja: "静岡県富士市" },
-    role: {
-      en: "Design, development, CMS, gallery, multilingual",
-      ja: "デザイン、開発、CMS、ギャラリー、多言語対応",
-    },
-    year: "2025",
-    url: "https://www.dmc123.jp",
-    statement: {
-      en: "A bilingual website for DMC Fuji, bringing its photography and related services into one clear digital experience.",
-      ja: "DMC FUJIの日英対応サイト。撮影と関連サービスを、ひとつの分かりやすいデジタル体験にまとめました。",
-    },
-    brief: [
-      {
-        en: "The site organises multiple services under one brand while giving photography a central role. Visitors can move between service information, the gallery, articles, access information and enquiries in Japanese or English.",
-        ja: "複数のサービスをひとつのブランドのもとに整理しつつ、撮影を中心に据えた構成にしています。サービス情報、ギャラリー、記事、アクセス、問い合わせのあいだを、日本語でも英語でも行き来できます。",
-      },
-      {
-        en: "The implementation includes a managed photo gallery, CMS-backed content and an enquiry flow, allowing the business to update visual and editorial content without rebuilding the site.",
-        ja: "管理可能なフォトギャラリー、CMS連携のコンテンツ、問い合わせフローを実装し、サイトを作り直すことなくビジュアルと記事を更新できるようにしました。",
-      },
-    ],
-    mechanism: [
-      {
-        title: { en: "The gallery is the storage bucket", ja: "ギャラリーの実体はストレージ" },
-        body: {
-          en: "Each folder in object storage is a gallery category, listed at request time. Adding photographs to the site means uploading them — no CMS entry to create, no code to change, nothing for the studio to learn beyond dragging files into a folder.",
-          ja: "オブジェクトストレージ上のフォルダが、そのままギャラリーのカテゴリです。一覧はリクエスト時に取得します。写真を追加する作業はアップロードだけで、CMSに登録する必要も、コードを触る必要もありません。スタジオ側が覚えることはフォルダに入れることだけです。",
-        },
-      },
-      {
-        title: { en: "Photographs go through the image pipeline", ja: "写真は画像パイプラインを通す" },
-        body: {
-          en: "Storage URLs are served through a proxy route so the framework's image optimisation applies to them — a photography studio's originals are large, and sending them untouched to a phone is the difference between a gallery that loads and one that does not.",
-          ja: "ストレージのURLはプロキシ経由で配信し、フレームワークの画像最適化を通します。撮影スタジオの原本は大きく、それをそのまま携帯に送るかどうかが、ギャラリーが開くか開かないかの差になります。",
-        },
-      },
-      {
-        title: { en: "Editorial content and photographs are separate systems", ja: "記事と写真は別のシステム" },
-        body: {
-          en: "Articles live in the CMS, photographs live in storage. They are updated by different people at different rhythms, so coupling them into one editor would have made both harder to maintain.",
-          ja: "記事はCMS、写真はストレージに置いています。更新する人も頻度も違うため、ひとつの編集画面にまとめると双方とも運用しづらくなります。",
-        },
-      },
-      {
-        title: { en: "One brand, two languages, several services", ja: "ひとつのブランド、2言語、複数サービス" },
-        body: {
-          en: "Services, gallery, articles, access and enquiries are delivered per locale from one route tree, so the Japanese and English sites cannot drift apart in structure as content is added.",
-          ja: "サービス、ギャラリー、記事、アクセス、問い合わせを、ひとつのルート構成からロケールごとに配信しています。コンテンツを足していっても、日本語と英語のサイトの構造がずれていきません。",
-        },
-      },
-    ],
-    built: [
-      {
-        en: "Service pages and information architecture across the DMC Fuji offering",
-        ja: "DMC FUJIの提供サービス全体にわたるページと情報設計",
-      },
-      {
-        en: "Photo gallery backed by managed storage",
-        ja: "マネージドストレージを用いたフォトギャラリー",
-      },
-      { en: "CMS-backed blog and content management", ja: "CMS連携のブログとコンテンツ管理" },
-      { en: "Japanese / English page delivery", ja: "日本語・英語でのページ配信" },
-      { en: "Contact and enquiry functionality", ja: "問い合わせ機能" },
-      { en: "Responsive UI and motion implementation", ja: "レスポンシブUIとモーションの実装" },
-    ],
-    stack: ["Next.js", "React", "TypeScript", "Supabase", "microCMS", "next-intl"],
-    screens: { desktop: "/works/dmc-fuji.webp", mobile: "/works/dmc-fuji-mobile.webp" },
-  },
 ];
 
 export const getWork = (slug: string) => works.find((w) => w.slug === slug);
+
+/**
+ * The half-width copy of a screen, written by scripts/gen-screens.mjs.
+ *
+ * The originals are 1600px — right for a retina desktop, four times what a
+ * phone can use. Offering both through srcset lets the browser pick.
+ */
+export const halfWidth = (src: string) => src.replace(/\.webp$/, "-800.webp");

@@ -2,7 +2,7 @@
 
 import { useMemo, useRef, useState, type FormEvent } from "react";
 import { C } from "./Lang";
-import { useLang } from "./LangProvider";
+import type { Lang } from "@/lib/i18n";
 import { contact, site } from "@/lib/site";
 import {
   buildMailto,
@@ -30,13 +30,12 @@ import {
  * time: an error appears once the field is left, or once the form has been
  * submitted, and then stays live until it is fixed.
  */
-export default function ContactForm() {
+export default function ContactForm({ lang }: { lang: Lang }) {
   const [values, setValues] = useState<EnquiryValues>(emptyEnquiry);
   const [touched, setTouched] = useState<Partial<Record<EnquiryField, boolean>>>({});
   const [attempted, setAttempted] = useState(false);
   const [sent, setSent] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
-  const { lang } = useLang();
   const f = contact.form;
 
   const options = useMemo(
@@ -96,7 +95,7 @@ export default function ContactForm() {
         {control}
         {error ? (
           <strong className="fieldError" id={`${name}-error`}>
-            <C value={error} />
+            <C lang={lang} value={error} />
           </strong>
         ) : null}
         {extra}
@@ -119,12 +118,12 @@ export default function ContactForm() {
       <div className="formGrid">
         {field(
           "name",
-          <C value={f.name} />,
+          <C lang={lang} value={f.name} />,
           <input required autoComplete="name" placeholder={f.namePlaceholder[lang]} {...aria("name")} />
         )}
         {field(
           "email",
-          <C value={f.email} />,
+          <C lang={lang} value={f.email} />,
           <input
             required
             type="email"
@@ -136,23 +135,23 @@ export default function ContactForm() {
         )}
         {field(
           "company",
-          <C value={f.company} />,
+          <C lang={lang} value={f.company} />,
           <input autoComplete="organization" placeholder={f.companyPlaceholder[lang]} {...aria("company")} />
         )}
         {field(
           "subject",
-          <C value={f.subject} />,
+          <C lang={lang} value={f.subject} />,
           <input required placeholder={f.subjectPlaceholder[lang]} {...aria("subject")} />
         )}
       </div>
 
       {field(
         "message",
-        <C value={f.message} />,
+        <C lang={lang} value={f.message} />,
         <textarea required rows={7} placeholder={f.messagePlaceholder[lang]} {...aria("message")} />,
         values.message.length > 0 && remaining < 150 ? (
           <span className="fieldCount">
-            <C value={remainingLabel(remaining)} />
+            <C lang={lang} value={remainingLabel(remaining)} />
           </span>
         ) : null
       )}
@@ -160,21 +159,21 @@ export default function ContactForm() {
       {/* One announcement rather than five: the field messages are reached
           through aria-describedby when focus lands on the field itself. */}
       <p className="formErrors" role="alert">
-        {attempted && count > 0 ? <C value={summary(count)} /> : null}
+        {attempted && count > 0 ? <C lang={lang} value={summary(count)} /> : null}
       </p>
 
       <button type="submit" className="formSubmit">
         <span className="formSubmitKicker">
-          <C value={f.sendTo} />
+          <C lang={lang} value={f.sendTo} />
         </span>
         <span className="formSubmitTitle">
-          <C value={f.send} />
+          <C lang={lang} value={f.send} />
         </span>
         <span className="formSubmitArrow">→</span>
       </button>
 
       <p className="formNote" role="status">
-        <C value={sent ? f.sent : f.hint} />
+        <C lang={lang} value={sent ? f.sent : f.hint} />
       </p>
     </form>
   );

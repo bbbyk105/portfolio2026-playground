@@ -158,7 +158,7 @@ export default function HeroReveal() {
       if (accent) {
         // The outlined line is drawn in stroke, not fill, so that is what
         // takes the tint there.
-        const outlined = !!piece.glyph.closest("em");
+        const outlined = !!piece.glyph.closest(".faint");
         timeline.from(
           piece.glyph,
           outlined
@@ -191,7 +191,7 @@ export default function HeroReveal() {
     }
 
     // The outlined line breathes, slowly, between two strengths of accent.
-    const outline = heading.querySelector<HTMLElement>("em");
+    const outline = heading.querySelector<HTMLElement>(".faint");
     if (outline) {
       gsap.to(outline, {
         webkitTextStrokeColor: "rgba(112,244,223,.68)",
