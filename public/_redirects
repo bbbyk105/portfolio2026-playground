@@ -1,7 +1,21 @@
 # Cloudflare Pages redirects.
-#
+
 # The DMC Fuji case study was published at these two URLs before it was
 # withdrawn. They go to the works index rather than 404ing, so anything that
 # already links to them — or has them indexed — lands somewhere real.
 /works/dmc-fuji     /works     301
 /en/works/dmc-fuji  /en/works  301
+
+# byakko-portfolio2025 held this domain before this site did, and eight of
+# its addresses have no counterpart here. Each goes to the page that took
+# over its job: the project list became /works, the career page became
+# /about, and the five service pages became the capability section the home
+# page now opens on.
+#
+# /blog/* is deliberately absent. There are no articles any more, and
+# sending every one of them to the home page is a soft 404 — better to
+# answer honestly that they are gone.
+/projects      /works   301
+/experience    /about   301
+/blog          /        301
+/services/*    /        301
