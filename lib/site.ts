@@ -20,8 +20,9 @@ export const site = {
 
 export type NavItem = { label: string; sub: Copy; href: string; index: string };
 
+/** `href` is the language-neutral path; "" is the home page. */
 export const navItems: NavItem[] = [
-  { label: "HOME", sub: { en: "Home", ja: "ホーム" }, href: "/", index: "00" },
+  { label: "HOME", sub: { en: "Home", ja: "ホーム" }, href: "", index: "00" },
   { label: "WORKS", sub: { en: "Selected work", ja: "実績" }, href: "/works", index: "01" },
   { label: "ABOUT", sub: { en: "About me", ja: "経歴・できること" }, href: "/about", index: "02" },
   { label: "CONTACT", sub: { en: "Get in touch", ja: "お問い合わせ" }, href: "/contact", index: "03" },
@@ -33,6 +34,7 @@ export const ui = {
   allWorks: { en: "ALL WORKS", ja: "実績一覧" },
   viewProject: { en: "VIEW PROJECT", ja: "サイトを見る" },
   getInTouch: { en: "GET IN TOUCH", ja: "お問い合わせ" },
+  profile: { en: "PROFILE & SKILLS", ja: "経歴・できること" },
   backToTop: { en: "BACK TO TOP", ja: "ページ上部へ" },
   next: { en: "NEXT", ja: "次の実績" },
   client: { en: "CLIENT", ja: "クライアント" },
@@ -148,8 +150,8 @@ export const capabilities: Capability[] = [
 
 export const home = {
   eyebrow: {
-    en: "BYAKKO KONDO / ENGINEER / CREATIVE DEVELOPER",
-    ja: "近藤白虎 / エンジニア / クリエイティブデベロッパー",
+    en: "BYAKKO KONDO / FREELANCE ENGINEER / CREATIVE DEVELOPER",
+    ja: "近藤白虎 / フリーランスエンジニア / クリエイティブデベロッパー",
   },
   intro: {
     en: "I design and build digital products, web experiences and automation systems — from research prototypes to production services.",
@@ -161,8 +163,12 @@ export const home = {
     ja: "プロダクト / Web / 研究 / 自動化",
   },
   canDoWorks: {
-    en: "Five products built this way are live and in daily use.",
-    ja: "この内容でつくったプロダクト5件が、いまも公開・運用されています。",
+    en: "Four products built this way are live and in daily use.",
+    ja: "この内容でつくったプロダクト4件が、いまも公開・運用されています。",
+  },
+  aboutMore: {
+    en: "The route from life science into engineering, and the whole stack behind it.",
+    ja: "生命科学からエンジニアリングまでの経緯と、扱える技術の全体。",
   },
   aboutLede: {
     en: "I work across product development, web engineering, research software and workflow automation.",
@@ -212,8 +218,8 @@ export const works_page = {
     ja: "情報設計からデプロイまで、一貫して設計・開発したプロダクトとサイトです。いずれも公開中で、実際に使われています。何をどう作ったかはケーススタディをご覧ください。",
   },
   meta: {
-    en: "FIVE PRODUCTS IN PRODUCTION",
-    ja: "稼働中のプロダクト5件",
+    en: "FOUR PRODUCTS IN PRODUCTION",
+    ja: "稼働中のプロダクト4件",
   },
   practiceNote: {
     en: "UNIVERSITY RESEARCH / NO PUBLIC URL",

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { C } from "./Lang";
 import { scrollToTop } from "@/lib/scroll";
 import { ui } from "@/lib/site";
+import type { Lang } from "@/lib/i18n";
 
 /**
  * The way back up.
@@ -17,7 +18,7 @@ import { ui } from "@/lib/site";
  * the App Router moves nothing and leaves a stray entry in the history — and
  * a history entry here is the one thing that would break going back.
  */
-export default function BackToTop({ inline = false }: { inline?: boolean }) {
+export default function BackToTop({ lang, inline = false }: { lang: Lang; inline?: boolean }) {
   const [shown, setShown] = useState(false);
 
   useEffect(() => {
@@ -46,7 +47,7 @@ export default function BackToTop({ inline = false }: { inline?: boolean }) {
   if (inline) {
     return (
       <button type="button" className="toTopInline" onClick={scrollToTop}>
-        <C value={ui.backToTop} /> ↑
+        <C lang={lang} value={ui.backToTop} /> ↑
       </button>
     );
   }
@@ -60,7 +61,7 @@ export default function BackToTop({ inline = false }: { inline?: boolean }) {
       aria-hidden={shown ? undefined : true}
     >
       <span className="toTopLabel">
-        <C value={ui.backToTop} />
+        <C lang={lang} value={ui.backToTop} />
       </span>
       <span aria-hidden="true">↑</span>
     </button>

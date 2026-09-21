@@ -7,6 +7,7 @@ import LottieMark from "@/components/LottieMark";
 import HeroReveal from "@/components/HeroReveal";
 import HeroEntrance from "@/components/HeroEntrance";
 import { C } from "@/components/Lang";
+import { localeHref, type Lang } from "@/lib/i18n";
 import { capabilities, home, site, tech, ui } from "@/lib/site";
 
 /**
@@ -15,10 +16,11 @@ import { capabilities, home, site, tech, ui } from "@/lib/site";
  * and the Lottie marks — each of them a component that brings its own
  * behaviour and, in three cases, no markup at all.
  */
-export default function Page() {
+export default function HomePage({ lang }: { lang: Lang }) {
+  const to = (path: string) => localeHref(lang, path);
   return (
     <main>
-      <SiteNav />
+      <SiteNav lang={lang} />
       <HeroReveal />
       <HeroEntrance />
 
@@ -26,28 +28,28 @@ export default function Page() {
         <div className="gridbg" />
         <div className="heroTop reveal">
           <p className="eyebrow">
-            <C value={home.eyebrow} />
+            <C lang={lang} value={home.eyebrow} />
           </p>
           <p className="heroMeta">
-            <C value={site.place} />
+            <C lang={lang} value={site.place} />
             <br />
-            <C value={ui.available} />
+            <C lang={lang} value={ui.available} />
           </p>
         </div>
         <h1>
           BUILDING
           <br />
-          <em>DIGITAL SYSTEMS</em>
+          <span className="faint">DIGITAL SYSTEMS</span>
           <br />
           THAT SHIP<span className="heroAccent">.</span>
         </h1>
         <div className="heroFoot">
           <div className="heroBottom reveal">
             <p>
-              <C value={home.intro} />
+              <C lang={lang} value={home.intro} />
             </p>
             <a href="#can-do">
-              <C value={home.exploreWork} /> <b>↘</b>
+              <C lang={lang} value={home.exploreWork} /> <b>↘</b>
             </a>
           </div>
           <div className="terminal reveal">
@@ -75,10 +77,10 @@ export default function Page() {
           <h2>
             WHAT I CAN
             <br />
-            <em>BUILD FOR YOU.</em>
+            <span className="faint">BUILD FOR YOU.</span>
           </h2>
           <p className="side">
-            <C value={home.canDoSide} />
+            <C lang={lang} value={home.canDoSide} />
           </p>
         </header>
         <Reveal className="canDoGrid" stagger={0.09}>
@@ -90,26 +92,26 @@ export default function Page() {
               <div className="canDoBody">
                 <span className="canDoIndex">{c.index}</span>
                 <h3>
-                  <C value={c.title} />
+                  <C lang={lang} value={c.title} />
                 </h3>
                 <p>
-                  <C value={c.body} />
+                  <C lang={lang} value={c.body} />
                 </p>
-                <div className="chips">
+                <ul className="chips">
                   {c.items.map((i) => (
-                    <span key={i}>{i}</span>
+                    <li key={i}>{i}</li>
                   ))}
-                </div>
+                </ul>
               </div>
             </article>
           ))}
         </Reveal>
-        <Link className="canDoWorks" href="/works">
+        <Link className="canDoWorks" href={to("/works")}>
           <span>
-            <C value={home.canDoWorks} />
+            <C lang={lang} value={home.canDoWorks} />
           </span>
           <b>
-            <C value={ui.allWorks} /> ↗
+            <C lang={lang} value={ui.allWorks} /> ↗
           </b>
         </Link>
       </section>
@@ -120,34 +122,42 @@ export default function Page() {
           <h2>
             IDEA TO
             <br />
-            <em>IMPLEMENTATION.</em>
+            <span className="faint">IMPLEMENTATION.</span>
           </h2>
         </div>
         <div className="aboutGrid">
           <p className="bigcopy">
-            <C value={home.aboutLede} />
+            <C lang={lang} value={home.aboutLede} />
           </p>
           <div className="bio">
             {home.aboutBio.map((p) => (
               <p key={p.en}>
-                <C value={p} />
+                <C lang={lang} value={p} />
               </p>
             ))}
           </div>
         </div>
-        <div className="timeline">
+        <ol className="timeline">
           {home.timeline.map((t) => (
-            <div key={t.span}>
+            <li key={t.span}>
               <span>{t.span}</span>
               <b>
-                <C value={t.title} />
+                <C lang={lang} value={t.title} />
               </b>
               <p>
-                <C value={t.note} />
+                <C lang={lang} value={t.note} />
               </p>
-            </div>
+            </li>
           ))}
-        </div>
+        </ol>
+        <Link className="canDoWorks" href={to("/about")}>
+          <span>
+            <C lang={lang} value={home.aboutMore} />
+          </span>
+          <b>
+            <C lang={lang} value={ui.profile} /> ↗
+          </b>
+        </Link>
       </section>
 
       <section className="stack">
@@ -155,17 +165,17 @@ export default function Page() {
         <h2>
           THE STACK IS A TOOL.
           <br />
-          <em>THE OUTCOME IS THE PRODUCT.</em>
+          <span className="faint">THE OUTCOME IS THE PRODUCT.</span>
         </h2>
-        <div className="techgrid">
+        <ul className="techgrid">
           {tech.map((t, i) => (
-            <div key={t}>
+            <li key={t}>
               <span>{String(i + 1).padStart(2, "0")}</span>
               {t}
               <b>↗</b>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       </section>
 
       <section className="contact">
@@ -173,14 +183,14 @@ export default function Page() {
         <h2>
           HAVE AN IDEA?
           <br />
-          <em>LET&apos;S BUILD IT.</em>
+          <span className="faint">LET&apos;S BUILD IT.</span>
         </h2>
         <a href="mailto:byakkokondo@gmail.com">
           BYAKKOKONDO@GMAIL.COM <span>↗</span>
         </a>
       </section>
 
-      <SiteFooter />
+      <SiteFooter lang={lang} />
     </main>
   );
 }

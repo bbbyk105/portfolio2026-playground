@@ -1,37 +1,41 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import PageHead from "@/components/PageHead";
 import Reveal from "@/components/Reveal";
 import { C, T } from "@/components/Lang";
+import JsonLd from "@/components/JsonLd";
+import { localeHref, type Lang } from "@/lib/i18n";
+import { profilePageGraph } from "@/lib/seo";
 import { about, capabilityGroups, journey, site, ui } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "About — Byakko Kondo",
-  description:
-    "About Byakko Kondo — engineer and creative developer working across product development, web, research software and automation.",
-};
-
-export default function AboutPage() {
+export default function AboutPage({ lang }: { lang: Lang }) {
+  const to = (path: string) => localeHref(lang, path);
   return (
     <main>
-      <SiteNav />
+      <SiteNav lang={lang} />
+
+      <JsonLd graph={profilePageGraph(lang)} />
 
       <PageHead
+        lang={lang}
         variant="about"
+        crumbs={[
+          { name: "HOME", path: "" },
+          { name: "ABOUT", path: "/about" },
+        ]}
         eyebrow={
           <>
-            01 / ABOUT — {site.name} / <C value={site.place} />
+            01 / ABOUT — {site.name} / <C lang={lang} value={site.place} />
           </>
         }
         lines={[{ text: "ENGINEER," }, { text: "DESIGNER, BUILDER.", faint: true }]}
-        lede={<C value={about.lede} />}
+        lede={<C lang={lang} value={about.lede} />}
         meta={
           <>
-            <C value={site.role} />
+            <C lang={lang} value={site.role} />
             <br />
-            <C value={site.place} />
+            <C lang={lang} value={site.place} />
           </>
         }
       />
@@ -42,12 +46,13 @@ export default function AboutPage() {
           <h2>
             IDEA TO
             <br />
-            <em>IMPLEMENTATION.</em>
+            <span className="faint">IMPLEMENTATION.</span>
           </h2>
         </div>
         <Reveal className="aboutGrid">
           <p className="bigcopy">
             <T
+              lang={lang}
               en="I build products from idea to implementation — mobile, web, research software and automation."
               ja="アイデアから実装まで、一貫してプロダクトをつくります。モバイル、Web、研究用ソフトウェア、そして自動化。"
             />
@@ -55,7 +60,7 @@ export default function AboutPage() {
           <div className="bio">
             {about.profile.map((p) => (
               <p key={p.en}>
-                <C value={p} />
+                <C lang={lang} value={p} />
               </p>
             ))}
           </div>
@@ -68,10 +73,10 @@ export default function AboutPage() {
           <h2>
             WHERE THE WORK
             <br />
-            <em>CAME FROM.</em>
+            <span className="faint">CAME FROM.</span>
           </h2>
           <p className="side">
-            <C value={about.journeyNote} />
+            <C lang={lang} value={about.journeyNote} />
           </p>
         </header>
         <Reveal className="journeyList" stagger={0.06}>
@@ -79,14 +84,14 @@ export default function AboutPage() {
             <article className="journeyRow" key={item.title.en}>
               <span className="journeyIndex">{String(i + 1).padStart(2, "0")}</span>
               <span className="journeyYear">
-                <C value={item.year} />
+                <C lang={lang} value={item.year} />
               </span>
               <div className="journeyBody">
                 <b>
-                  <C value={item.title} />
+                  <C lang={lang} value={item.title} />
                 </b>
                 <p>
-                  <C value={item.body} />
+                  <C lang={lang} value={item.body} />
                 </p>
               </div>
             </article>
@@ -99,17 +104,17 @@ export default function AboutPage() {
         <h2>
           FROM REQUIREMENTS
           <br />
-          <em>TO OPERATION.</em>
+          <span className="faint">TO OPERATION.</span>
         </h2>
-        <div className="techgrid techgridWide">
+        <ul className="techgrid techgridWide">
           {about.whatIDo.map((item, i) => (
-            <div key={item.en}>
+            <li key={item.en}>
               <span>{String(i + 1).padStart(2, "0")}</span>
-              <C value={item} />
+              <C lang={lang} value={item} />
               <b>↗</b>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       </section>
 
       <section className="caps">
@@ -118,20 +123,20 @@ export default function AboutPage() {
           <h2>
             THE STACK
             <br />
-            <em>IN GROUPS.</em>
+            <span className="faint">IN GROUPS.</span>
           </h2>
         </header>
         <Reveal className="capsGrid">
           {capabilityGroups.map((group) => (
             <div className="capsGroup" key={group.label.en}>
               <span>
-                <C value={group.label} />
+                <C lang={lang} value={group.label} />
               </span>
-              <div className="chips">
+              <ul className="chips">
                 {group.items.map((item) => (
-                  <span key={item}>{item}</span>
+                  <li key={item}>{item}</li>
                 ))}
-              </div>
+              </ul>
             </div>
           ))}
         </Reveal>
@@ -142,14 +147,14 @@ export default function AboutPage() {
         <h2>
           HAVE AN IDEA?
           <br />
-          <em>LET&apos;S BUILD IT.</em>
+          <span className="faint">LET&apos;S BUILD IT.</span>
         </h2>
-        <Link href="/contact">
-          <C value={ui.getInTouch} /> <span>↗</span>
+        <Link href={to("/contact")}>
+          <C lang={lang} value={ui.getInTouch} /> <span>↗</span>
         </Link>
       </section>
 
-      <SiteFooter />
+      <SiteFooter lang={lang} />
     </main>
   );
 }

@@ -1,16 +1,22 @@
 import type { CSSProperties, ReactNode } from "react";
+import Breadcrumbs from "./Breadcrumbs";
 import HeroMotion, { type HeroVariant } from "./HeroMotion";
 import PageHeadEntrance from "./PageHeadEntrance";
+import type { Lang } from "@/lib/i18n";
+import type { Crumb } from "@/lib/seo";
 
 export type BgVariant = HeroVariant;
 
 type Line = { text: ReactNode; faint?: boolean };
 
 type Props = {
+  lang: Lang;
   /** Picks the background figure and the motion scene, so each route reads as a different place. */
   variant: BgVariant;
   /** Shifts the figure and the scene's phase per case study, so one work does not look like the next. */
   seed?: number;
+  /** The trail above the eyebrow, and the BreadcrumbList that goes with it. */
+  crumbs?: Crumb[];
   eyebrow: ReactNode;
   lines: Line[];
   lede: ReactNode;
@@ -27,7 +33,7 @@ type Props = {
  * are siblings that render nothing: PageHeadEntrance plays the arrival, and
  * HeroMotion drives the canvas.
  */
-export default function PageHead({ variant, seed = 0, eyebrow, lines, lede, meta, children }: Props) {
+export default function PageHead({ lang, variant, seed = 0, crumbs, eyebrow, lines, lede, meta, children }: Props) {
   return (
     <section className={`pageHead pageHead--${variant}`}>
       <PageHeadEntrance />
@@ -36,12 +42,14 @@ export default function PageHead({ variant, seed = 0, eyebrow, lines, lede, meta
         <span className="bgPattern" />
       </div>
 
+      {crumbs ? <Breadcrumbs trail={crumbs} lang={lang} /> : null}
+
       <p className="eyebrow pageHeadEyebrow">{eyebrow}</p>
 
       <h1>
         {lines.map((line, i) => (
           <span className="lineMask" key={i}>
-            <span>{line.faint ? <em>{line.text}</em> : line.text}</span>
+            <span>{line.faint ? <span className="faint">{line.text}</span> : line.text}</span>
           </span>
         ))}
       </h1>
