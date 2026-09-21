@@ -6,3 +6,9 @@ build/
 .env*
 .DS_Store
 .vercel
+
+# iCloud conflict copies. This project lives under ~/Desktop, which iCloud
+# syncs, and a save during a sync leaves "Name 2.tsx" next to "Name.tsx".
+# Thirty of them once reached a commit through `git add -A`.
+* [0-9].*
+* [0-9]
