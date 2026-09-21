@@ -1,7 +1,0 @@
-# Cloudflare Pages redirects.
-#
-# The DMC Fuji case study was published at these two URLs before it was
-# withdrawn. They go to the works index rather than 404ing, so anything that
-# already links to them — or has them indexed — lands somewhere real.
-/works/dmc-fuji     /works     301
-/en/works/dmc-fuji  /en/works  301
