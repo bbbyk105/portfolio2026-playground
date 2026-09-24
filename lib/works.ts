@@ -42,7 +42,7 @@ export const works: Work[] = [
       ja: "企画、UI/UX、モバイル・バックエンド開発、データ設計、リリース・運用",
     },
     year: "2026",
-    url: "https://www.caroot.app",
+    url: "https://caroot.app",
     statement: {
       en: "A calorie and nutrition app where logging a meal is one photograph. AI splits the plate into individual dishes, and a correction you make once is applied to that dish from then on.",
       ja: "食事の記録を写真1枚で終わらせるための、カロリー・栄養管理アプリ。AIが料理を品目ごとに見分け、一度直した内容はその料理に次回から自動で適用されます。",
