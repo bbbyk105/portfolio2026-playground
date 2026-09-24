@@ -437,6 +437,10 @@ function WorksScene() {
 
 const DETAIL_LAYERS = ["INTERFACE", "LOGIC", "DATA"];
 
+// One variation per case study. The seed wraps at this, so a case study past
+// it would take the first one's beat and widths — raise it with the register.
+const SEEDS = 5;
+
 function DetailScene({ seed }: { seed: number }) {
   const scope = useRef<HTMLDivElement>(null);
 
@@ -457,7 +461,7 @@ function DetailScene({ seed }: { seed: number }) {
     // is left at the bottom is the product. Seeded, so two case studies are
     // never on the same beat.
     const travel = 2.05;
-    const cycle = gsap.timeline({ repeat: -1, paused: true, delay: (seed % 4) * 0.3 });
+    const cycle = gsap.timeline({ repeat: -1, paused: true, delay: (seed % SEEDS) * 0.3 });
     cycle
       .set(sweep, { y: 0, opacity: 0 })
       .to(sweep, { opacity: 1, duration: 0.25 }, 0.05)
@@ -493,7 +497,7 @@ function DetailScene({ seed }: { seed: number }) {
 
   // The stack is the same three layers everywhere; how much of each a given
   // project leans on is what the seed varies.
-  const width = (i: number) => `${58 + ((seed + i * 3) % 4) * 9}%`;
+  const width = (i: number) => `${58 + ((seed + i * 3) % SEEDS) * 9}%`;
 
   return (
     <div className="hmStage" ref={scope}>
