@@ -47,7 +47,14 @@ export default function Reveal({ children, className, y = 26, stagger = 0.07 }: 
         // Drop the inline styles once the entrance is done: after this the
         // element cannot be re-hidden by a later refresh or resize.
         onComplete: () => gsap.set(targets, { clearProps: "opacity,transform" }),
-        scrollTrigger: { trigger: root, start: "top 88%", once: true },
+        // Not `once: true`. A once-trigger kills itself the moment it finds
+        // itself scrolled past, and that can happen in the middle of another
+        // trigger's refresh — which walks the trigger list by index, so the
+        // list shrinking under it ends in "reading 'end'" of undefined. It
+        // happens on returning to a page: React re-runs this effect while the
+        // scroll is still where the last page left it, below everything here.
+        // The default toggleActions already play on enter and never reverse.
+        scrollTrigger: { trigger: root, start: "top 88%" },
       });
 
       // Screens carry intrinsic dimensions, but fonts and late layout still
