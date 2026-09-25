@@ -335,7 +335,7 @@ export const works: Work[] = [
     index: "04",
     name: "Fujisan Sake",
     title: ["FUJISAN", "SAKE"],
-    client: { en: "株式会社近藤薬局", ja: "株式会社近藤薬局" },
+    client: { en: "Kondo Pharmacy Co., Ltd. — 株式会社近藤薬局", ja: "株式会社近藤薬局" },
     sector: { en: "Commerce / Sake", ja: "EC / 日本酒" },
     kind: { en: "Commerce / Sake", ja: "EC / 日本酒" },
     place: { en: "Fuji, Shizuoka", ja: "静岡県富士市" },
