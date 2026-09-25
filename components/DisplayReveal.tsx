@@ -24,7 +24,9 @@ type Build = (split: SplitText, element: HTMLElement) => gsap.core.Timeline;
 function timelineFor(element: HTMLElement) {
   return gsap.timeline({
     defaults: { ease: "power2.out", duration: 0.6 },
-    scrollTrigger: { trigger: element, start: "top 88%", once: true },
+    // Not `once: true`, for the reason set out in Reveal: a trigger that kills
+    // itself during another's refresh breaks ScrollTrigger's refresh loop.
+    scrollTrigger: { trigger: element, start: "top 88%" },
     onComplete: () =>
       gsap.set(element.querySelectorAll(".splitChar, .splitChar-mask, .splitWord"), {
         clearProps: "transform,opacity,visibility,willChange",

@@ -27,13 +27,13 @@ export const pageSeo: Record<"home" | "works" | "about" | "contact" | "notFound"
   },
   works: {
     title: {
-      ja: "制作実績 — 公開・運用中のプロダクト4件 | 近藤白虎",
-      en: "Works — Four products in production | Byakko Kondo",
+      ja: "制作実績 — 公開・運用中のプロダクト5件 | 近藤白虎",
+      en: "Works — Five products in production | Byakko Kondo",
     },
     shareTitle: { ja: "制作実績 — 近藤白虎", en: "Works — Byakko Kondo" },
     description: {
-      ja: "公開・運用中のプロダクト4件のケーススタディ。栄養管理アプリ、精密加工メーカー、行政書士事務所、有機茶の通販 — 設計から実装・リリースまで担当しました。",
-      en: "Four products in production: a nutrition app, a precision-machining company, a legal office and an organic tea store — designed and built end to end.",
+      ja: "公開・運用中のプロダクト5件のケーススタディ。栄養管理アプリ、精密加工メーカー、行政書士事務所、日本酒と有機茶の通販 — 設計から実装・リリースまで担当しました。",
+      en: "Five products in production: a nutrition app, a precision-machining company, a legal office, a sake store and an organic tea store — designed and built end to end.",
     },
   },
   about: {

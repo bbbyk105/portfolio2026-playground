@@ -42,7 +42,7 @@ export const works: Work[] = [
       ja: "企画、UI/UX、モバイル・バックエンド開発、データ設計、リリース・運用",
     },
     year: "2026",
-    url: "https://www.caroot.app",
+    url: "https://caroot.app",
     statement: {
       en: "A calorie and nutrition app where logging a meal is one photograph. AI splits the plate into individual dishes, and a correction you make once is applied to that dish from then on.",
       ja: "食事の記録を写真1枚で終わらせるための、カロリー・栄養管理アプリ。AIが料理を品目ごとに見分け、一度直した内容はその料理に次回から自動で適用されます。",
@@ -331,8 +331,127 @@ export const works: Work[] = [
     screens: { desktop: "/works/goodwill.webp", mobile: "/works/goodwill-mobile.webp" },
   },
   {
-    slug: "jurakuen",
+    slug: "fujisan",
     index: "04",
+    name: "Fujisan Sake",
+    title: ["FUJISAN", "SAKE"],
+    client: { en: "Kondo Pharmacy Co., Ltd. — 株式会社近藤薬局", ja: "株式会社近藤薬局" },
+    sector: { en: "Commerce / Sake", ja: "EC / 日本酒" },
+    kind: { en: "Commerce / Sake", ja: "EC / 日本酒" },
+    place: { en: "Fuji, Shizuoka", ja: "静岡県富士市" },
+    role: {
+      en: "Design, development, payments and stock, admin, bilingual, SEO, operation",
+      ja: "デザイン、開発、決済・在庫、管理画面、多言語対応、SEO、運用",
+    },
+    year: "2026",
+    url: "https://sakefujisan.com",
+    statement: {
+      en: "A store for the Bushido series, five sakes made at the foot of Mt Fuji. Retail orders from individuals and a trade channel that shows wholesale prices only to approved stockists run on the same site.",
+      ja: "富士山麓の日本酒「武士道シリーズ」を販売するECサイト。個人向けの通販と、審査を通った取扱店にだけ卸価格を出す法人向けの導線を、ひとつのサイトに収めました。",
+    },
+    brief: [
+      {
+        en: "The Bushido series is five sakes made with Mt Fuji spring water and rice from Hyogo and Shizuoka. Alongside a page for each one, the site carries the water, the rice and the brewing, food pairings and a guide for stockists, in Japanese and English.",
+        ja: "武士道シリーズは、富士山の湧水と兵庫・静岡の酒米で造る5銘柄の日本酒です。銘柄ごとの商品ページに加え、水・米・造りの読みもの、料理との合わせ方、取扱店向けの案内を日本語と英語で掲載しています。",
+      },
+      {
+        en: "There are two ways to buy. An individual goes from the cart to Stripe's payment page; a business registers as a stockist, and once approved sees wholesale prices and a price list by the case. Because this is mail-order alcohol, the site confirms the buyer is over 20, carries the underage-drinking notice and publishes the disclosures Japan's specified commercial transactions law requires.",
+        ja: "購入の導線は2つあります。個人のお客様はカートからStripeの決済ページへ進み、法人のお客様は取扱店として登録し、審査が通ると卸価格とケース単位の価格表を見られるようになります。酒類の通信販売なので、20歳以上であることの確認、未成年飲酒防止の表示、特定商取引法にもとづく表記を備えています。",
+      },
+      {
+        en: "The side that runs the shop is built too. The admin opens on sales, orders that need attention and stock warnings, and from the browser covers shipping and refunds, prices and stock, stockist approval, enquiries and inviting staff. I handled it end to end: design, implementation, payments and stock, the admin, SEO, deployment and operation.",
+        ja: "お店を回す側の画面も作りました。管理画面を開くと売上、対応が必要な注文、在庫の警告が並び、発送と返金、価格と在庫の変更、取扱店の審査、問い合わせへの対応、スタッフの招待までをブラウザで行えます。デザインと実装から、決済と在庫、管理画面、SEO、デプロイと運用まで一貫して担当しています。",
+      },
+    ],
+    mechanism: [
+      {
+        title: { en: "The last bottle is not sold twice", ja: "最後の1本を2人に売らない" },
+        body: {
+          en: "Stock is reserved when the customer goes to pay and taken off the shelf once payment is confirmed. Taking it off only at confirmation leaves the few minutes on the payment page open, and in them several people can buy the same last bottle. Not overselling rests on one UPDATE that only succeeds while on-hand minus reserved still covers the quantity; D1 has no interactive transactions, so when one line of a multi-line order comes up short, the lines already reserved are put back. Checkout sessions expire after 30 minutes, Stripe's minimum, so an abandoned payment does not hold stock for a day.",
+          ja: "決済ページへ進んだ時点で在庫を引き当て、入金が確定してから棚の数を減らします。確定時に減らすだけでは、決済ページにいる数分のあいだに、同じ最後の1本を何人も買えてしまうためです。売り越さないことは「在庫から引当分を引いた数が注文数以上」を条件にした1文のUPDATEで担保しています。D1には対話的なトランザクションがないので、複数の明細の途中で足りなくなったら、それまでに積んだ分を戻します。放棄された決済が在庫を丸1日押さえないよう、決済の有効期限はStripeの下限の30分にしています。",
+        },
+      },
+      {
+        title: { en: "Wholesale prices open on approval, not on sign-up", ja: "卸価格は登録ではなく審査で開く" },
+        body: {
+          en: "Registering as a business is self-declared, so it shows nothing on its own. What opens wholesale pricing is an approved stockist review, and an account with no review on record counts as unapproved. If the review cannot be read, the prices stay hidden: a price once shown cannot be taken back. A liquor licence number is required only of retailers and wholesalers — a restaurant or inn pouring on the premises is not selling alcohol and needs none, and a required field that does not match the business turns away the right customers and invites made-up answers.",
+          ja: "法人としての登録は自己申告なので、登録しただけでは卸価格は見えません。表示の条件は取扱店の審査が承認済みであることで、審査の記録がないアカウントは未承認として扱います。審査状況を読めなかったときも、見せない側に倒します。一度表示した価格は取り消せないためです。酒類販売業免許の番号を必須にしているのは小売店と卸売店だけで、店内で提供する飲食店や宿泊施設には求めません。実態に合わない必須項目は正しい相手を弾き、嘘の入力を招くからです。",
+        },
+      },
+      {
+        title: { en: "The webhook confirms an order, exactly once", ja: "注文の確定はWebhookで、1回だけ" },
+        body: {
+          en: "Stripe may deliver the same event more than once. The order is confirmed by an UPDATE that only moves a pending order to confirmed, and only the delivery that actually made that change takes the stock and sends the emails. A failed email does not fail the webhook — the order is confirmed either way, so it is logged instead; Stripe is only asked to retry when the confirmation itself could not be written. Refunds and chargebacks raised from the Stripe dashboard come back the same way, with full and partial refunds recorded against the order.",
+          ja: "Stripeは同じイベントを複数回送ってくることがあります。注文は「未確定の注文だけを確定にする」条件付きのUPDATEで確定させ、実際に更新できた最初の1回だけが在庫を落とし、メールを送ります。メールが送れなくても注文は確定しているので、エラーは返さず記録だけ残します。Stripeに再送させるのは、確定そのものをデータベースに書けなかったときだけです。Stripeのダッシュボードから行った返金やチャージバックも同じ経路で受け取り、全額・一部の返金額を注文に記録します。",
+        },
+      },
+      {
+        title: { en: "Price and stock are kept apart", ja: "価格と在庫は別の表で持つ" },
+        body: {
+          en: "Sakes, sizes and descriptions live in code; price and stock are overrides in the database, in two separate tables. In one table, correcting a price would create a row with zero stock and sell the item out on the spot. Staff move stock at every count; only the owner can change a price. With no row, the code's value stands, and if the database cannot be read the shop keeps selling at the code's prices. Checkout, the admin and the wholesale price list all read the merged catalogue, so no path is left where a price changed in the admin does not apply.",
+          ja: "銘柄・容量・説明はコードに置き、価格と在庫はデータベースで上書きします。この2つは別の表です。同じ表にすると、価格だけ直したつもりで在庫0の行ができ、その場で完売になってしまいます。在庫はスタッフが棚卸しのたびに動かし、価格はオーナーしか変えられません。行がなければコードの値のまま売れ、データベースが読めないときもコードの価格で販売を続けます。決済・管理画面・卸価格表はすべてこの重ね合わせを読むので、管理画面で変えた価格が効かない経路は残りません。",
+        },
+      },
+      {
+        title: { en: "The age check is enforced on the server", ja: "年齢確認はサーバーでも行う" },
+        body: {
+          en: "Age is confirmed when a visitor arrives and again just before payment. The second check does not rest on the checkbox: the server action that starts checkout refuses a request without it, because a server action can be called without the page. The legal disclosures come from a single file, and a value not yet confirmed is left empty rather than filled with a plausible placeholder, which can go live looking like the real thing.",
+          ja: "20歳以上であることは、サイトに入るときと、決済の直前の2回確認します。2回目は画面のチェックボックスだけに頼らず、決済を始めるサーバー側の処理が、確認のない要求を拒否します。Server Actionは画面を通さずに直接呼べるためです。法令の表示は1つのファイルを唯一の出どころにし、まだ確定していない値はそれらしい伏せ字で埋めず、空のまま扱います。伏せ字は本物に見えたまま公開されうるからです。",
+        },
+      },
+    ],
+    built: [
+      {
+        en: "Pages for five sakes, reading on the water, the rice and the brewing, food pairings, Japanese / English",
+        ja: "5銘柄の商品ページ、水・米・造りの読みもの、料理との合わせ方、日本語・英語対応",
+      },
+      {
+        en: "Accounts with email verification, cart, Stripe Checkout and order confirmation by webhook",
+        ja: "メール認証つきの会員登録、カート、Stripe Checkoutによる決済と、Webhookでの注文確定",
+      },
+      {
+        en: "Stockist registration and review, with wholesale prices and a by-the-case price list shown only once approved",
+        ja: "取扱店の登録と審査、承認後にだけ表示する卸価格とケース単位の価格表",
+      },
+      {
+        en: "Stock reserved during checkout, and a stock alert sent only when a threshold is crossed",
+        ja: "決済中の在庫の引き当てと、しきい値をまたいだときだけ届く在庫の通知",
+      },
+      {
+        en: "Order history, a receipt made for printing, and cancellation requests before shipping",
+        ja: "注文の詳細、印刷して使える領収書、発送前のキャンセル依頼",
+      },
+      {
+        en: "An admin with a sales dashboard, order filters and CSV export, packing slips, full and partial refunds, price and stock editing, stockist review, enquiries, and staff invites with two roles",
+        ja: "管理画面：売上ダッシュボード、注文の絞り込みとCSV書き出し、納品書、全額・一部返金、価格と在庫の編集、取扱店の審査、問い合わせ、2段階の権限をもつスタッフ招待",
+      },
+      {
+        en: "Age confirmation, the underage-drinking notice and the specified commercial transactions disclosures",
+        ja: "年齢確認、未成年飲酒防止の表示、特定商取引法にもとづく表記",
+      },
+      {
+        en: "Rate limiting on sign-in, registration and enquiries, product structured data, per-page metadata and sitemap",
+        ja: "ログイン・登録・問い合わせのレート制限、商品の構造化データ、ページごとのメタデータとサイトマップ",
+      },
+    ],
+    stack: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Cloudflare Workers",
+      "D1",
+      "Drizzle",
+      "Better Auth",
+      "Stripe",
+      "Resend",
+      "Tailwind CSS",
+      "Jest",
+    ],
+    screens: { desktop: "/works/fujisan.webp", mobile: "/works/fujisan-mobile.webp" },
+  },
+  {
+    slug: "jurakuen",
+    index: "05",
     name: "Jurakuen",
     title: ["JURAKUEN"],
     client: { en: "聚楽苑 — Jurakuen", ja: "聚楽苑" },
