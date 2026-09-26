@@ -20,7 +20,7 @@ export const absolute = (path: string) => `${site.url}${path}`;
  * copy or the case studies change — a build timestamp would tell crawlers
  * every page changed every deploy, which is how lastmod stops being believed.
  */
-export const CONTENT_UPDATED = "2026-09-24";
+export const CONTENT_UPDATED = "2026-09-26";
 
 /**
  * What every page in one tree shares. Deliberately no `alternates` and no

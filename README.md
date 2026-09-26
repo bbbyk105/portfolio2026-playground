@@ -11,7 +11,7 @@ Each route exists twice: Japanese at the root, English under `/en`.
 | Route | Contents |
 | --- | --- |
 | `/` · `/en` | Hero, what I can do, about, capabilities, contact |
-| `/works` · `/en/works` | Register of the five products in production, plus research / automation practice |
+| `/works` · `/en/works` | Register of the six products in production, plus research / automation practice |
 | `/works/[slug]` | Client case study: spec table, screens, project, how it works, delivered, technology |
 | `/works/research/[slug]` | Research case study: the pipeline stage by stage, the architecture tiers, the core calculation, outputs |
 | `/about` · `/en/about` | Profile, journey, what I do, capability groups |

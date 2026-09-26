@@ -439,7 +439,7 @@ const DETAIL_LAYERS = ["INTERFACE", "LOGIC", "DATA"];
 
 // One variation per case study. The seed wraps at this, so a case study past
 // it would take the first one's beat and widths — raise it with the register.
-const SEEDS = 5;
+const SEEDS = 6;
 
 function DetailScene({ seed }: { seed: number }) {
   const scope = useRef<HTMLDivElement>(null);
@@ -496,8 +496,11 @@ function DetailScene({ seed }: { seed: number }) {
   });
 
   // The stack is the same three layers everywhere; how much of each a given
-  // project leans on is what the seed varies.
-  const width = (i: number) => `${58 + ((seed + i * 3) % SEEDS) * 9}%`;
+  // project leans on is what the seed varies. Each layer sits one step behind
+  // the one above — a stride that shares a factor with SEEDS would give two
+  // layers the same width — and the step shrinks as SEEDS grows, so the widest
+  // bar stays at 94% of its strip.
+  const width = (i: number) => `${58 + ((seed + i * (SEEDS - 1)) % SEEDS) * (36 / (SEEDS - 1))}%`;
 
   return (
     <div className="hmStage" ref={scope}>

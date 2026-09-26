@@ -450,8 +450,126 @@ export const works: Work[] = [
     screens: { desktop: "/works/fujisan.webp", mobile: "/works/fujisan-mobile.webp" },
   },
   {
-    slug: "jurakuen",
+    slug: "worx-mt-fuji",
     index: "05",
+    name: "worx mt.fuji",
+    title: ["WORX", "MT.FUJI"],
+    client: { en: "Kikkodo, Kondo Pharmacy — 橘香堂（近藤薬局）", ja: "橘香堂（近藤薬局）" },
+    sector: { en: "Coworking / Booking", ja: "コワーキング / 予約" },
+    kind: { en: "Coworking / Booking", ja: "コワーキング / 予約" },
+    place: { en: "Yoshiwara, Fuji, Shizuoka", ja: "静岡県富士市吉原" },
+    role: {
+      en: "Design, development, booking system, admin, SEO, operation",
+      ja: "デザイン、開発、予約システム、管理画面、SEO、運用",
+    },
+    year: "2026",
+    url: "https://worxmtfuji.com",
+    statement: {
+      en: "The site for Kikkodo (worx mt.fuji), a coworking space in Yoshiwara, Fuji. Alongside the space and its prices, it takes bookings without an account, gives each customer a page for their bookings without a password, and gives the staff a dashboard to run them.",
+      ja: "富士市吉原のコワーキングスペース「橘香堂（worx mt.fuji）」のサイト。施設と料金の案内に、会員登録なしで使える予約、パスワードのいらないマイページ、スタッフ用の予約管理画面を組み合わせました。",
+    },
+    brief: [
+      {
+        en: "Kikkodo is a coworking space in Yoshiwara, Fuji, seating 80 and holding 150 standing. It is used by the hour, by monthly members, as a meeting room and as a registered business address, and it is hired out for events or for a whole day. The site covers the space and its equipment, prices, access and common questions, with a page for each way of using it.",
+        ja: "橘香堂は富士市吉原にある、着席80名・立席150名まで入るコワーキングスペースです。時間単位のビジター利用、月額の会員、会議室、住所登録のほか、イベントや1日貸切にも使われています。サイトでは空間と設備、料金、アクセス、よくある質問を、利用シーンごとのページに分けて案内しています。",
+      },
+      {
+        en: "Booking takes four steps — the kind of use, a free day and time on the calendar, contact details, a final check — and needs no account. The confirmation email carries a link to that booking, where it can be checked and cancelled until 17:00 the day before. Every booking made with one email address is gathered on a customer page, opened through a sign-in link sent by email.",
+        ja: "予約は、利用種別、カレンダーでの日時選択、連絡先の入力、確認の4ステップで、会員登録は求めません。受付メールには予約ごとの確認リンクが付き、そこから内容の確認と、前日17時までのキャンセルができます。同じメールアドレスの予約は、メールで届くログインリンクから開くマイページにまとまります。",
+      },
+      {
+        en: "The staff side is a booking dashboard. It opens on today, the next seven days and what is awaiting confirmation, and covers search by name or phone number, confirming and cancelling, entering bookings taken by phone, moving a date or time, and a note the customer never sees. I handled it end to end: design, implementation, the booking system, the admin, SEO, deployment to Cloudflare and operation.",
+        ja: "スタッフ側には予約管理の画面を用意しました。今日・今後7日間・確認待ちの件数から始まり、名前や電話番号での検索、確定とキャンセル、電話で受けた予約の登録、日時の変更、お客様には見えない店内メモまでを扱えます。デザインと実装から、予約の仕組み、管理画面、SEO、Cloudflareへのデプロイと運用まで一貫して担当しています。",
+      },
+    ],
+    mechanism: [
+      {
+        title: { en: "One slot, one booking", ja: "同じ枠を2人に渡さない" },
+        body: {
+          en: "What counts as a clash follows how the space is used: visitors and coworking share the floor and never block each other, meeting rooms clash only when their hours overlap, and a day hired out whole blocks everything. The calendar shows only free slots, but a slot can fill between opening the calendar and pressing send, so the server checks again before writing. Two requests arriving together would both pass that check, so after inserting, each reads the day again and backs out if an earlier booking now overlaps it. Earlier means created first, with the ID breaking a tie, so both sides rank the pair the same way and never both back out. The one that loses is removed before any email is sent.",
+          ja: "何を重なりとみなすかは、施設の使われ方に合わせています。ビジターやコワーキングはフロアを共有するので互いを妨げず、会議室は時間帯が重なったときだけ、1日貸切はその日のすべての予約とぶつかります。カレンダーには空いている枠しか出しませんが、開いてから送信するまでに埋まることがあるので、サーバーは書き込む前にもう一度確かめます。ほぼ同時に届いた2件はどちらもこの確認を通ってしまうため、登録した後にその日の予約を読み直し、先に入った予約と重なっていれば自分を取り消します。「先」は作成時刻で決め、同時なら予約IDで決めるので、2件の順番の見方が食い違うことはなく、両方が取り消し合うこともありません。取り消す側は、メールを送る前に消えます。",
+        },
+      },
+      {
+        title: { en: "Staff are warned, not stopped", ja: "管理画面では止めずに知らせる" },
+        body: {
+          en: "When staff enter or move a booking that overlaps another, they are warned and can save knowing it is there. After saving, the server checks again, since a web booking or a second member of staff may have taken the slot between the check and the save. Confirming and cancelling only apply to a booking still in the state they expect, so a customer cancelling at the same moment is not overwritten by a confirmation — the staff member is told it has already changed. A customer's cancellation works the same way, and emails go out only when a row actually changed, so a double click does not send two. A cancelled booking cannot be reinstated, because its slot may have gone to someone else; it is entered again instead.",
+          ja: "スタッフが登録・変更する予約がほかと重なる場合は、止めずに警告し、承知の上で保存できるようにしています。保存した後にもサーバーで確かめ直します。確認から保存までの間に、Web予約やもう一人のスタッフが同じ枠を押さえているかもしれないためです。確定とキャンセルは、想定した状態のままの予約にだけ効くので、お客様が同じ瞬間にキャンセルした予約を確定で上書きすることはなく、スタッフには状態が変わっていると伝えます。お客様のキャンセルも同じ仕組みで、実際に行が変わったときだけメールを送るので、二重に押しても2通は届きません。キャンセル済みの予約は元に戻せません。その枠がほかの人に渡っているかもしれないため、登録し直す運用にしています。",
+        },
+      },
+      {
+        title: { en: "No account, and nothing to store", ja: "アカウントなしで、保存するものもない" },
+        body: {
+          en: "The link in a confirmation email is the booking's ID with an HMAC signature, so only its recipient can open or cancel it, and nothing is stored to make that work. The cancellation deadline, 17:00 the day before, is computed in Japan time whatever clock the server runs on, across the end of a month or a year. The customer page signs in by email: a 15-minute link, then a 30-day httpOnly cookie, and the two are signed for different purposes so one cannot stand in for the other. The sign-in form gives the same answer whether or not an address has bookings, and sends the email after responding, so not even the response time gives it away.",
+          ja: "受付メールのリンクは予約IDにHMACの署名を付けたもので、受け取った本人だけが確認とキャンセルをできます。そのためにデータベースへ何かを保存することはありません。前日17時というキャンセルの締切は、サーバーの時計がどのタイムゾーンでも日本時間で計算し、月末や年末をまたいでも正しく出ます。マイページはメールでログインします。15分有効のリンクから30日間のhttpOnly Cookieに切り替わり、2つは別の用途として署名しているので、互いの代わりには使えません。ログインの画面は、そのアドレスに予約があってもなくても同じ応答を返し、メールは応答した後に送ります。応答時間からも、予約の有無が分からないようにするためです。",
+        },
+      },
+      {
+        title: { en: "The admin checks its own gate", ja: "管理画面は入口の外でも確かめる" },
+        body: {
+          en: "The dashboard sits behind Cloudflare Access, which sends a one-time code to approved addresses. The app does not take that on trust: every admin action verifies the token Access signs — issuer, audience, algorithm and an email on the allow-list — so a policy left misconfigured, or a request sent straight to the workers.dev address, still gets no booking data. With the settings missing it refuses rather than opens. In the database, row-level security is on with no policies and the public roles hold no grants, so names, emails and phone numbers are reachable only from server code with the service key, in modules marked server-only.",
+          ja: "管理画面はCloudflare Accessの内側にあり、許可したメールアドレスにだけワンタイムコードが届きます。アプリ側はそれを前提にせず、管理用の操作のたびにAccessが署名したトークンを自分で検証します（発行元、対象、署名方式、許可リストにあるメールアドレス）。Accessの設定が漏れていても、workers.devのアドレスに直接来たリクエストでも、予約データは返りません。設定そのものがなければ、開けずに拒否します。データベースは行レベルセキュリティを有効にしたうえでポリシーを置かず、公開用のロールには権限を与えていません。名前・メール・電話番号に触れられるのは、server-onlyを付けたモジュールでサービスキーを持つサーバーのコードだけです。",
+        },
+      },
+      {
+        title: { en: "Pages stay static; data comes through actions", ja: "ページは静的に、データはアクションで" },
+        body: {
+          en: "It runs on Cloudflare Workers' free plan, which allows 10 ms of CPU per request. With no incremental cache configured, even the pages generated at build time were being rendered again on every request, and past that limit the site answered with Error 1102. Built pages are now served from the static-asset cache without passing through Next.js at all. What depends on the visitor — the customer page, a booking's page, the admin — is read in the browser and fetched through server actions, so the page itself stays static.",
+          ja: "動いているのはCloudflare Workersの無料プランで、1リクエストあたりのCPU時間は10msまでです。incremental cacheが未設定だったため、ビルド時に生成したページまでリクエストのたびに描画し直し、この上限を超えてError 1102を返していました。いまは生成済みのページを静的アセットのキャッシュから、Next.jsの処理を通さずに返しています。マイページや予約の確認ページ、管理画面のように見る人によって変わる部分はブラウザ側で読み込み、データはサーバーアクション経由で取るので、ページ自体は静的なままです。",
+        },
+      },
+    ],
+    built: [
+      {
+        en: "Pages for the space, prices, access and common questions, with four more for each way of using it",
+        ja: "施設・空間・料金・アクセス・よくある質問のページと、利用シーン別の4つの詳細ページ",
+      },
+      {
+        en: "Four-step booking with live availability, a start-to-end range for meeting rooms and whole-day hire, no account required",
+        ja: "空き状況を反映したカレンダー、会議室の開始〜終了の範囲指定、1日貸切に対応した、会員登録のいらない4ステップの予約",
+      },
+      {
+        en: "A confirmation email with a signed link to each booking, and cancellation online until 17:00 the day before",
+        ja: "予約ごとの署名付きリンクを載せた受付メールと、前日17時までのWebキャンセル",
+      },
+      {
+        en: "A customer page reached by an emailed sign-in link: upcoming and past bookings, cancellation, and a booking form that opens with the email, name and phone already in",
+        ja: "メールのログインリンクで開くマイページ：今後と過去の予約、キャンセル、メールアドレス・名前・電話番号を入れた状態で開く予約フォーム",
+      },
+      {
+        en: "A booking dashboard: today, seven-day and awaiting counts, five views, search, confirm and cancel with an optional email, phone bookings, date changes with an overlap warning, and a staff note",
+        ja: "予約管理画面：今日・7日間・確認待ちの件数、5つの表示切替、検索、メール通知を選べる確定とキャンセル、電話予約の登録、重なりを警告する日時変更、店内メモ",
+      },
+      {
+        en: "A contact form with six enquiry types, a notice to the space and a copy to the sender",
+        ja: "6種類の問い合わせフォームと、施設への通知・送信者への控え",
+      },
+      {
+        en: "Drawing-style figures of the facilities that draw themselves in and loop in CSS alone, and hold still for anyone who prefers reduced motion",
+        ja: "設備と間取りを描いた製図風のSVGと、CSSだけで動く描き出しとループ（動きを減らす設定では静止）",
+      },
+      {
+        en: "Bot checks on every public form, a limit on sign-in emails, LocalBusiness structured data, per-page titles and share cards, and redirects onto one canonical domain",
+        ja: "公開フォームすべてのボット対策、ログインメールの送信回数制限、店舗の構造化データ、ページごとのタイトルとSNS表示、正規ドメインへのリダイレクト",
+      },
+    ],
+    stack: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Cloudflare Workers",
+      "Cloudflare Access",
+      "Supabase",
+      "Resend",
+      "Turnstile",
+      "Tailwind CSS",
+      "Jest",
+    ],
+    screens: { desktop: "/works/worx-mt-fuji.webp", mobile: "/works/worx-mt-fuji-mobile.webp" },
+  },
+  {
+    slug: "jurakuen",
+    index: "06",
     name: "Jurakuen",
     title: ["JURAKUEN"],
     client: { en: "聚楽苑 — Jurakuen", ja: "聚楽苑" },
