@@ -163,8 +163,8 @@ export const home = {
     ja: "プロダクト / Web / 研究 / 自動化",
   },
   canDoWorks: {
-    en: "Five products built this way are live and in daily use.",
-    ja: "この内容でつくったプロダクト5件が、いまも公開・運用されています。",
+    en: "Six products built this way are live and in daily use.",
+    ja: "この内容でつくったプロダクト6件が、いまも公開・運用されています。",
   },
   aboutMore: {
     en: "The route from life science into engineering, and the whole stack behind it.",
@@ -218,8 +218,8 @@ export const works_page = {
     ja: "情報設計からデプロイまで、一貫して設計・開発したプロダクトとサイトです。いずれも公開中で、実際に使われています。何をどう作ったかはケーススタディをご覧ください。",
   },
   meta: {
-    en: "FIVE PRODUCTS IN PRODUCTION",
-    ja: "稼働中のプロダクト5件",
+    en: "SIX PRODUCTS IN PRODUCTION",
+    ja: "稼働中のプロダクト6件",
   },
   practiceNote: {
     en: "UNIVERSITY RESEARCH / NO PUBLIC URL",
