@@ -568,8 +568,128 @@ export const works: Work[] = [
     screens: { desktop: "/works/worx-mt-fuji.webp", mobile: "/works/worx-mt-fuji-mobile.webp" },
   },
   {
-    slug: "jurakuen",
+    slug: "amachi-hoshisora",
     index: "06",
+    name: "Amachi Hoshisora",
+    title: ["AMACHI", "HOSHISORA"],
+    client: { en: "Kondo Pharmacy Co., Ltd. — 株式会社近藤薬局", ja: "株式会社近藤薬局" },
+    sector: { en: "Commerce / Sake for Australia", ja: "EC / オーストラリア向け日本酒" },
+    kind: { en: "Commerce / Sake for Australia", ja: "EC / オーストラリア向け日本酒" },
+    place: { en: "Australia", ja: "オーストラリア" },
+    role: {
+      en: "Design, development, payments, bilingual, SEO, operation",
+      ja: "デザイン、開発、決済、多言語対応、SEO、運用",
+    },
+    year: "2026",
+    url: "https://www.mtfuji-sake-aus.com",
+    statement: {
+      en: "A store selling Amachi Hoshisora, a junmai daiginjo brewed at the foot of Mt Fuji, to customers in Australia. Prices are in Australian dollars, and each order is either delivered within Australia or handed over in person with no shipping charge.",
+      ja: "富士山麓で醸す純米大吟醸「天地星空」を、オーストラリアで販売するECサイト。価格は豪ドルで、注文ごとに国内への配送か、送料のかからない対面での受け取りかを選べます。",
+    },
+    brief: [
+      {
+        en: "Amachi Hoshisora is made by Fujinishiki, a brewery at the foot of Mt Fuji founded in the Genroku era (1688–1704), from Yamada Nishiki rice polished to 40% and spring water that takes around seventy years to filter through the mountain. The store sells it in 720 ml and 500 ml alongside Fuji no Shizuku, a 180 ml junmai ginjo, and carries a page on the water and the rice, the brewery's three hundred years with a timeline, and common questions, in English and Japanese.",
+        ja: "天地星空は、元禄年間（1688〜1704年）創業の富士錦酒造が、40%まで磨いた山田錦と、富士山で約70年かけてろ過された湧き水で仕込む純米大吟醸です。サイトでは720mlと500mlに、180mlの純米吟醸「富士の雫」を加えた3商品を販売し、あわせて水と米の紹介、創業から三百年あまりの蔵の年表、よくある質問を英語と日本語で掲載しています。",
+      },
+      {
+        en: "An order goes from the cart to Stripe's payment page. Before paying, the customer chooses delivery or handover in person: delivery asks for an address in Australia and a phone number and costs A$50, free from A$600; handover costs nothing extra. Stripe emails the receipt. The site asks for age on arrival — 18 or over under Australian law on the English pages, 20 or over on the Japanese ones — and publishes a privacy policy, terms and the disclosures Japan's specified commercial transactions law requires.",
+        ja: "注文はカートからStripeの決済ページへ進みます。支払いの前に、配送か対面での受け取りかを選びます。配送ではオーストラリア国内の住所と電話番号を入力し、送料は一律A$50、A$600以上で無料です。対面での受け取りに追加の費用はかかりません。領収書はStripeからメールで届きます。サイトに入るときには年齢を確認し、英語のページではオーストラリアの法律に沿って18歳以上、日本語のページでは20歳以上であることを確かめます。プライバシーポリシー、利用規約、特定商取引法にもとづく表記も備えています。",
+      },
+      {
+        en: "The site launched in 2025. In 2026 I redesigned it around a night timelapse of Mt Fuji, added a page on the two sakes and one on the brewery's history, and rebuilt the code so that pages render on the server and only what needs the browser — the cart, the age check, the motion — is split out as small pieces. I handled it end to end: design, implementation, payments, the bilingual structure, SEO, deployment to Vercel and operation.",
+        ja: "サイトは2025年に公開し、2026年に夜の富士山のタイムラプスを軸にデザインを刷新しました。あわせて2つのお酒の紹介ページと蔵の歴史のページを加え、ページはサーバーで描画し、カート・年齢確認・演出のようにブラウザが必要な部分だけを小さく切り出す形に作り直しています。デザインと実装から、決済、日英のサイト構造、SEO、Vercelへのデプロイと運用まで一貫して担当しています。",
+      },
+    ],
+    mechanism: [
+      {
+        title: { en: "The browser sends no prices", ja: "金額はブラウザから受け取らない" },
+        body: {
+          en: "The checkout request carries product IDs, quantities, the delivery choice and the language, and nothing else. The server looks each ID up in its own catalogue, refuses an unknown product or a quantity that is not a whole number from 1 to 99, and works out the subtotal and the shipping from its own prices. An edited request can change what is ordered, never what it costs. Line items are built per request in Australian cents rather than registered in Stripe as fixed prices, so the site's catalogue is the only place a price lives.",
+          ja: "決済のリクエストに載せるのは、商品ID、数量、受け取り方法、言語だけです。サーバーはIDを自分の商品データと照らし合わせ、存在しない商品や1〜99の整数でない数量を拒否し、小計と送料を自分の価格から計算します。リクエストを書き換えても、注文の中身は変えられても金額は変えられません。明細はStripeに固定の価格として登録せず、リクエストごとに豪セント単位で組み立てるので、価格を持っているのはサイトの商品データだけです。",
+        },
+      },
+      {
+        title: { en: "Delivery and handover pay differently", ja: "配送と対面受け取りで決済の形を変える" },
+        body: {
+          en: "Choosing delivery makes the checkout session collect a shipping address, limited to Australia, and a phone number, and adds A$50 as its own line unless the subtotal has reached A$600. Handover in person collects neither and adds nothing. The choice is written onto the payment and its invoice as the order type, so each payment in the Stripe dashboard says how the bottles are to reach the customer. Invoice creation is switched on, which is what sends the receipt.",
+          ja: "配送を選ぶと、決済ページはオーストラリア国内に限った配送先住所と電話番号を求め、小計がA$600に届いていなければ送料A$50を別の明細として加えます。対面での受け取りではどちらも求めず、送料も加えません。選んだ方法は注文の種別として決済と請求書に記録されるので、Stripeのダッシュボードで支払いごとに、お酒をどう渡すのかが分かります。請求書の作成を有効にしているので、領収書はStripeから自動で届きます。",
+        },
+      },
+      {
+        title: { en: "The cart survives the trip to Stripe", ja: "カートはStripeとの往復で消えない" },
+        body: {
+          en: "Going to Stripe and back is a full page load, so the cart cannot live in React state. It lives in a small store synced with local storage and read through useSyncExternalStore: the server renders an empty cart, the browser restores it after hydration, and a change in one tab reaches the others. What is read back is checked item by item, and a malformed item is dropped on its own instead of breaking the cart. The success page empties it and reads the payment from Stripe on the server, with the secret key in a server-only module. A customer who comes back from Stripe with the back button gets the page from the browser's cache, so the checkout button is reset rather than left saying it is processing.",
+          ja: "Stripeへ移動して戻ってくるとページは読み込み直しになるので、カートをReactの状態に置くことはできません。localStorageと同期する小さなストアに置き、useSyncExternalStoreで読みます。サーバーは空のカートでHTMLを作り、ブラウザが表示後に中身を復元し、別のタブでの変更も反映されます。読み戻した中身は1件ずつ確かめ、形の崩れた項目はそれだけを捨て、カート全体は壊しません。決済完了ページではカートを空にし、支払いの内容はサーバーからStripeに問い合わせます。秘密鍵はserver-onlyを付けたモジュールの中だけにあります。Stripeからブラウザの「戻る」で帰ってきた場合はキャッシュから復元されたページになるため、決済ボタンを「処理中」のまま残さず元に戻します。",
+        },
+      },
+      {
+        title: { en: "The age check never flashes", ja: "確認済みの人に年齢確認をちらつかせない" },
+        body: {
+          en: "Whether a visitor has passed is kept in local storage, which the server cannot read, so the server's HTML carries a dark cover in place of the check. A line of script in the head, run before the first paint, marks the page for anyone who has already passed, and CSS removes the cover for them: a returning visitor never sees the check flash up, and a new one never sees the page before it. The opening animation waits for the pass instead of playing out behind the check. Where storage is blocked, the pass holds for the rest of the tab.",
+          ja: "年齢確認を通過したかどうかはlocalStorageに持っていて、サーバーからは読めません。そのためサーバーのHTMLには、確認画面の代わりに暗い覆いを置いています。<head>の短いスクリプトが最初の描画より前に動き、通過済みの人にはページに印を付け、CSSがその覆いを外します。再訪した人に確認画面が一瞬映ることはなく、初めての人に確認より先にページが見えることもありません。ページ冒頭の演出は確認の通過を待ってから再生し、確認画面の裏で終わってしまうことはありません。localStorageが使えない環境では、そのタブを閉じるまで通過済みとして扱います。",
+        },
+      },
+      {
+        title: { en: "Motion is declared in the markup", ja: "動きはマークアップで指定する" },
+        body: {
+          en: "Pages are Server Components that say what moves with a data-motion attribute — a heading set a character at a time, a photograph revealed behind a rising edge, an archive photograph that develops, a timeline whose line grows with the scroll, a number that counts up — and a single client hook attaches GSAP to all of them. On a direct visit, anything already on screen is left exactly as the server drew it, so the motion never holds back the largest paint; of the opening animations, only the home page's hero plays. The night timelapse is not preloaded: the HTML shows its first frame, and the video is fetched only for visitors who have not asked for reduced motion.",
+          ja: "ページはServer Componentで、何をどう動かすかはdata-motion属性で書くだけにしています（1文字ずつ出る見出し、幕が上がるように現れる写真、現像されるように色が戻る古写真、スクロールに合わせて伸びる年表の線、数え上がる数字など）。GSAPを付けるのは1つのクライアント側のフックです。ページを直接開いたときは、すでに画面に見えている要素をサーバーが描いたまま動かさないので、演出が最大の描画を遅らせることはありません。冒頭の演出で再生するのはトップのヒーローだけです。夜の富士山のタイムラプスは先読みせず、HTMLには最初の1コマだけを載せ、動きを減らす設定をしていない人にだけ動画を読み込みます。",
+        },
+      },
+    ],
+    built: [
+      {
+        en: "Pages for three bottles, a page on the two sakes' water and rice, the brewery's history with a timeline and Meiji-era photographs, and an FAQ, in Japanese / English",
+        ja: "3商品の商品ページ、2つのお酒の水と米の紹介、年表と明治の写真を載せた蔵の歴史、よくある質問、日本語・英語対応",
+      },
+      {
+        en: "A catalogue with category filter and sorting, and a cart kept across the Stripe round trip, a language switch and other tabs",
+        ja: "カテゴリの絞り込みと並び替えのできる商品一覧と、Stripeとの往復・言語の切り替え・別のタブをまたいで残るカート",
+      },
+      {
+        en: "Stripe Checkout in Australian dollars, with delivery within Australia or handover in person chosen per order",
+        ja: "豪ドルでのStripe Checkoutと、注文ごとに選べるオーストラリア国内配送・対面受け取り",
+      },
+      {
+        en: "Amounts and shipping calculated on the server — A$50, free from A$600, none for handover — with receipts sent by Stripe",
+        ja: "サーバー側での金額と送料の計算（A$50、A$600以上で無料、対面受け取りは無料）と、Stripeからの領収書送付",
+      },
+      {
+        en: "An order confirmation page that reads the payment from Stripe on the server and empties the cart",
+        ja: "支払いの内容をサーバーからStripeに問い合わせて表示し、カートを空にする注文完了ページ",
+      },
+      {
+        en: "Age confirmation on arrival — 18 or over in English, 20 or over in Japanese — with the privacy policy, terms and specified commercial transactions disclosures",
+        ja: "サイトに入るときの年齢確認（英語は18歳以上、日本語は20歳以上）と、プライバシーポリシー・利用規約・特定商取引法にもとづく表記",
+      },
+      {
+        en: "Scroll motion with GSAP driven from the markup, and a night timelapse of Mt Fuji that holds still for anyone who prefers reduced motion",
+        ja: "マークアップから指定するGSAPのスクロール演出と、動きを減らす設定では再生しない夜の富士山のタイムラプス",
+      },
+      {
+        en: "The language always in the URL, per-page canonical and hreflang, a sitemap covering both languages, noindex on the payment result pages and a permanent redirect from the old FAQ address",
+        ja: "常にURLに含まれる言語、ページごとのcanonicalとhreflang、両言語のサイトマップ、決済結果ページのnoindex、旧FAQのURLからの恒久リダイレクト",
+      },
+    ],
+    stack: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "next-intl",
+      "Stripe",
+      "GSAP",
+      "Tailwind CSS",
+      "Radix UI",
+      "Vercel",
+    ],
+    screens: {
+      desktop: "/works/amachi-hoshisora.webp",
+      mobile: "/works/amachi-hoshisora-mobile.webp",
+    },
+  },
+  {
+    slug: "jurakuen",
+    index: "07",
     name: "Jurakuen",
     title: ["JURAKUEN"],
     client: { en: "聚楽苑 — Jurakuen", ja: "聚楽苑" },
