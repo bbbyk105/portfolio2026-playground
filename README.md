@@ -53,7 +53,9 @@ a ledger grid on `/works`, a section through the product on a case study
 (shifted per work), a dot matrix on `/about`, diagonal hatching on `/contact`
 — and `PageHead` plays an entrance on mount. Without both, a client-side
 navigation between two dark pages is hard to notice. The figure is the page's
-floor; what sits on top of it in the right three columns is `HeroMotion`.
+floor; on `/about` and `/contact`, what sits on top of it in the right three
+columns is `HeroMotion`. Works and the case studies leave those columns to the
+figure — a mock interface beside real screenshots read as generated filler.
 
 ## Structure
 
@@ -62,12 +64,12 @@ floor; what sits on top of it in the right three columns is `HeroMotion`.
   and three of those islands — `HeroReveal`, `HeroEntrance`, `PageHeadEntrance` —
   render nothing at all and only carry behaviour
 - `components/SiteNav.tsx` — nav bar and the GSAP hamburger panel, shared by every page
-- `components/PageHead.tsx` — the subpage masthead: type down the left, motion
-  canvas in the right three columns, and an arrival animation on mount
-- `components/HeroMotion.tsx` — that canvas. One motion system, four scenes:
-  works runs a deployment, a case study compiles its stack, about converges
-  four strands of a practice, contact sends a message and waits for the
-  receipt. Everything sits on the masthead's own 44px grid, reveals by clip /
+- `components/PageHead.tsx` — the subpage masthead: type down the left, a motion
+  canvas in the right three columns on about and contact, and an arrival
+  animation on mount
+- `components/HeroMotion.tsx` — that canvas. One motion system, two scenes:
+  about converges four strands of a practice, contact sends a message and waits
+  for the receipt. Everything sits on the masthead's own 44px grid, reveals by clip /
   mask / scale rather than opacity, and settles into an idle a few pixels
   wide. Reduced motion is left with the stylesheet's resting state, which is
   the last frame of the entrance
