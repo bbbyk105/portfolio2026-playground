@@ -5,15 +5,15 @@ import PageHeadEntrance from "./PageHeadEntrance";
 import type { Lang } from "@/lib/i18n";
 import type { Crumb } from "@/lib/seo";
 
-export type BgVariant = HeroVariant;
+export type BgVariant = "works" | "detail" | HeroVariant;
 
 type Line = { text: ReactNode; faint?: boolean };
 
 type Props = {
   lang: Lang;
-  /** Picks the background figure and the motion scene, so each route reads as a different place. */
+  /** Picks the background figure — and, on about and contact, the motion scene — so each route reads as a different place. */
   variant: BgVariant;
-  /** Shifts the figure and the scene's phase per case study, so one work does not look like the next. */
+  /** Shifts the figure per case study, so one work does not look like the next. */
   seed?: number;
   /** The trail above the eyebrow, and the BreadcrumbList that goes with it. */
   crumbs?: Crumb[];
@@ -25,12 +25,13 @@ type Props = {
 };
 
 /**
- * The masthead every subpage opens with: type down the left, a motion canvas
- * in the right three columns.
+ * The masthead every subpage opens with: type down the left and, on about and
+ * contact, a motion canvas in the right three columns. Works and case studies
+ * leave those columns to the background figure.
  *
  * The markup is rendered on the server — it is the same handful of elements on
  * every route, and none of it depends on the browser. The two things that do
- * are siblings that render nothing: PageHeadEntrance plays the arrival, and
+ * are siblings: PageHeadEntrance plays the arrival and renders nothing, and
  * HeroMotion drives the canvas.
  */
 export default function PageHead({ lang, variant, seed = 0, crumbs, eyebrow, lines, lede, meta, children }: Props) {
@@ -59,7 +60,7 @@ export default function PageHead({ lang, variant, seed = 0, crumbs, eyebrow, lin
         {meta ? <span className="pageLedeMeta">{meta}</span> : null}
       </div>
 
-      <HeroMotion variant={variant} seed={seed} />
+      {variant === "about" || variant === "contact" ? <HeroMotion variant={variant} /> : null}
 
       {children ? <div className="pageHeadExtra">{children}</div> : null}
     </section>

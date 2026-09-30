@@ -471,7 +471,8 @@ body{font-family:Arial,Helvetica,"Hiragino Sans","Hiragino Kaku Gothic ProN","No
 }
 
 /* ── Hero motion canvas ────────────────────────────────────────────────
-   The right three columns of a subpage masthead, run as one composition.
+   The right three columns of the about and contact mastheads, run as one
+   composition.
    Everything inside is laid out on the masthead's own background grid:
    the canvas starts on the 62.5% column line and is nine 44px rows tall,
    so rails, card edges and labels land on lines that are already drawn.
@@ -490,9 +491,8 @@ body{font-family:Arial,Helvetica,"Hiragino Sans","Hiragino Kaku Gothic ProN","No
   top:calc(var(--hm-row) * 2);height:calc(var(--hm-row) * 9);
   pointer-events:none
 }
-/* A case study's masthead is shorter, and about's second headline line runs
-   most of the way across the page — so those two canvases stop earlier. */
-.heroMotion--detail{height:calc(var(--hm-row) * 7)}
+/* About's second headline line runs most of the way across the page, so its
+   canvas stops earlier. */
 .heroMotion--about{height:calc(var(--hm-row) * 6)}
 .hmStage{position:relative;width:100%;height:100%}
 
@@ -515,17 +515,9 @@ body{font-family:Arial,Helvetica,"Hiragino Sans","Hiragino Kaku Gothic ProN","No
 /* Marks on a rail: a stop, and the thing moving between stops. */
 .hmNode{position:absolute;left:0;width:7px;height:7px;margin:-3.5px 0 0 -3.5px;display:block;border-radius:1px;background:var(--hm-idle)}
 .hmPacket{position:absolute;left:0;width:7px;height:7px;margin:-3.5px 0 0 -3.5px;display:block;border-radius:1px;background:#70f4df;opacity:0;box-shadow:0 0 0 2px #70f4df1c}
-/* Leader lines: every stop on the rail reaches across to the module column,
-   and whichever stop is live reaches across brightly. */
-.hmLead{position:absolute;left:var(--hm-lead);width:calc(33.333% - var(--hm-lead));height:1px;display:block;background:#ffffff17;transform-origin:0 50%}
-.hmLink{position:absolute;left:var(--hm-lead);width:calc(33.333% - var(--hm-lead));height:1px;display:block;background:#70f4df7a;transform-origin:0 50%}
 
-/* The module: one card shape for all four scenes. */
+/* The module card. */
 .hmCard{position:absolute;left:33.333%;right:var(--hm-edge);height:var(--hm-card);background:#0d1415e8;border:1px solid #ffffff36;box-shadow:0 24px 54px #00000066;transform-origin:100% 50%}
-.hmLane0{top:calc(var(--hm-row) * 2);opacity:.3;transform:translateX(16px) scale(.92)}
-.hmLane1{top:calc(var(--hm-row) * 4);opacity:.58;transform:translateX(8px) scale(.96)}
-.hmLane2{top:calc(var(--hm-row) * 6)}
-.hmLane3{top:calc(var(--hm-row) * 2);opacity:0}
 /* Inside the module, the same index gutter and rule the work listings use. */
 .hmCardIn{position:absolute;inset:0}
 .hmCardGut{position:absolute;left:var(--hm-gut);top:0;bottom:0;width:1px;display:block;background:var(--hm-line)}
@@ -540,15 +532,12 @@ body{font-family:Arial,Helvetica,"Hiragino Sans","Hiragino Kaku Gothic ProN","No
 .hmCardLive{position:static;left:auto;color:#70f4df}
 .hmCardLive i{transform:translateY(115%)}
 .hmCardDot{display:block;width:6px;height:6px;border-radius:50%;background:#7d8986}
-.hmLane2 .hmCardDot,.hmCardSolo .hmCardDot{box-shadow:0 0 0 3px #70f4df1f}
-.hmCardProgress{position:absolute;left:0;right:0;bottom:0;height:1px;background:#70f4df;transform:scaleX(0);transform-origin:0 50%}
-/* Whichever module is at the front of the frame is the one that is live, and
-   at rest — which is what reduced motion keeps — it is shown that way. */
-.hmLane2 .hmCardDot,.hmCardSolo .hmCardDot,.hmStripStatus .hmCardDot,.hmNodeLive,.hmNodeIn{background:#70f4df}
-.hmLane2 .hmCardLive i,.hmCardSolo .hmCardLive i,.hmStripStatus .hmCardLive i{transform:none}
-.hmLane2 .hmCardProgress,.hmCardSolo .hmCardProgress{transform:scaleX(1)}
+/* Whatever is live at the end of the entrance is shown live at rest, which is
+   what reduced motion keeps. */
+.hmStripStatus .hmCardDot,.hmNodeIn{background:#70f4df}
+.hmStripStatus .hmCardLive i{transform:none}
 
-/* DETAIL — a stack of layers and the pass that compiles them. */
+/* ABOUT — strands off the trunk, gathered onto one bus. */
 .hmStrip{position:absolute;left:33.333%;right:var(--hm-edge);height:26px;margin-top:-13px;display:flex;align-items:center;gap:11px;padding:0 13px;background:#0d1415d9;border:1px solid #ffffff2b;transform-origin:100% 50%}
 .hmStripBar{display:block;height:2px;background:#70f4df66;opacity:.5;transform:scaleX(.7);transform-origin:0 50%}
 .hmStripStatus{margin-left:auto;display:flex;align-items:center;gap:7px}
@@ -556,9 +545,6 @@ body{font-family:Arial,Helvetica,"Hiragino Sans","Hiragino Kaku Gothic ProN","No
 .hmDepth1{opacity:.5;transform:scale(.96)}
 .hmDepth2{opacity:.74;transform:scale(.98)}
 .hmDepth3{opacity:1}
-.hmSweep{position:absolute;left:0;right:0;height:1px;display:block;opacity:0;background:linear-gradient(90deg,#70f4df,#70f4df00)}
-
-/* ABOUT — strands off the trunk, gathered onto one bus. */
 .hmBranch{position:absolute;left:var(--hm-lead);width:calc(33.333% - var(--hm-lead));height:1px;display:block;background:#ffffff17;transform-origin:0 50%;overflow:hidden}
 .heroMotion--about .hmStageTag{transform:translate(0,calc(-50% - 12px))}
 
@@ -598,11 +584,9 @@ body{font-family:Arial,Helvetica,"Hiragino Sans","Hiragino Kaku Gothic ProN","No
 @media(max-width:760px){
   .heroMotion{--hm-row:26px;--hm-card:42px;--hm-type:8px;--hm-edge:16px;--hm-gut:34px;--hm-lead:70px;
     position:static;top:auto;width:100%;height:calc(var(--hm-row) * 9);margin-top:44px}
-  .heroMotion--detail{height:calc(var(--hm-row) * 7)}
   .heroMotion--about{height:calc(var(--hm-row) * 6)}
   .hmCardBody{padding:0 10px}
   .hmCardSplit{margin:0 -10px}
-  .hmLead{display:none}
   .hmChannelBack,.hmPacketBack{opacity:.4}
   .hmWrite{top:calc(var(--hm-row) * 2 + 24px)}
   .hmStrip{height:22px;margin-top:-11px}

@@ -4,30 +4,30 @@ import { useRef, type CSSProperties, type ReactNode } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 
-export type HeroVariant = "works" | "detail" | "about" | "contact";
+/**
+ * The mastheads that carry a canvas. Works and case studies used to as well —
+ * a deployment and a compiling stack — and were taken out: mock interface on
+ * a page whose screenshots are the real thing reads as generated filler.
+ */
+export type HeroVariant = "about" | "contact";
 
 /**
  * The motion canvas that fills the right three columns of a subpage masthead.
  *
  * It is one piece of work rather than a decoration: a rail, a few modules and
  * a handful of labels that act out whatever the headline next to them claims.
- * Works runs a deployment — a module reaches LIVE and ships, and the queue
- * behind it moves up a lane. Detail compiles a stack. About converges four
- * strands of a career onto one bus. Contact sends a message and waits for the
- * receipt.
+ * About converges four strands of a career onto one bus. Contact sends a
+ * message and waits for the receipt.
  *
- * Everything shares one grid, one easing and one clock, so the four read as
+ * Everything shares one grid, one easing and one clock, so the two read as
  * the same system saying different things:
  *
  *   – The canvas is nine rows of the masthead's own 44px background grid, and
  *     its left edge sits on the 62.5% grid line, so every rail, card edge and
  *     label lands on a line that is already drawn behind it.
- *   – One CYCLE is one deployment. Every loop in every scene is that long or
- *     a multiple of it.
+ *   – Every loop in every scene is one CYCLE long or a multiple of it.
  *   – Cards reveal by clip, text by mask, rails by scale, dots by scale.
  *     Nothing arrives on opacity alone.
- *   – Depth is three lanes deep and no more: 1 / .58 / .3 opacity against
- *     1 / .96 / .92 scale.
  *
  * The entrance overlaps rather than queues — the rail is still drawing when
  * the first module starts to reveal — and it settles into an idle whose
@@ -35,11 +35,11 @@ export type HeroVariant = "works" | "detail" | "about" | "contact";
  * breathing. With reduced motion none of it runs and the stylesheet's own
  * resting state is left on screen, which is the last frame of the entrance.
  */
-export default function HeroMotion({ variant, seed = 0 }: { variant: HeroVariant; seed?: number }) {
+export default function HeroMotion({ variant }: { variant: HeroVariant }) {
   const Scene = SCENES[variant];
   return (
     <div className={`heroMotion heroMotion--${variant}`} aria-hidden="true">
-      <Scene seed={seed} />
+      <Scene />
     </div>
   );
 }
@@ -54,7 +54,7 @@ const DOT_OFF = "0 0 0 3px rgba(112,244,223,0)";
 const OUT = "power3.out";
 /** Anything travelling a rail leaves and lands gently. */
 const TRAVEL = "power2.inOut";
-/** One deployment, in seconds: run, go live, hold there, ship, move up. */
+/** One loop, in seconds: the signal runs, the far end answers, it holds there. */
 const CYCLE = 6.4;
 /** The entrance is still finishing when the first loop starts. */
 const LOOP_IN = 1.5;
@@ -65,8 +65,8 @@ const LOOP_IN = 1.5;
  * A timeline's duration is whatever its last tween happens to end on, not the
  * beat it was written against — so a cycle whose final fade lands at 5.25s
  * repeats every 5.25s while everything around it repeats on CYCLE, and the
- * packet on the rail drifts away from the module it is supposed to be
- * building. Padding the tail keeps the scenes on one clock.
+ * packet on the rail drifts away from the node it is supposed to reach.
+ * Padding the tail keeps the scenes on one clock.
  */
 function hold(tl: gsap.core.Timeline, period: number) {
   tl.repeatDelay(Math.max(0, period - tl.duration()));
@@ -109,8 +109,8 @@ function useScene(scope: React.RefObject<HTMLDivElement | null>, build: (unit: n
           // it on its own does not survive the resume: GSAP re-seats a
           // child's start time against the parent's current time, which walks
           // a tween written for `CYCLE * 2` off the end of a four-cycle loop,
-          // and it never plays again. That is what took the progress bars out
-          // of the works masthead after one trip back to the top.
+          // and it never plays again. That once took the progress bars out of
+          // a masthead after one trip back to the top.
           let parked: gsap.core.Animation[] = [];
           const io = new IntersectionObserver(
             (entries) => {
@@ -164,20 +164,14 @@ function Rule({ className, style }: { className?: string; style?: CSSProperties 
   );
 }
 
-/**
- * A module: the one card shape the whole system uses. `lane` is its depth,
- * 0 furthest back, and the stylesheet resolves it to a position, a scale and
- * an opacity so the resting composition is right before GSAP touches it.
- */
+/** A module: the card shape the system uses, an index gutter and two rows. */
 function Module({
-  lane,
   index,
   badge = "LIVE",
   bars,
   className,
   style,
 }: {
-  lane?: 0 | 1 | 2 | 3;
   index: string;
   badge?: string;
   bars: string[];
@@ -185,10 +179,7 @@ function Module({
   style?: CSSProperties;
 }) {
   return (
-    <div
-      className={["hmCard", lane === undefined ? "" : `hmLane${lane}`, className].filter(Boolean).join(" ")}
-      style={style}
-    >
+    <div className={className ? `hmCard ${className}` : "hmCard"} style={style}>
       <div className="hmCardIn">
         <span className="hmCardGut" />
         <Tag className="hmCardIndex hmCardReveal">{index}</Tag>
@@ -207,7 +198,6 @@ function Module({
             ))}
           </div>
         </div>
-        <span className="hmCardProgress" />
       </div>
     </div>
   );
@@ -261,281 +251,6 @@ function drift(q: gsap.utils.SelectorFunc, selector = ".hmCardIn") {
       delay: LOOP_IN + i * 0.4,
     });
   });
-}
-
-// ── WORKS — a module reaches LIVE, ships, and the queue moves up ──────────
-
-const WORKS_STAGES = ["IDEA", "BUILD", "TEST", "SHIP", "LIVE"];
-/** Which lane each module opens in: front, middle, back, and one waiting. */
-const WORKS_ORDER = [2, 1, 0, 3] as const;
-const WORKS_MODULES: { index: string; bars: string[] }[] = [
-  { index: "01", bars: ["74%", "46%", "28%"] },
-  { index: "02", bars: ["61%", "38%", "22%"] },
-  { index: "03", bars: ["82%", "52%", "31%"] },
-  { index: "04", bars: ["68%", "41%", "25%"] },
-];
-
-function WorksScene() {
-  const scope = useRef<HTMLDivElement>(null);
-
-  useScene(scope, (unit, q) => {
-    const LANE = unit * 2;
-    const cards = q(".hmCard");
-
-    // The stylesheet parks each card in its lane so the resting state reads
-    // without script. The lanes are driven by transform from here, so they
-    // all start from the same row and the one journey fits every card.
-    gsap.set(cards, { top: unit * 2, scale: 1, x: 0, opacity: 1 });
-
-    const lane = (n: number) => ({
-      y: n * LANE,
-      x: [16, 8, 0][n] ?? 16,
-      scale: [0.92, 0.96, 1][n] ?? 0.92,
-      opacity: [0.3, 0.58, 1][n] ?? 0.3,
-    });
-
-    // ── entrance ──
-    const intro = openFrame(q);
-    intro
-      .from(q(".hmNode"), { scale: 0, duration: 0.5, stagger: 0.055 }, 0.3)
-      .from(q(".hmStageTag i"), { yPercent: 115, duration: 0.6, stagger: 0.055 }, 0.34)
-      .from(q(".hmLead"), { scaleX: 0, duration: 0.7, stagger: 0.055 }, 0.36)
-      .fromTo(
-        cards,
-        { clipPath: "inset(0 100% 0 0)" },
-        { clipPath: "inset(0 0% 0 0)", duration: 0.85, stagger: 0.11 },
-        0.38
-      )
-      .from(q(".hmCardReveal"), { y: 9, opacity: 0, duration: 0.6, stagger: 0.035 }, 0.56)
-      .from(q(".hmLink"), { scaleX: 0, duration: 0.7 }, 0.95);
-
-    // ── the deployment, once a cycle ──
-    const nodes = q(".hmNode");
-    const packet = q(".hmPacket");
-    const runway = (nodes.length - 1) * unit;
-
-    const cycle = gsap.timeline({ repeat: -1, paused: true });
-    cycle
-      .set(packet, { y: 0, opacity: 0 })
-      .to(packet, { opacity: 1, duration: 0.25 }, 0.05)
-      .to(packet, { y: runway, duration: 2.15, ease: TRAVEL }, 0.05)
-      .to(packet, { opacity: 0, duration: 0.3 }, 2.2);
-
-    nodes.forEach((node, i) => {
-      const at = 0.05 + (i / (nodes.length - 1)) * 2.15;
-      const last = i === nodes.length - 1;
-      cycle
-        .to(node, { backgroundColor: "#70f4df", scale: 1.55, duration: 0.22, ease: OUT }, at)
-        .to(node, { backgroundColor: "#586562", scale: 1, duration: 0.8, ease: "sine.out" }, at + (last ? 2.25 : 0.34));
-    });
-
-    cycle
-      .fromTo(
-        q(".hmLink"),
-        { scaleX: 0.14, opacity: 0.4 },
-        { scaleX: 1, opacity: 1, duration: 0.5, ease: OUT, immediateRender: false },
-        2.2
-      )
-      .to(q(".hmLink"), { scaleX: 0.14, opacity: 0.4, duration: 0.6, ease: "sine.inOut" }, 4.35);
-
-    // ── one module's life: three lanes, a release, and back round ──
-    const journeys = cards.map((card) => {
-      const inner = card.querySelector(".hmCardIn") as HTMLElement;
-      const dot = card.querySelector(".hmCardDot") as HTMLElement;
-      const live = card.querySelector(".hmCardLive i") as HTMLElement;
-      const bar = card.querySelector(".hmCardProgress") as HTMLElement;
-
-      const tl = gsap.timeline({ repeat: -1, paused: true });
-
-      tl.set(card, { ...lane(0), clipPath: "inset(0 0% 0 0)" })
-        .set(bar, { scaleX: 0 })
-        .set(dot, { backgroundColor: "#586562", scale: 1, boxShadow: DOT_OFF })
-        .set(live, { yPercent: 115 })
-        // queued → building
-        .to(card, { ...lane(1), duration: 1.1, ease: OUT }, CYCLE - 1.2)
-        // building → front of the queue
-        .to(card, { ...lane(2), duration: 1.1, ease: OUT }, CYCLE * 2 - 1.2)
-        // the run itself
-        .to(bar, { scaleX: 1, duration: 2.15, ease: TRAVEL }, CYCLE * 2 + 0.05)
-        .to(dot, { backgroundColor: "#70f4df", boxShadow: DOT_ON, scale: 1.5, duration: 0.24, ease: OUT }, CYCLE * 2 + 2.2)
-        .to(dot, { scale: 1, duration: 0.5, ease: "sine.out" }, CYCLE * 2 + 2.44)
-        .to(live, { yPercent: 0, duration: 0.45, ease: OUT }, CYCLE * 2 + 2.28)
-        // shipped: out to the right, wiped from the left edge
-        .to(card, { x: "+=34", duration: 0.8, ease: "power2.in" }, CYCLE * 2 + 4.4)
-        .to(card, { clipPath: "inset(0 0 0 100%)", opacity: 0, duration: 0.7, ease: "power2.in" }, CYCLE * 2 + 4.5)
-        // off stage, reset, then back in at the tail of the queue
-        .set(bar, { scaleX: 0 }, CYCLE * 2 + 5.4)
-        .set(dot, { backgroundColor: "#586562", scale: 1, boxShadow: DOT_OFF }, CYCLE * 2 + 5.4)
-        .set(live, { yPercent: 115 }, CYCLE * 2 + 5.4)
-        .fromTo(
-          card,
-          { ...lane(0), y: -LANE * 0.45, opacity: 0, scale: 0.88, clipPath: "inset(0 100% 0 0)" },
-          { ...lane(0), clipPath: "inset(0 0% 0 0)", duration: 1.1, ease: OUT, immediateRender: false },
-          CYCLE * 4 - 1.2
-        )
-        .fromTo(inner, { opacity: 0.25 }, { opacity: 1, duration: 0.6, ease: OUT, immediateRender: false }, CYCLE * 4 - 1);
-
-      return tl;
-    });
-
-    // Front, middle, back, waiting — one cycle apart, and locked there
-    // because they all start on the same tick.
-    journeys.forEach((tl, i) => tl.time(CYCLE * WORKS_ORDER[i]));
-    hold(cycle, CYCLE);
-    journeys.forEach((tl) => hold(tl, CYCLE * 4));
-
-    gsap.delayedCall(LOOP_IN, () => {
-      cycle.play();
-      journeys.forEach((tl) => tl.play());
-    });
-
-    pulseRule(q);
-    drift(q);
-  });
-
-  return (
-    <div className="hmStage" ref={scope}>
-      <span className="hmRail" />
-      <Tag className="hmFrameTag" style={{ top: row(1), left: 0 }}>
-        DEPLOY PIPELINE
-      </Tag>
-      <Tag className="hmFrameTag hmFrameEnd" style={{ top: row(1) }}>
-        IDEA → LIVE
-      </Tag>
-      <Rule style={{ top: row(1.5) }} />
-
-      {WORKS_STAGES.map((label, i) => (
-        <span key={label}>
-          <b
-            className={i === WORKS_STAGES.length - 1 ? "hmNode hmNodeLive" : "hmNode"}
-            style={{ top: row(2 + i) }}
-          />
-          <Tag className="hmStageTag" style={{ top: row(2 + i) }}>
-            {label}
-          </Tag>
-          <span className="hmLead" style={{ top: row(2 + i) }} />
-        </span>
-      ))}
-
-      <span className="hmLink" style={{ top: row(6) }} />
-
-      <span className="hmPacket" style={{ top: row(2) }} />
-
-      {WORKS_MODULES.map((m, i) => (
-        <Module key={m.index} lane={WORKS_ORDER[i]} index={m.index} bars={m.bars} />
-      ))}
-
-      <Rule className="hmRuleFoot" style={{ top: row(8) }} />
-    </div>
-  );
-}
-
-// ── DETAIL — a stack compiles into the thing that shipped ────────────────
-//
-// Seven rows rather than nine: a case-study masthead is shorter, and its
-// year/platform meta sits where the ninth row would be.
-
-const DETAIL_LAYERS = ["INTERFACE", "LOGIC", "DATA"];
-
-// One variation per case study. The seed wraps at this, so a case study past
-// it would take the first one's beat and widths — raise it with the register.
-const SEEDS = 6;
-
-function DetailScene({ seed }: { seed: number }) {
-  const scope = useRef<HTMLDivElement>(null);
-
-  useScene(scope, (unit, q) => {
-    const strips = q(".hmStrip");
-    const sweep = q(".hmSweep");
-
-    const intro = openFrame(q);
-    intro
-      .from(q(".hmNode"), { scale: 0, duration: 0.5, stagger: 0.06 }, 0.28)
-      .from(q(".hmStageTag i"), { yPercent: 115, duration: 0.6, stagger: 0.06 }, 0.32)
-      .fromTo(strips, { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.8, stagger: 0.1 }, 0.4)
-      .from(q(".hmStripBar"), { scaleX: 0, duration: 0.7, stagger: 0.1 }, 0.62)
-      .fromTo(q(".hmCard"), { clipPath: "inset(0 100% 0 0)" }, { clipPath: "inset(0 0% 0 0)", duration: 0.9 }, 0.82)
-      .from(q(".hmCardReveal"), { y: 10, opacity: 0, duration: 0.6, stagger: 0.06 }, 1);
-
-    // The compile pass: a line crosses the stack, each layer answers, and what
-    // is left at the bottom is the product. Seeded, so two case studies are
-    // never on the same beat.
-    const travel = 2.05;
-    const cycle = gsap.timeline({ repeat: -1, paused: true, delay: (seed % SEEDS) * 0.3 });
-    cycle
-      .set(sweep, { y: 0, opacity: 0 })
-      .to(sweep, { opacity: 1, duration: 0.25 }, 0.05)
-      .to(sweep, { y: unit * 3, duration: travel, ease: TRAVEL }, 0.05)
-      .to(sweep, { opacity: 0, duration: 0.35 }, travel);
-
-    strips.forEach((strip, i) => {
-      const at = 0.1 + (i / DETAIL_LAYERS.length) * travel;
-      const bar = strip.querySelector(".hmStripBar");
-      cycle
-        .to(strip, { borderColor: "#70f4df4d", duration: 0.2, ease: OUT }, at)
-        .to(bar, { scaleX: 1, opacity: 1, duration: 0.3, ease: OUT }, at)
-        .to(strip, { borderColor: "#ffffff2b", duration: 0.9, ease: "sine.out" }, at + 0.5)
-        .to(bar, { scaleX: 0.62 + i * 0.1, opacity: 0.5, duration: 0.9, ease: "sine.out" }, at + 0.5)
-        .to(q(".hmNode")[i], { backgroundColor: "#70f4df", scale: 1.5, duration: 0.2, ease: OUT }, at)
-        .to(q(".hmNode")[i], { backgroundColor: "#586562", scale: 1, duration: 0.8, ease: "sine.out" }, at + 0.5);
-    });
-
-    cycle
-      .fromTo(q(".hmCardProgress"), { scaleX: 0 }, { scaleX: 1, duration: travel, ease: TRAVEL }, 0.05)
-      .to(q(".hmCardDot"), { backgroundColor: "#70f4df", boxShadow: DOT_ON, scale: 1.5, duration: 0.24, ease: OUT }, travel + 0.05)
-      .to(q(".hmCardDot"), { scale: 1, duration: 0.5, ease: "sine.out" }, travel + 0.29)
-      .fromTo(q(".hmCardLive i"), { yPercent: 115 }, { yPercent: 0, duration: 0.5, ease: OUT }, travel + 0.13)
-      .to(q(".hmCardLive i"), { yPercent: 115, duration: 0.35, ease: "power2.in" }, CYCLE - 0.5)
-      .to(q(".hmCardDot"), { backgroundColor: "#586562", boxShadow: DOT_OFF, duration: 0.5 }, CYCLE - 0.5);
-
-    hold(cycle, CYCLE);
-    gsap.delayedCall(LOOP_IN, () => cycle.play());
-
-    pulseRule(q);
-    drift(q);
-  });
-
-  // The stack is the same three layers everywhere; how much of each a given
-  // project leans on is what the seed varies. Each layer sits one step behind
-  // the one above — a stride that shares a factor with SEEDS would give two
-  // layers the same width — and the step shrinks as SEEDS grows, so the widest
-  // bar stays at 94% of its strip.
-  const width = (i: number) => `${58 + ((seed + i * (SEEDS - 1)) % SEEDS) * (36 / (SEEDS - 1))}%`;
-
-  return (
-    <div className="hmStage" ref={scope}>
-      <span className="hmRail" />
-      <Tag className="hmFrameTag" style={{ top: row(1), left: 0 }}>
-        SPEC / STACK
-      </Tag>
-      <Tag className="hmFrameTag hmFrameEnd" style={{ top: row(1) }}>
-        BUILD → LIVE
-      </Tag>
-      <Rule style={{ top: row(1.5) }} />
-
-      {DETAIL_LAYERS.map((label, i) => (
-        <span key={label}>
-          <b className="hmNode" style={{ top: row(2 + i) }} />
-          <Tag className="hmStageTag" style={{ top: row(2 + i) }}>
-            {label}
-          </Tag>
-          <span className="hmLead" style={{ top: row(2 + i) }} />
-          <span className={`hmStrip hmDepth${i}`} style={{ top: row(2 + i) }}>
-            <i className="hmStripBar" style={{ width: width(i) }} />
-          </span>
-        </span>
-      ))}
-
-      <span className="hmSweep" style={{ top: row(2) }} />
-
-      <Module
-        className="hmCardSolo"
-        index={String(seed + 1).padStart(2, "0")}
-        bars={["78%", "49%", "30%"]}
-        style={{ top: row(5) }}
-      />
-    </div>
-  );
 }
 
 // ── ABOUT — four strands of a practice, the nearest one still running ─────
@@ -752,9 +467,7 @@ function ContactScene() {
   );
 }
 
-const SCENES: Record<HeroVariant, (props: { seed: number }) => ReactNode> = {
-  works: WorksScene,
-  detail: DetailScene,
+const SCENES: Record<HeroVariant, () => ReactNode> = {
   about: AboutScene,
   contact: ContactScene,
 };
